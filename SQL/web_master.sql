@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 15, 2021 at 05:54 PM
+-- Generation Time: Aug 26, 2021 at 11:23 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -36,15 +36,16 @@ CREATE TABLE `userstableapplication` (
   `telefone` varchar(20) NOT NULL,
   `senha` varchar(255) NOT NULL,
   `plano` varchar(100) NOT NULL,
-  `pass_recover` int(11) DEFAULT NULL
+  `pass_recover` int(11) DEFAULT NULL,
+  `image_user` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `userstableapplication`
 --
 
-INSERT INTO `userstableapplication` (`cod`, `Nome`, `email`, `cpf`, `telefone`, `senha`, `plano`, `pass_recover`) VALUES
-(4, 'Miguel Henrique Pereira', 'miguelhp373@gmail.com', '482.312.708-09', '(11)94254-2038', '$2y$10$UhRYC60itD/QM12S/.gYzuQAVNIYntw7BAVeMOzm/S2oTl4HNhEPm', 'plano01', NULL);
+INSERT INTO `userstableapplication` (`cod`, `Nome`, `email`, `cpf`, `telefone`, `senha`, `plano`, `pass_recover`, `image_user`) VALUES
+(4, 'Miguel Henrique', 'miguelhp373@gmail.com', '482.312.708-09', '(11)94254-2038', '$2y$10$gQmlCjdIU1z/KoDizJBpeuPTUBJ2VERYvepiR3sYs9/YQFyGe.IYq', 'plano01', NULL, '/source/assets/avatar_profiles/image_9.png');
 
 --
 -- Indexes for dumped tables
@@ -64,7 +65,7 @@ ALTER TABLE `userstableapplication`
 -- AUTO_INCREMENT for table `userstableapplication`
 --
 ALTER TABLE `userstableapplication`
-  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
