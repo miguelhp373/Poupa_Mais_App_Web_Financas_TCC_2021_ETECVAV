@@ -125,7 +125,7 @@ if(!isset($_SESSION['Validation'])||(!isset($_GET['verificationcode']))){
                     <?php if (isset($_SESSION['Msg_error'])) { ?>
                         <span class="text-danger p-4"><?php echo $_SESSION['Msg_error']; ?></span>
                     <?php } ?>
-                    <form action="view/main.php" method="POST" class="form_content">
+                    <form action="Model/main.php" method="POST" class="form_content">
                         <div class="row_fields">
                             <input type="text" class="fields_cod" oninput="validation1(this)" id="cod_01" name="code01" maxlength="1" required>
                             <input type="text" class="fields_cod" oninput="validation2(this)" id="cod_02" name="code02" maxlength="1" required>

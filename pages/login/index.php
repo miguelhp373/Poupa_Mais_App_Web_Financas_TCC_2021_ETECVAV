@@ -135,7 +135,7 @@ if (isset($_GET['page'])) {
           <?php if (isset($_SESSION['sucess_msg'])) { ?>
             <span class="text-success p-4"><?php echo $_SESSION['sucess_msg']; ?></span>
           <?php } ?>
-          <form action="view/main.php" method="POST" class="form_content">
+          <form action="Model/main.php" method="POST" class="form_content">
             <input type="email" name="email_user" id="email_user" value="<?php if ((isset($param))) {
                                                                             echo $param;
                                                                           } else {

@@ -117,7 +117,7 @@ if (isset($_SESSION['AlterPassWord']) && isset($_SESSION['ValidationCode']) && i
             <div class="container_login">
                 <div class="content">
                     <h1>Trocar Senha</h1>
-                    <form action="view/newPassword/main.php" method="POST" class="form_content">
+                    <form action="Model/newPassword/main.php" method="POST" class="form_content">
                         <div class="fields">
                             <input type="password" name="newpass_user" id="newpass_user" required placeholder="Nova Senha" />
                             <i class="fas fa-eye-slash" id="togglePassword01"></i>

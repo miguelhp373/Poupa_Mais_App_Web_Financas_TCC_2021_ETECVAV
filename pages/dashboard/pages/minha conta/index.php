@@ -204,7 +204,7 @@ try {
                     </span>
                 <?php }?>
 
-                    <form action="view/main.php" method="post">
+                    <form action="Model/main.php" method="post">
 
                     <div class="row-01">
                         <input type="text" placeholder="Nome" name='nome' value="<?php echo $user_name ?>">
