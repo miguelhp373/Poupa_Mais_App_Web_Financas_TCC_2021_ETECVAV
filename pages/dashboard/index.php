@@ -131,23 +131,23 @@ try {
         <i class="fas fa-user-alt"></i>
         Minha Conta
       </a>
-      <a href="pages/todas atividades/index.php" class="link_menu">
+      <a href="pages/Transacoes/index.php" class="link_menu">
       <i class="fas fa-coins"></i>
         Transações
       </a>
-      <a href="pages/todas atividades/index.php" class="link_menu">
+      <a href="#" class="link_menu">
         <i class="far fa-calendar-alt"></i>
         Calendário
       </a>
       
-      <a href="pages/todas atividades/index.php" class="link_menu">
+      <a href="#" class="link_menu">
       <i class="fas fa-pencil-ruler"></i>
         Dicas
       </a>
 
-      <a href="pages/todas atividades/index.php" class="link_menu">
+      <a href="pages/Ajuda/index.php" class="link_menu">
       <i class="fas fa-question"></i>
-        Dicas
+        Ajuda
       </a>
       
  
