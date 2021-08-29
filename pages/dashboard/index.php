@@ -22,7 +22,7 @@ if (isset($_SESSION['Msg_sucess'])) {
 
 try {
 
-  $searchinfos = $connection->prepare("SELECT nome, email, cpf, telefone, plano, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
+  $searchinfos = $connection->prepare("SELECT cod, nome, email, cpf, telefone, plano, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
   $searchinfos->bindParam(':email', $_SESSION['user_email']);
 
   $searchinfos->execute();
@@ -32,6 +32,7 @@ try {
     $row = $searchinfos->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($row as $getdata) {
+      $user_cod       =   $getdata['cod'];
       $user_name      =   $getdata['nome'];
       $user_email     =   $getdata['email'];
       $user_cpf       =   $getdata['cpf'];
@@ -39,6 +40,22 @@ try {
       $user_plano     =   $getdata['plano'];
       $image_user     =   $getdata['image_user'];
     }
+  }
+} catch (PDOException $error) {
+  die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+}
+
+
+try {
+
+  $searchEvents = $connection->prepare("SELECT title FROM eventstableapplicartion WHERE coduser = :cod");
+  $searchEvents->bindParam(':cod', $user_cod);
+
+  $searchEvents->execute();
+
+  if ($searchEvents->rowCount() > 0) {
+
+    $rowEvents = $searchEvents->fetchAll(PDO::FETCH_ASSOC);
   }
 } catch (PDOException $error) {
   die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
@@ -132,25 +149,25 @@ try {
         Minha Conta
       </a>
       <a href="pages/Transacoes/index.php" class="link_menu">
-      <i class="fas fa-coins"></i>
+        <i class="fas fa-coins"></i>
         Transações
       </a>
-      <a href="#" class="link_menu">
+      <a href="pages/Calendario/index.php" class="link_menu">
         <i class="far fa-calendar-alt"></i>
         Calendário
       </a>
-      
+
       <a href="#" class="link_menu">
-      <i class="fas fa-pencil-ruler"></i>
+        <i class="fas fa-pencil-ruler"></i>
         Dicas
       </a>
 
       <a href="pages/Ajuda/index.php" class="link_menu">
-      <i class="fas fa-question"></i>
+        <i class="fas fa-question"></i>
         Ajuda
       </a>
-      
- 
+
+
       <a href="../login/index.php?login=logout" class="link_menu">
         <i class="fas fa-door-open"></i>
         Sair
@@ -162,14 +179,26 @@ try {
       <div class="notification_button">
         <button class="btn btn-secondary" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" title="Notificações">
           <i class="fas fa-bell"></i>
-          
+
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-          <li>
-            <a class="dropdown-item" href="#">
-              Nenhuma Notificação
-            </a>
-          </li>
+          <?php 
+            if($rowEvents != null){
+              
+              foreach ($rowEvents as $dataset) {?>
+            <li>
+              <a class="dropdown-item" href="#">
+                <?php echo $dataset['title'];?>
+              </a>
+            </li>
+            <?php }}else{?>
+            <li>
+              <a class="dropdown-item" href="#">
+                Nenhuma Notificação
+              </a>
+            </li>
+            <?php }?>
+         
           <!-- <li>
             <hr class="dropdown-divider">
           </li> -->
