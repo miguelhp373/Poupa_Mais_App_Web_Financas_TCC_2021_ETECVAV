@@ -57,7 +57,7 @@ try {
 }
 
 
-if (isset($_SESSION['Msg_error'])) {
+if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
     echo "<script>alert('Não Foi Possivel Cadastrar o Evento!')</script>";
     unset($_SESSION['Msg_error']);
 }
@@ -218,13 +218,13 @@ if (isset($_SESSION['Msg_error'])) {
                                 <label for="date_input" class="lb_dates">
                                     Data Inicial:
                                     &nbsp;&nbsp;
-                                    <input type="date" name="dateini" class="date_input" maxlength="9" id="dateini">
+                                    <input type="date" name="dateini" class="date_input" maxlength="9" id="dateini" required>
                                 </label>
                             </div>
                             <div class="row_title">
                                 <label for="title_event">
                                     Descrição do Evento
-                                    <input type="text" name="title" id="" class="title_event">
+                                    <input type="text" name="title" id="" class="title_event" required>
                                 </label>
                             </div>
                             <br>
@@ -263,18 +263,18 @@ if (isset($_SESSION['Msg_error'])) {
                         </div>
                         <form action="model/UpdateEvent.php" method="post">
                             <br>
-                            <input type="text" style="display: none;" id="id_event" name="id_event">
+                            <input type="text" style="display: none;" id="id_event" name="id_event" required>
                             <div class="col_dates">
                                 <label for="date_input" class="lb_dates">
                                     Data Inicial:
                                     &nbsp;&nbsp;
-                                    <input type="date" name="dateini" class="date_input" id="date_input_edit_ini" maxlength="9">
+                                    <input type="date" name="dateini" class="date_input" id="date_input_edit_ini" maxlength="9" required>
                                 </label>
                             </div>
                             <div class="row_title">
                                 <label for="title_event">
                                     Descrição do Evento
-                                    <input type="text" name="title" class="title_event" id="title_event_edit">
+                                    <input type="text" name="title" class="title_event" id="title_event_edit" required>
                                 </label>
                             </div>
                             <br>

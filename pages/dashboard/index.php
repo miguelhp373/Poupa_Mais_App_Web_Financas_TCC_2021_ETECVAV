@@ -183,6 +183,7 @@ try {
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
           <?php 
+            if(isset($rowEvents)){
             if($rowEvents != null){
               
               foreach ($rowEvents as $dataset) {?>
@@ -191,7 +192,7 @@ try {
                 <?php echo $dataset['title'];?>
               </a>
             </li>
-            <?php }}else{?>
+            <?php }}}else{?>
             <li>
               <a class="dropdown-item" href="#">
                 Nenhuma Notificação
