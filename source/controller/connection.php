@@ -3,7 +3,7 @@ $host = 'localhost'; //host type
 $port = '3306'; //host port
 $dbname = 'web_master'; //data base name
 $user = 'root'; //user database
-$pass = 'root'; //password from database
+$pass = ''; //password from database
 
 
 try {

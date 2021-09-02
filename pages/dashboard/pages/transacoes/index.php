@@ -190,6 +190,32 @@ try {
 
         <div class="container_content_grid">
             <!-- Aqui Vai ser o seu conteudo atilio -->
+            <script src="js/btn_add.js"></script>                   
+
+            <table id="table_add" border="1">
+                <tr>
+                    <th>Tipo</th>
+                    <th>Data</th>
+                    <th>Categoria</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>#</th>
+                </tr>
+                <tr>
+                    <td><select id="tipo">
+                        <option id="opition0" onclick="JavaScript:quarterUpdate()">SELECIONE</option>
+                        <option id="opition1" onclick="JavaScript:quarterUpdate()">RECEITA</option>
+                        <option id="option2" onclick="JavaScript:quarterUpdate()">DESPESA</option>
+                    </select></td>
+                    <td><input type="text" name="data" id="data" /></td>
+                    <td><input type="text" name="categ" id="categ" /></td>
+                    <td><input type="text" name="desc" id="desc" /></td>
+                    <td><input type="text" name="valor" id="valor" /></td>
+                    <td><input type="button" value="Add " onClick="addRow()" id="add"><br /></td>
+                </tr>
+            </table>
+            
+
         </div>
     </div>
 
