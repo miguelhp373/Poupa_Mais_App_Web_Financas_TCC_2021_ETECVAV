@@ -22,7 +22,7 @@ if (isset($_SESSION['Msg_sucess'])) {
 
 try {
 
-  $searchinfos = $connection->prepare("SELECT cod, nome, email, cpf, telefone, plano, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
+  $searchinfos = $connection->prepare("SELECT cod, nome, email, cpf, telefone, plano, image_user,saldo FROM userstableapplication WHERE email = :email LIMIT 1");
   $searchinfos->bindParam(':email', $_SESSION['user_email']);
 
   $searchinfos->execute();
@@ -39,11 +39,53 @@ try {
       $user_telefone  =   $getdata['telefone'];
       $user_plano     =   $getdata['plano'];
       $image_user     =   $getdata['image_user'];
+      $saldo_user     =   $getdata['saldo'];
     }
   }
 } catch (PDOException $error) {
   die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
+
+
+try {
+
+  $searchOperations = $connection->prepare("SELECT SUM(valor) AS TOTAL FROM operationsapplication  WHERE   idUser = :cod AND tipo = 'receita'");
+  $searchOperations->bindParam(':cod', $user_cod);
+
+  $searchOperations->execute();
+
+  if ($searchOperations->rowCount() > 0) {
+
+    $row = $searchOperations->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($row as $getdata) {
+      $receitas       =   $getdata['TOTAL'];
+    }
+  }
+} catch (PDOException $error) {
+  die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+}
+
+try {
+
+  $searchOperations = $connection->prepare("SELECT SUM(valor) AS TOTAL FROM operationsapplication  WHERE   idUser = :cod AND tipo = 'despesa'");
+  $searchOperations->bindParam(':cod', $user_cod);
+
+  $searchOperations->execute();
+
+  if ($searchOperations->rowCount() > 0) {
+
+    $row = $searchOperations->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($row as $getdata) {
+      $despesas       =   $getdata['TOTAL'];
+    }
+  }
+} catch (PDOException $error) {
+  die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+}
+
+
 
 
 try {
@@ -87,9 +129,11 @@ try {
 
   <link rel="stylesheet" href="../../source/root/root.css">
   <link rel="stylesheet" href="../../source/styles/dashboard/main.css">
+  <link rel="stylesheet" href="../../source/styles/dashboard/popupDashboard/main.css">
   <link rel="stylesheet" href="../../source/styles/mobile/dash_page/main.css">
 
   <script src="js/api_money/main.js"></script>
+  <script src="js/buttons/btn_add_receita.js"></script>
 
 </head>
 
@@ -162,7 +206,7 @@ try {
         Dicas
       </a>
 
-      <a href="pages/Ajuda/index.php" class="link_menu">
+      <a href="pages/Ajuda/ajuda.php" class="link_menu">
         <i class="fas fa-question"></i>
         Ajuda
       </a>
@@ -182,24 +226,26 @@ try {
 
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-          <?php 
-            if(isset($rowEvents)){
-            if($rowEvents != null){
-              
-              foreach ($rowEvents as $dataset) {?>
-            <li>
-              <a class="dropdown-item" href="#">
-                <?php echo $dataset['title'];?>
-              </a>
-            </li>
-            <?php }}}else{?>
+          <?php
+          if (isset($rowEvents)) {
+            if ($rowEvents != null) {
+
+              foreach ($rowEvents as $dataset) { ?>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    <?php echo $dataset['title']; ?>
+                  </a>
+                </li>
+            <?php }
+            }
+          } else { ?>
             <li>
               <a class="dropdown-item" href="#">
                 Nenhuma Notificação
               </a>
             </li>
-            <?php }?>
-         
+          <?php } ?>
+
           <!-- <li>
             <hr class="dropdown-divider">
           </li> -->
@@ -214,7 +260,8 @@ try {
                 <i class="fas fa-landmark icon-01"></i>
                 <h2>Saldo</h2>
               </div>
-              <span class="Saldo_total">R$ 9999,99</span>
+              <!-- number_format($newSaldo, 2, ',', '.') -->
+              <span class="Saldo_total">R$ <?php echo number_format($saldo_user, 2, ',', '.') ?></span>
             </div>
           </div>
 
@@ -224,7 +271,7 @@ try {
                 <i class="fas fa-arrow-circle-up icon-01"></i>
                 <h2>Receitas</h2>
               </div>
-              <span class="Saldo_total text-success">R$ 9999,99</span>
+              <span class="Saldo_total text-success">R$ <?php echo number_format($receitas, 2, ',', '.') ?></span>
             </div>
           </div>
 
@@ -234,7 +281,7 @@ try {
                 <i class="fas fa-arrow-circle-down icon-01"></i>
                 <h2>Despesas</h2>
               </div>
-              <span class="Saldo_total text-danger">R$ 9999,99</span>
+              <span class="Saldo_total text-danger">R$ <?php echo number_format($despesas, 2, ',', '.') ?></span>
             </div>
           </div>
 
@@ -327,10 +374,10 @@ try {
                 <i class="fas fa-balance-scale icon-01"></i>
                 <h2>Balanço Mensal</h2>
               </div>
-              <span class="Saldo_total text-success">R$ 9999,99</span>
-              <span class="Saldo_total text-danger">R$ 9999,99</span>
+              <span class="Saldo_total text-success">R$ <?php echo number_format($receitas, 2, ',', '.') ?></span>
+              <span class="Saldo_total text-danger">R$ <?php echo number_format($despesas, 2, ',', '.') ?></span>
               <hr>
-              <span class="Saldo_total">R$ 9999,99</span>
+              <span class="Saldo_total">R$ <?php echo number_format($receitas - $despesas, 2, ',', '.') ?></span>
             </div>
           </div>
         </div>
@@ -346,14 +393,14 @@ try {
         <ul>
           <li>
             <a href="#">
-              <button title="Nova Receita">
+              <button title="Nova Receita" id="openPopReceita">
                 <img src="../../source/assets/icons/icon_line_up.png" alt="" style="width: 20px; height: auto;">
               </button>
             </a>
           </li>
           <li>
             <a href="#">
-              <button title="Nova Despesa">
+              <button title="Nova Despesa" id="openPopDespesa">
                 <img src="../../source/assets/icons/icon_line_down.png" alt="" style="width: 20px; height: auto;">
               </button>
             </a>
@@ -369,6 +416,54 @@ try {
       </div>
 
     </div>
+
+    <!--POPUP-->
+    <div class="popup_actions hidden">
+      <div class="row_content">
+        <div class="col_button_popup_close">
+          <button id="close_pop_up" class="close_pop_up">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="column_content">
+
+          <div class="content">
+            <br>
+            <div class="title_popup">
+              <h1 class="title_pop">
+                <!--Aqui Vai o Titulo da Janela-->
+              </h1>
+            </div>
+            <form action="" method="POST" id="form_actions">
+
+              <div class="col_dates">
+                <input type="text" name="value" class="fieds-pop" placeholder="Valor">
+                <br>
+                <select name="categorias" id="" class="fieds-pop">
+                  <option value="">Categorias</option>
+                  <option value="Mercado">Mercado</option>
+                  <option value="Feira">Feira</option>
+                  <option value="osto de Gasolina">Posto de Gasolina</option>
+                </select>
+                <br>
+                <input type="text" name="descricao" class="fieds-pop" placeholder="Descrição">
+                <br>
+                <input type="date" name="date" class="fieds-pop" maxlength="9">
+
+
+
+              </div>
+
+
+              <div class="row_btn_submit">
+                <button type="submit">Salvar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!---FIM POPUP-->
 
   </div>
 

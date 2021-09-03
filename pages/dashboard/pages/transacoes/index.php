@@ -3,6 +3,10 @@
 session_start();
 require_once('../../../../source/controller/connection.php');
 
+
+
+//validações/////////////////////////
+
 if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
     if ($_SESSION['Authentication'] == '') {
         $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
@@ -18,11 +22,13 @@ if (isset($_SESSION['Msg_error'])) {
 if (isset($_SESSION['Msg_sucess'])) {
     $_SESSION['Msg_sucess'] = '';
 }
+/////////////////////////////////////////
 
 
+//consulta usuário
 try {
 
-    $searchinfos = $connection->prepare("SELECT nome, email, cpf, telefone, plano, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
+    $searchinfos = $connection->prepare("SELECT cod, nome, email, cpf, telefone, plano, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
     $searchinfos->bindParam(':email', $_SESSION['user_email']);
 
     $searchinfos->execute();
@@ -32,6 +38,7 @@ try {
         $row = $searchinfos->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($row as $getdata) {
+            $user_cod       =   $getdata['cod'];
             $user_name      =   $getdata['nome'];
             $user_email     =   $getdata['email'];
             $user_cpf       =   $getdata['cpf'];
@@ -43,6 +50,54 @@ try {
 } catch (PDOException $error) {
     die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
+//////////////////////////////////////////////////////////
+
+
+$datini = filter_input(INPUT_GET,'dateini',FILTER_SANITIZE_STRING);
+$datfim = filter_input(INPUT_GET,'datefim',FILTER_SANITIZE_STRING);
+$tipo   = filter_input(INPUT_GET,'tipo',FILTER_SANITIZE_STRING);
+
+
+if($datini == ''){
+    $datini = '1999-01-01 00:00:00';
+}
+
+if($datfim == ''){
+    $datfim = '2099-01-01 00:00:00';
+}
+
+if(($tipo == null) || ($tipo == '') || ($tipo == 'todas')){
+    $tipo = null;
+}
+
+
+try {
+
+    $searchOperations = $connection->prepare(
+        "   SELECT cod, tipo , data, categoria, descricao, valor 
+            FROM operationsapplication 
+            WHERE   idUser = :cod  AND
+                    data BETWEEN :datin AND :datfi  AND
+                    :tip IS NULL AND cod > 0        OR
+                    tipo = :tip
+            ORDER BY cod DESC
+        ");
+    $searchOperations->bindParam(':cod', $user_cod);
+    $searchOperations->bindParam(':datin', $datini);
+    $searchOperations->bindParam(':datfi', $datfim);
+    $searchOperations->bindParam(':tip', $tipo);
+
+    $searchOperations->execute();
+
+    if ($searchOperations->rowCount() > 0) {
+
+        $rowOperation = $searchOperations->fetchAll(PDO::FETCH_ASSOC);
+    }
+} catch (PDOException $error) {
+    die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+}
+
+
 
 ?>
 <!DOCTYPE html>
@@ -133,9 +188,46 @@ try {
 
         <div class="content_page">
             <div class="row_button_filter">
+            <h1>Transações</h1>
                 <button id="btn_filter_show">
                     <i class="fas fa-filter"></i>
                 </button>
+            </div>
+
+            <div class="container_content_grid">
+                
+                <table class="table table-striped table-hover">
+                    <tr>
+                        <th>#</th>
+                        <th>Tipo</th>
+                        <th>Data</th>
+                        <th>Categoria</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+
+                    </tr>
+
+                    <?php if (isset($rowOperation)) {
+                        foreach ($rowOperation as $getOperation) {
+                    ?>
+                            <tr>
+                                <td><?php echo $getOperation['cod']; ?></td>
+                                <td><?php echo $getOperation['tipo']; ?></td>
+                                <td><?php echo $getOperation['data']; ?></td>
+                                <td><?php echo $getOperation['categoria']; ?></td>
+                                <td><?php echo $getOperation['descricao']; ?></td>
+                                <td>R$ <?php echo $getOperation['valor']; ?></td>
+
+                            </tr>
+                        <?php }
+                    } else { ?>
+
+                        <h2 class="text-center">Nenhum Dado Encontrado</h2>
+
+                    <?php } ?>
+                </table>
+
+
             </div>
         </div>
         <!--POPUP-->
@@ -153,24 +245,24 @@ try {
                         <div class="title_popup">
                             <h1>Filtro</h1>
                         </div>
-                        <form action="" method="post">
+                        <form action="index.php" method="GET">
                             <br>
-                         
-                            <div class="col_dates">
-                            <label for="date_input" class="lb_dates">
-                                Data Inicial
-                                &nbsp;&nbsp;
-                                <input type="date" name="dateini" class="date_input" maxlength="9">
-                            </label>
 
-                            <label for="date_input" class="lb_dates">
-                                Data Final
-                                &nbsp;&nbsp;
-                                <input type="date" name="dateini" class="date_input" maxlength="9">
-                            </label>
+                            <div class="col_dates">
+                                <label for="date_input" class="lb_dates">
+                                    Data Inicial
+                                    &nbsp;&nbsp;
+                                    <input type="date" name="dateini" class="date_input" maxlength="9">
+                                </label>
+
+                                <label for="date_input" class="lb_dates">
+                                    Data Final
+                                    &nbsp;&nbsp;
+                                    <input type="date" name="datefim" class="date_input" maxlength="9">
+                                </label>
                             </div>
                             <div class="row_field_00">
-                                <select name="" id="" class="sel_tip">
+                                <select name="tipo" id="" class="sel_tip">
                                     <option value="null">Tipo de Transação</option>
                                     <option value="receita">Receitas</option>
                                     <option value="despesa">Despesas</option>
@@ -187,36 +279,6 @@ try {
             </div>
         </div>
         <!---FIM POPUP-->
-
-        <div class="container_content_grid">
-            <!-- Aqui Vai ser o seu conteudo atilio -->
-            <script src="js/btn_add.js"></script>                   
-
-            <table id="table_add" border="1">
-                <tr>
-                    <th>Tipo</th>
-                    <th>Data</th>
-                    <th>Categoria</th>
-                    <th>Descrição</th>
-                    <th>Valor</th>
-                    <th>#</th>
-                </tr>
-                <tr>
-                    <td><select id="tipo">
-                        <option id="opition0" onclick="JavaScript:quarterUpdate()">SELECIONE</option>
-                        <option id="opition1" onclick="JavaScript:quarterUpdate()">RECEITA</option>
-                        <option id="option2" onclick="JavaScript:quarterUpdate()">DESPESA</option>
-                    </select></td>
-                    <td><input type="text" name="data" id="data" /></td>
-                    <td><input type="text" name="categ" id="categ" /></td>
-                    <td><input type="text" name="desc" id="desc" /></td>
-                    <td><input type="text" name="valor" id="valor" /></td>
-                    <td><input type="button" value="Add " onClick="addRow()" id="add"><br /></td>
-                </tr>
-            </table>
-            
-
-        </div>
     </div>
 
 
