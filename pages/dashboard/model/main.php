@@ -7,6 +7,14 @@ $categorias     =   filter_input(INPUT_POST, 'categorias', FILTER_SANITIZE_STRIN
 $descricao      =   filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_STRING);
 $data           =   filter_input(INPUT_POST, 'date', FILTER_SANITIZE_STRING);
 $type           =   filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
+$automatico     =   filter_input(INPUT_POST,'automatico',FILTER_SANITIZE_STRING);
+
+
+if($automatico !== null){
+    $automatico = "S";
+}else{
+    $automatico = "N";
+}
 
 
 $searchinfos = $connection->prepare("SELECT cod, saldo FROM userstableapplication WHERE email = :email LIMIT 1");
@@ -26,7 +34,7 @@ if ($searchinfos->rowCount() > 0) {
 
 try {
 
-    $insert = $connection->prepare("INSERT INTO operationsapplication (idUser, tipo , data, categoria, descricao, valor) VALUES (:cod_user,:tipo, :data, :cate,  :descri, :valor)");
+    $insert = $connection->prepare("INSERT INTO operationsapplication (idUser, tipo , data, categoria, descricao, valor, automatico) VALUES (:cod_user,:tipo, :data, :cate,  :descri, :valor, :auto)");
 
     $insert->bindParam(':cod_user', $user_cod);
     $insert->bindParam(':tipo', $type);
@@ -34,6 +42,7 @@ try {
     $insert->bindParam(':descri', $descricao);
     $insert->bindParam(':data', $data);
     $insert->bindParam(':valor', $valor);
+    $insert->bindParam(':auto', $automatico);
 
     $insert->execute();
 

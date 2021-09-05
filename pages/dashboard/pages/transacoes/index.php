@@ -213,7 +213,7 @@ try {
                             <tr>
                                 <td><?php echo $getOperation['cod']; ?></td>
                                 <td><?php echo $getOperation['tipo']; ?></td>
-                                <td><?php echo $getOperation['data']; ?></td>
+                                <td><?php echo date('d/m/y',strtotime($getOperation['data']));?></td>
                                 <td><?php echo $getOperation['categoria']; ?></td>
                                 <td><?php echo $getOperation['descricao']; ?></td>
                                 <td>R$ <?php echo $getOperation['valor']; ?></td>

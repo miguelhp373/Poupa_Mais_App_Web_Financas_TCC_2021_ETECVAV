@@ -85,12 +85,62 @@ try {
   die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
 
-
-
-
+//pesquisa lancamentos
 try {
 
-  $searchEvents = $connection->prepare("SELECT title FROM eventstableapplicartion WHERE coduser = :cod");
+  $searchLancamento = $connection->prepare(
+    "SELECT descricao, data
+    FROM operationsapplication 
+    WHERE idUser   =   :cod  AND automatico = 'S' 
+    "
+  );
+  $searchLancamento->bindParam(':cod', $user_cod);
+
+  $searchLancamento->execute();
+
+  if ($searchLancamento->rowCount() > 0) {
+    $rowLancamentos = $searchLancamento->fetchAll(PDO::FETCH_ASSOC);
+  }
+} catch (PDOException $error) {
+  die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+}
+
+
+
+//automatização de operações
+
+//pesquisa lancamentos
+// try {
+
+//   $searchLancamento = $connection->prepare(
+//     "INSERT INTO operationsapplication VALUES(descricao, data)
+//     WHERE idUser   =   :cod  AND automatico = 'S' 
+//     "
+//   );
+//   $searchLancamento->bindParam(':cod', $user_cod);
+
+//   $searchLancamento->execute();
+
+//   if ($searchLancamento->rowCount() > 0) {
+//     echo 'biuwdbjhbsd';
+//     $rowLancamentos = $searchLancamento->fetchAll(PDO::FETCH_ASSOC);
+//   }
+// } catch (PDOException $error) {
+//   die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+// }
+
+
+
+
+
+//pesquisa eventos
+try {
+
+  $searchEvents = $connection->prepare(
+    "SELECT title 
+    FROM eventstableapplicartion 
+    WHERE coduser   =   :cod  AND  DAY(end)  =   DAY(NOW())"
+  );
   $searchEvents->bindParam(':cod', $user_cod);
 
   $searchEvents->execute();
@@ -134,6 +184,45 @@ try {
 
   <script src="js/api_money/main.js"></script>
   <script src="js/buttons/btn_add_receita.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!Notification) {
+        alert('Desktop notifications not available in your browser. Try Chromium.');
+        return;
+      }
+
+      if (Notification.permission !== 'granted')
+        Notification.requestPermission();
+    });
+  </script>
+
+  <script>
+    <?php
+    if (isset($rowEvents)) {
+      if ($rowEvents != null) {
+        foreach ($rowEvents as $dataset) {
+          echo "  
+                function notifyMe() {
+                    if (Notification.permission !== 'granted')
+                        Notification.requestPermission();
+                    else {
+                    var notification = new Notification('Você Tem Um Evento Programado para Hoje!', {
+                    icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+                    body: '" . $dataset['title'] . "',
+                    });
+                    notification.onclick = function() {
+                    window.open('http://stackoverflow.com/a/13328397/1269037');
+                  };
+                }
+              }
+              notifyMe()
+            ";
+        }
+      }
+    }
+    ?>
+  </script>
 
 </head>
 
@@ -231,6 +320,14 @@ try {
             if ($rowEvents != null) {
 
               foreach ($rowEvents as $dataset) { ?>
+                <strong class="text-center">
+                  &nbsp;
+                  📆 Eventos do Dia
+                  &nbsp;
+                </strong>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
                 <li>
                   <a class="dropdown-item" href="#">
                     <?php echo $dataset['title']; ?>
@@ -348,23 +445,23 @@ try {
                 <i class="far fa-calendar-alt icon-01"></i>
                 <h2>Lançamentos Futuros</h2>
               </div>
-              <ul>
-                <li>Conta de Luz -
-                  <span style="font-weight: bold;">
-                    R$300,00
-                  </span>
-                </li>
-                <li>Conta da Internet -
-                  <span style="font-weight: bold;">
-                    R$290,00
-                  </span>
-                </li>
-                <li>Parcela do Carro -
-                  <span style="font-weight: bold;">
-                    R$900,00
-                  </span>
-                </li>
-              </ul>
+              <?php
+              if (isset($rowLancamentos)) {
+                foreach ($rowLancamentos as $getLancamentos) { ?>
+                  <div class="Row_lancamentos">
+                    <div class="span-left">
+                      <span>
+                        <?php echo $getLancamentos['descricao']; ?>
+                      </span>
+                    </div>
+                    <div class="span-right">
+                      <span id="date_event" style="font-weight: bold;">
+                        <?php echo date('d/m/y', strtotime($getLancamentos['data'])); ?>
+                      </span>
+                    </div>
+                  </div>
+              <?php }
+              } ?>
             </div>
           </div>
 
@@ -449,9 +546,12 @@ try {
                 <input type="text" name="descricao" class="fieds-pop" placeholder="Descrição">
                 <br>
                 <input type="date" name="date" class="fieds-pop" maxlength="9">
-
-
-
+                <br>
+                <label for="chkMensal">
+                  <input type="checkbox" name="automatico" class="chkMensal" id="">
+                  &nbsp;
+                  Mensal
+                </label>
               </div>
 
 

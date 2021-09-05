@@ -347,3 +347,19 @@ h2 {
   background-color: var(--primary-color);
   color: #FFFF;
 }
+
+.col_lancamentos{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Row_lancamentos{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+
+  margin: 20px;
+}

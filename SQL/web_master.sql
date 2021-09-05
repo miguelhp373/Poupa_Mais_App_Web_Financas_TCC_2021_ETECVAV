@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 26, 2021 at 11:23 PM
+-- Generation Time: Sep 05, 2021 at 01:17 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -25,6 +25,43 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `eventstableapplicartion`
+--
+
+CREATE TABLE `eventstableapplicartion` (
+  `id` int(11) NOT NULL,
+  `coduser` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `color` varchar(20) NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `eventstableapplicartion`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `operationsapplication`
+--
+
+CREATE TABLE `operationsapplication` (
+  `cod` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
+  `tipo` varchar(20) NOT NULL,
+  `data` date NOT NULL,
+  `categoria` varchar(100) NOT NULL,
+  `descricao` varchar(255) NOT NULL,
+  `valor` float NOT NULL,
+  `automatico` varchar(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `userstableapplication`
 --
 
@@ -37,19 +74,29 @@ CREATE TABLE `userstableapplication` (
   `senha` varchar(255) NOT NULL,
   `plano` varchar(100) NOT NULL,
   `pass_recover` int(11) DEFAULT NULL,
-  `image_user` varchar(500) DEFAULT NULL
+  `image_user` varchar(500) DEFAULT NULL,
+  `saldo` float NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `userstableapplication`
 --
 
-INSERT INTO `userstableapplication` (`cod`, `Nome`, `email`, `cpf`, `telefone`, `senha`, `plano`, `pass_recover`, `image_user`) VALUES
-(4, 'Miguel Henrique', 'miguelhp373@gmail.com', '482.312.708-09', '(11)94254-2038', '$2y$10$gQmlCjdIU1z/KoDizJBpeuPTUBJ2VERYvepiR3sYs9/YQFyGe.IYq', 'plano01', NULL, '/source/assets/avatar_profiles/image_9.png');
-
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `eventstableapplicartion`
+--
+ALTER TABLE `eventstableapplicartion`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `operationsapplication`
+--
+ALTER TABLE `operationsapplication`
+  ADD PRIMARY KEY (`cod`);
 
 --
 -- Indexes for table `userstableapplication`
@@ -62,10 +109,22 @@ ALTER TABLE `userstableapplication`
 --
 
 --
+-- AUTO_INCREMENT for table `eventstableapplicartion`
+--
+ALTER TABLE `eventstableapplicartion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT for table `operationsapplication`
+--
+ALTER TABLE `operationsapplication`
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+
+--
 -- AUTO_INCREMENT for table `userstableapplication`
 --
 ALTER TABLE `userstableapplication`
-  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
