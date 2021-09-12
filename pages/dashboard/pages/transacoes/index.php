@@ -152,9 +152,6 @@ try {
                                 <a class="nav-link" href="../Transacoes/index.php">Transações</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../Calendario/index.php">Calendário</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="#">Dicas</a>
                             </li>
                             <li class="nav-item">
@@ -196,7 +193,7 @@ try {
                 Minha Conta
             </a>
 
-            <a href="#" class="link_menu">
+            <a href="../Calendario/index.php" class="link_menu">
                 <i class="far fa-calendar-alt"></i>
                 Calendário
             </a>
@@ -206,7 +203,7 @@ try {
                 Dicas
             </a>
 
-            <a href="#" class="link_menu">
+            <a href="../Ajuda/ajuda.ph" class="link_menu">
                 <i class="fas fa-question"></i>
                 Ajuda
             </a>
