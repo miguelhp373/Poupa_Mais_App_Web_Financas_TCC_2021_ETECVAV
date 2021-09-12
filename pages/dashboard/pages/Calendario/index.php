@@ -2,23 +2,28 @@
 session_start();
 require_once('../../../../source/controller/connection.php');
 
+////////////
+//VALIDA USUÁRIO
 if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
     if ($_SESSION['Authentication'] == '') {
-        $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
-        header('Location: ../../../login/index.php');
+      $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
+      header('Location: ../../../login/index.php');
     }
-}
-
-
-
-if (isset($_SESSION['Msg_error'])) {
-
+  }
+  /////////////////////
+  
+  
+  ////////////////////////////
+  //LIMPA MENSAGENS DE ERRO
+  if (isset($_SESSION['Msg_error'])) {
+  
     $_SESSION['Msg_error'] = '';
-}
-
-if (isset($_SESSION['Msg_sucess'])) {
+  }
+  
+  if (isset($_SESSION['Msg_sucess'])) {
     $_SESSION['Msg_sucess'] = '';
-}
+  }
+  ////////////////////////////
 
 try {
 
