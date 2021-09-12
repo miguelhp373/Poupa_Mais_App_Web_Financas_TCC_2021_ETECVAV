@@ -2,21 +2,59 @@
 session_start();
 require_once('../../../source/controller/connection.php');
 
+
+if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
+    if ($_SESSION['Authentication'] == '') {
+        $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
+        header('Location: ../../login/index.php');
+    }
+}
+
 $valor          =   filter_input(INPUT_POST, 'value', FILTER_SANITIZE_STRING);
 $categorias     =   filter_input(INPUT_POST, 'categorias', FILTER_SANITIZE_STRING);
 $descricao      =   filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_STRING);
 $data           =   filter_input(INPUT_POST, 'date', FILTER_SANITIZE_STRING);
 $type           =   filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
-$automatico     =   filter_input(INPUT_POST,'automatico',FILTER_SANITIZE_STRING);
+$automatico     =   filter_input(INPUT_POST, 'automatico', FILTER_SANITIZE_STRING);
 
 
-if($automatico !== null){
+// if ($valor == null) {
+//     $_SESSION['Msg_error_01']  =   "Erro ao Tentar Adicionar Nova " . $type;
+//     header('Location: ../index.php');
+//     die();
+// }
+
+// if ($categorias == 'null') {
+//     $_SESSION['Msg_error_01']  =   "Erro ao Tentar Adicionar Nova " . $type;
+//     header('Location: ../index.php');
+//     die();
+// }
+
+// if ($descricao == null) {
+//     $_SESSION['Msg_error_01']  =   "Erro ao Tentar Adicionar Nova " . $type;
+//     header('Location: ../index.php');
+//     die();
+// }
+
+// if ($data == null) {
+//     $_SESSION['Msg_error_01']  =   "Erro ao Tentar Adicionar Nova " . $type;
+//     header('Location: ../index.php');
+//     die();
+// }
+
+
+
+
+if ($automatico !== null) {
     $automatico = "S";
-}else{
+    $dateAuto = date('Y-m-d', strtotime('+30 days', strtotime($data)));
+} else {
     $automatico = "N";
+    $dateAuto = null;
 }
 
-
+/////////////////////////////////////////////////////////////////
+//PESQUISA SALDO
 $searchinfos = $connection->prepare("SELECT cod, saldo FROM userstableapplication WHERE email = :email LIMIT 1");
 $searchinfos->bindParam(':email', $_SESSION['user_email']);
 
@@ -31,10 +69,12 @@ if ($searchinfos->rowCount() > 0) {
         $user_Saldo      =   $getdata['saldo'];
     }
 }
+//////////////////////////////////////////////////////////////
+//INSERT OPERATION
 
 try {
 
-    $insert = $connection->prepare("INSERT INTO operationsapplication (idUser, tipo , data, categoria, descricao, valor, automatico) VALUES (:cod_user,:tipo, :data, :cate,  :descri, :valor, :auto)");
+    $insert = $connection->prepare("INSERT INTO operationsapplication (idUser, tipo , data, categoria, descricao, valor, automatico, proximoAuto) VALUES (:cod_user,:tipo, :data, :cate,  :descri, :valor, :auto,:dateAuto)");
 
     $insert->bindParam(':cod_user', $user_cod);
     $insert->bindParam(':tipo', $type);
@@ -43,13 +83,19 @@ try {
     $insert->bindParam(':data', $data);
     $insert->bindParam(':valor', $valor);
     $insert->bindParam(':auto', $automatico);
+    $insert->bindParam(':dateAuto', $dateAuto);
 
     $insert->execute();
 
     if ($insert->rowCount() > 0) {
 
+        //////////////////////////////////////////////////////////
+        //SALDO
+
+        ///////////////
+        //RECEITA
         if ($type == 'receita') {
-    
+
             $saldo_atual    = number_format($user_Saldo, 2, '.', ',');
             $getValor       = number_format($valor, 2, '.', ',');
 
@@ -60,20 +106,27 @@ try {
                 $UpdateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :saldo  WHERE cod = :id LIMIT 1");
                 $UpdateSaldo->bindParam(':id', $user_cod);
                 $UpdateSaldo->bindParam(':saldo', $newSaldo);
-                
+
                 $UpdateSaldo->execute();
-                
+
 
                 if ($UpdateSaldo->rowCount() > 0) {
                     header('Location: ../index.php');
                 }
+
+
+
             } catch (PDOException $error) {
-                echo 'ERRO';
+                $_SESSION['Msg_error']  =   "Erro ao Tentar Adicionar Nova " . $type;
+                header('Location: ../index.php');
+                die();
             }
         }
 
+        ////////////// 
+        ////DESPESA
         if ($type == 'despesa') {
-    
+
             $saldo_atual    = number_format($user_Saldo, 2, '.', ',');
             $getValor       = number_format($valor, 2, '.', ',');
 
@@ -83,22 +136,25 @@ try {
                 $UpdateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :saldo  WHERE cod = :id LIMIT 1");
                 $UpdateSaldo->bindParam(':id', $user_cod);
                 $UpdateSaldo->bindParam(':saldo', $newSaldo);
-                
+
                 $UpdateSaldo->execute();
-                
+
 
                 if ($UpdateSaldo->rowCount() > 0) {
                     header('Location: ../index.php');
                 }
+
+                
             } catch (PDOException $error) {
-                echo 'ERRO';
+                $_SESSION['Msg_error_01']  =   "Erro ao Tentar Adicionar Nova " . $type;
+                header('Location: ../index.php');
+                die();
             }
         }
+        ///////////////////////////////////////////////////////////
 
     } else {
-        echo "Erro ao Tentar Adicionar Nova" . $type;
-        die();
-        $_SESSION['Msg_error']  =   "Erro ao Tentar Adicionar Nova" . $type;
+        echo 'ESCOPO DE ERRO';
     }
 } catch (PDOException $error) {
     die('<br>Erro Ao Tentar se comunicar com o Servidor! Tente Novamente Mais Tarde');

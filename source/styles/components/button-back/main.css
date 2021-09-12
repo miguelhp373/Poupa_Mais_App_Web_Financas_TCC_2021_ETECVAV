@@ -1,0 +1,29 @@
+.btn_back_home {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  .btn_back_home > a {
+    width: 40px;
+    margin: 10px;
+    cursor: pointer;
+    height: 40px;
+    background-color: var(--primary-color);
+    text-align: center;
+    align-items: center;
+    border-radius: 12px;
+    transition: 0.2s;
+  }
+  
+  .btn_back_home > a:hover {
+  filter: brightness(80%);
+  }
+  
+  .btn_back_home > a > i {
+    color: var(--text-primary);
+    text-align: center;
+    padding: 11px;
+  }

@@ -3,13 +3,19 @@
 session_start();
 require_once('../../source/controller/connection.php');
 
+////////////
+//VALIDA USUÁRIO
 if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
   if ($_SESSION['Authentication'] == '') {
     $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
     header('Location: ../login/index.php');
   }
 }
+/////////////////////
 
+
+////////////////////////////
+//LIMPA MENSAGENS DE ERRO
 if (isset($_SESSION['Msg_error'])) {
 
   $_SESSION['Msg_error'] = '';
@@ -18,11 +24,13 @@ if (isset($_SESSION['Msg_error'])) {
 if (isset($_SESSION['Msg_sucess'])) {
   $_SESSION['Msg_sucess'] = '';
 }
+////////////////////////////
 
-
+////////////////////////////////
+//BUSCA INFORMAÇÕES DO USUÁRIO
 try {
 
-  $searchinfos = $connection->prepare("SELECT cod, nome, email, cpf, telefone, plano, image_user,saldo FROM userstableapplication WHERE email = :email LIMIT 1");
+  $searchinfos = $connection->prepare("SELECT cod, nome, email, cpf, telefone, plano, image_user, saldo, categorias FROM userstableapplication WHERE email = :email LIMIT 1");
   $searchinfos->bindParam(':email', $_SESSION['user_email']);
 
   $searchinfos->execute();
@@ -32,21 +40,26 @@ try {
     $row = $searchinfos->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($row as $getdata) {
-      $user_cod       =   $getdata['cod'];
-      $user_name      =   $getdata['nome'];
-      $user_email     =   $getdata['email'];
-      $user_cpf       =   $getdata['cpf'];
-      $user_telefone  =   $getdata['telefone'];
-      $user_plano     =   $getdata['plano'];
-      $image_user     =   $getdata['image_user'];
-      $saldo_user     =   $getdata['saldo'];
+      $user_cod            =   $getdata['cod'];
+      $user_name           =   $getdata['nome'];
+      $user_email          =   $getdata['email'];
+      $user_cpf            =   $getdata['cpf'];
+      $user_telefone       =   $getdata['telefone'];
+      $user_plano          =   $getdata['plano'];
+      $image_user          =   $getdata['image_user'];
+      $saldo_user          =   $getdata['saldo'];
     }
+  } else {
+    $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
+    header('Location: ../login/index.php');
   }
 } catch (PDOException $error) {
   die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
+/////////////////////////////////////
 
-
+/////////////////////////////////////
+//BUSCA O TOTAL DE RECEITAS
 try {
 
   $searchOperations = $connection->prepare("SELECT SUM(valor) AS TOTAL FROM operationsapplication  WHERE   idUser = :cod AND tipo = 'receita'");
@@ -65,7 +78,11 @@ try {
 } catch (PDOException $error) {
   die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
+////////////////////////////////////////
 
+
+////////////////////////////////////////
+//BUSCA O TOTAL DE DESPESAS
 try {
 
   $searchOperations = $connection->prepare("SELECT SUM(valor) AS TOTAL FROM operationsapplication  WHERE   idUser = :cod AND tipo = 'despesa'");
@@ -84,14 +101,17 @@ try {
 } catch (PDOException $error) {
   die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
+///////////////////////////////////////
 
-//pesquisa lancamentos
+
+////////////////////////////////////////
+//PESQUISA LANÇAMENTOS FUTUROS
 try {
 
   $searchLancamento = $connection->prepare(
-    "SELECT descricao, data
+    "SELECT descricao, data, proximoAuto
     FROM operationsapplication 
-    WHERE idUser   =   :cod  AND automatico = 'S' 
+    WHERE idUser   =   :cod  AND automatico = 'S' AND proximoAuto >  NOW()
     "
   );
   $searchLancamento->bindParam(':cod', $user_cod);
@@ -104,7 +124,7 @@ try {
 } catch (PDOException $error) {
   die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
-
+//////////////////////////////////////////
 
 
 //automatização de operações
@@ -133,7 +153,8 @@ try {
 
 
 
-//pesquisa eventos
+////////////////////////////////////
+//PESQUISA EVENTOS PARA NOTIFICAÇÕES
 try {
 
   $searchEvents = $connection->prepare(
@@ -148,10 +169,35 @@ try {
   if ($searchEvents->rowCount() > 0) {
 
     $rowEvents = $searchEvents->fetchAll(PDO::FETCH_ASSOC);
+    $notifyData = $searchEvents->fetchAll(PDO::FETCH_ASSOC);
   }
 } catch (PDOException $error) {
   die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
+//////////////////////////////////////
+//////////////////////////////////////
+//BUSCA CATEGORIAS
+
+try {
+
+  $searchCat = $connection->prepare("SELECT categorias FROM userstableapplication WHERE email = :email LIMIT 1");
+  $searchCat->bindParam(':email', $_SESSION['user_email']);
+
+  $searchCat->execute();
+
+  if ($searchCat->rowCount() > 0) {
+
+    $rowCategorias = $searchCat->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($rowCategorias as $getCategorias) {
+      $user_categories = $getCategorias['categorias'];
+      $decode_Json  = json_decode($user_categories, true);
+    }
+  }
+} catch (PDOException $error) {
+  die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+}
+/////////////////////////////////////////////
 
 ?>
 
@@ -177,15 +223,23 @@ try {
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
+
   <link rel="stylesheet" href="../../source/root/root.css">
   <link rel="stylesheet" href="../../source/styles/dashboard/main.css">
+  <link rel="stylesheet" href="../..//source/styles/components/left-bar/main.css">
   <link rel="stylesheet" href="../../source/styles/dashboard/popupDashboard/main.css">
+  <link rel="stylesheet" href="../../source/styles/dashboard/popup_categories/main.css">
   <link rel="stylesheet" href="../../source/styles/mobile/dash_page/main.css">
+  <link rel="stylesheet" href="../../source/styles/dashboard/SwitchButton/main.css">
 
   <script src="js/api_money/main.js"></script>
   <script src="js/buttons/btn_add_receita.js"></script>
+  <script src="js/popup/main.js"></script>
+
 
   <script>
+    //verifica se o navegador permite notificações
     document.addEventListener('DOMContentLoaded', function() {
       if (!Notification) {
         alert('Desktop notifications not available in your browser. Try Chromium.');
@@ -197,30 +251,15 @@ try {
     });
   </script>
 
+
   <script>
     <?php
-    if (isset($rowEvents)) {
-      if ($rowEvents != null) {
-        foreach ($rowEvents as $dataset) {
-          echo "  
-                function notifyMe() {
-                    if (Notification.permission !== 'granted')
-                        Notification.requestPermission();
-                    else {
-                    var notification = new Notification('Você Tem Um Evento Programado para Hoje!', {
-                    icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
-                    body: '" . $dataset['title'] . "',
-                    });
-                    notification.onclick = function() {
-                    window.open('http://stackoverflow.com/a/13328397/1269037');
-                  };
-                }
-              }
-              notifyMe()
-            ";
-        }
-      }
+    //mensagem de erro
+    if (isset($_SESSION['Msg_error_01']) and ($_SESSION['Msg_error_01'] !== null)) {
+      echo "alert('" . $_SESSION['Msg_error_01'] . "')";
+      unset($_SESSION['Msg_error_01']);
     }
+
     ?>
   </script>
 
@@ -238,19 +277,19 @@ try {
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#Info_section">O Que Somos?</a>
+              <a class="nav-link" href="pages/minha conta/index.php">Minha Conta</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#planos_account">Nossos Planos</a>
+              <a class="nav-link" href="pages/Transacoes/index.php">Transações</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#form_contact">Fale Conosco</a>
+              <a class="nav-link" href="#">Dicas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../dicas/index.php">Dicas</a>
+              <a class="nav-link" href="pages/Ajuda/ajuda.php">Ajuda</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../login/index.php?page=login+from+create">Entrar</a>
+              <a class="nav-link" href="../login/index.php?login=logout">Sair</a>
             </li>
           </ul>
         </div>
@@ -317,20 +356,21 @@ try {
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
           <?php
           if (isset($rowEvents)) {
-            if ($rowEvents != null) {
-
+            if ($rowEvents != null) { ?>
+              <strong class="text-center">
+                &nbsp;
+                Notificações
+                &nbsp;
+              </strong>
+              <?php
               foreach ($rowEvents as $dataset) { ?>
-                <strong class="text-center">
-                  &nbsp;
-                  📆 Eventos do Dia
-                  &nbsp;
-                </strong>
+
                 <li>
                   <hr class="dropdown-divider">
                 </li>
                 <li>
                   <a class="dropdown-item" href="#">
-                    <?php echo $dataset['title']; ?>
+                    🔔 Evento <?php echo $dataset['title']; ?>
                   </a>
                 </li>
             <?php }
@@ -348,10 +388,11 @@ try {
           </li> -->
         </ul>
       </div>
-      <div class="container">
-        <div class="row d-flex justify-content-around">
 
-          <div class="col" style="width: 350px;">
+      <div class="container">
+        <div class="grid-display">
+
+          <div class="card-01 cards">
             <div class="card-saldo">
               <div class="icon_card_saldo">
                 <i class="fas fa-landmark icon-01"></i>
@@ -362,7 +403,7 @@ try {
             </div>
           </div>
 
-          <div class="col">
+          <div class="card-02 cards">
             <div class="card-saldo">
               <div class="icon_card_saldo">
                 <i class="fas fa-arrow-circle-up icon-01"></i>
@@ -372,7 +413,7 @@ try {
             </div>
           </div>
 
-          <div class="col">
+          <div class="card-03 cards">
             <div class="card-saldo">
               <div class="icon_card_saldo">
                 <i class="fas fa-arrow-circle-down icon-01"></i>
@@ -384,7 +425,7 @@ try {
 
           <!--COTAÇÃO DAS MOEDAS COM API AWESOME-->
 
-          <div class="col" style="width: 100px;">
+          <div class="card-04 cards">
             <div class="card-saldo" style="height: 300px;">
               <div class="icon_card_saldo">
                 <i class="far fa-calendar-alt icon-01"></i>
@@ -435,11 +476,9 @@ try {
               </div>
             </div>
           </div>
-
-
           <!--------------------------------------->
 
-          <div class="col">
+          <div class="card-05 cards">
             <div class="card-saldo" style="height: 300px;">
               <div class="icon_card_saldo">
                 <i class="far fa-calendar-alt icon-01"></i>
@@ -456,7 +495,7 @@ try {
                     </div>
                     <div class="span-right">
                       <span id="date_event" style="font-weight: bold;">
-                        <?php echo date('d/m/y', strtotime($getLancamentos['data'])); ?>
+                        <?php echo date('d/m/y', strtotime($getLancamentos['proximoAuto'])); ?>
                       </span>
                     </div>
                   </div>
@@ -465,7 +504,7 @@ try {
             </div>
           </div>
 
-          <div class="col">
+          <div class="card-06 cards">
             <div class="card-saldo" style="height: 300px;">
               <div class="icon_card_saldo">
                 <i class="fas fa-balance-scale icon-01"></i>
@@ -511,7 +550,7 @@ try {
           </li>
         </ul>
       </div>
-
+      <!--------------------->
     </div>
 
     <!--POPUP-->
@@ -524,7 +563,7 @@ try {
         </div>
         <div class="column_content">
 
-          <div class="content">
+          <div class="content" style="margin-top: 30px;">
             <br>
             <div class="title_popup">
               <h1 class="title_pop">
@@ -533,30 +572,103 @@ try {
             </div>
             <form action="" method="POST" id="form_actions">
 
-              <div class="col_dates">
-                <input type="text" name="value" class="fieds-pop" placeholder="Valor">
+              <div class="col_dates" style="margin-top: 10px;">
+                <input type="text" name="value" class="fieds-pop" placeholder="Valor R$" required>
                 <br>
-                <select name="categorias" id="" class="fieds-pop">
-                  <option value="">Categorias</option>
-                  <option value="Mercado">Mercado</option>
-                  <option value="Feira">Feira</option>
-                  <option value="osto de Gasolina">Posto de Gasolina</option>
-                </select>
+                <div class="row_categories">
+                  <select name="categorias" id="" class="fieds-pop" required>
+                    <option value="">Categorias</option>
+
+                    <?php
+                    if (isset($rowCategorias)) {
+                      foreach ($decode_Json as $showCategorias) { ?>
+                        <option value="<?php echo $showCategorias['description']; ?>"><?php echo $showCategorias['description']; ?> </option>
+                    <?php }
+                    } ?>
+                    <option value="Posto de Gasolina">Posto de Gasolina</option>
+                  </select>
+                  &nbsp;
+                  <button type="button" id="openCategories" class="btn-new-categories">
+                    <i class="fas fa-plus icon-menu-plus" id="icon-menu-plus"></i>
+                  </button>
+                </div>
                 <br>
-                <input type="text" name="descricao" class="fieds-pop" placeholder="Descrição">
+                <input type="text" name="descricao" class="fieds-pop" placeholder="Descrição" required>
                 <br>
-                <input type="date" name="date" class="fieds-pop" maxlength="9">
+                <input type="date" name="date" class="fieds-pop" maxlength="9" required>
                 <br>
                 <label for="chkMensal">
-                  <input type="checkbox" name="automatico" class="chkMensal" id="">
-                  &nbsp;
-                  Mensal
-                </label>
+
+                  <label class="switch">
+                    <input type="checkbox" name="automatico">
+                    <span class="slider round"></span>
+                  </label>
+                  <br>
+                  <span>
+                    Mensal
+                  </span>
               </div>
 
 
-              <div class="row_btn_submit">
-                <button type="submit">Salvar</button>
+              <div class="row_btn_submit" style="margin-bottom: 25px;">
+                <button type="submit">
+                  Salvar
+                  &nbsp;
+                  <i class="fas fa-check"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!---FIM POPUP-->
+
+    <!--POPUP-->
+    <div class="popup_categories hidden">
+      <div class="row_content">
+        <div class="col_button_popup_close">
+          <button id="close_pop_up_02" class="close_pop_up">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="column_content">
+
+          <div class="content" style="margin-top: 30px;">
+            <br>
+            <div class="title_popup">
+              <h1 class="title_pop_02">
+                Categorias
+              </h1>
+            </div>
+            <form action="" method="POST" id="form_actions">
+
+              <div class="row_fields">
+                <input type="text" name="value" class="fieds-pop" placeholder="Adicionar Categoria" required autocomplete="off">
+                <button type="submit">
+                  Adicionar
+                </button>
+              </div>
+              <br><br>
+              <div class="list_categories">
+                <ul>
+
+                  <?php
+                  if (isset($rowCategorias)) {
+                    foreach ($decode_Json as $showCategorias) { ?>
+
+                      <li> <?php echo $showCategorias['description']; ?>
+                        <a href="model/categories/deleteCategories.php?id=<?php echo $showCategorias['id']; ?>">
+                          <i class="fas fa-trash"></i>
+                        </a>
+                      </li>
+                  <?php }
+                  } ?>
+                </ul>
+              </div>
+
+              <div class="row_btn_submit" style="margin-bottom: 25px;">
+
               </div>
             </form>
           </div>
@@ -596,6 +708,33 @@ try {
   </script>
   <!---------------------->
 
+  <script>
+    //notifica eventos do dia no desktop
+    <?php
+    if (isset($notifyData)) { 
+      if ($notifyData != null) {
+        foreach ($notifyData as $dataset) {
+          echo "
+                function notifyMe() {
+                    if (Notification.permission !== 'granted')
+                        Notification.requestPermission();
+                    else {
+                    var notification = new Notification('Você Tem Um Evento Programado para Hoje!', {
+                    icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+                    body: '" . $dataset['title'] . "',
+                    });
+                    notification.onclick = function() {
+                    window.open('http://stackoverflow.com/a/13328397/1269037');
+                  };
+                }
+              }
+              notifyMe()
+            ";
+        }
+      }
+    }
+    ?>
+  </script>
 </body>
 
 </html>

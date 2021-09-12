@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
 $index_options = ['plano01', 'plano02', 'plano03'];
 $optionsValues = ['Pessoal', 'Familiar', 'Estudantil'];
 
-if(isset($_GET['image'])){
+if (isset($_GET['image'])) {
     $_SESSION['image_selected'] = $_GET['image'];
 }
 
@@ -72,6 +72,7 @@ try {
     <link rel="stylesheet" href="../../../../source/root/root.css">
     <link rel="stylesheet" href="../../../../source/styles/dashboard/account_edit/main.css">
     <link rel="stylesheet" href="../../../../source/styles/mobile/dash_page/main.css">
+    <link rel="stylesheet" href="../../../../source/styles/components/button-back/main.css">
 </head>
 
 <body class="body">
@@ -96,43 +97,44 @@ try {
             </div>
         </div>
     </div>
-     <!--NavBar Mobile-->
-  <div class="nav_bar_top_mobile">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mobile">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="../../index.php">Logo</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="fas fa-bars btn_menu"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#Info_section">O Que Somos?</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#planos_account">Nossos Planos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#form_contact">Fale Conosco</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../dicas/index.php">Dicas</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../login/index.php?page=login+from+create">Entrar</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </div>
-  <!------------------>
+    <!--NavBar Mobile-->
+    <div class="nav_bar_top_mobile">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mobile">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../../index.php">Logo</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars btn_menu"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                    
+                        <li class="nav-item">
+                            <a class="nav-link" href="../Transacoes/index.php">Transações</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../Calendario/index.php">Calendário</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Dicas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../Ajuda/ajuda.php">Ajuda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../../login/index.php?login=logout">Sair</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!------------------>
     <div class="container_page">
         <div class="nav-bar-left-desktop">
 
             <div class="user_info">
                 <div class="image_user_icon">
-                    <img src="../../../..<?php echo $image_user;?>" alt="">
+                    <img src="../../../..<?php echo $image_user; ?>" alt="">
                 </div>
                 <div class="text_name_user">
                     <span>
@@ -142,24 +144,25 @@ try {
                     </span>
                 </div>
             </div>
-
-            <a href="../../index.php" class="link_menu">
-                <i class="fas fa-home"></i>
-                Home
-            </a>
-
-            <a href="#" class="link_menu">
-                <i class="fas fa-arrow-circle-up"></i>
-                Receitas
-            </a>
-            <a href="#" class="link_menu">
-                <i class="fas fa-arrow-circle-down"></i>
-                Despesas
-            </a>
-            <a href="#" class="link_menu">
-                <i class="far fa-calendar-alt"></i>
+            <a href="../Transacoes/index.php" class="link_menu">
+                <i class="fas fa-coins"></i>
                 Transações
             </a>
+            <a href="../Calendario/index.php" class="link_menu">
+                <i class="far fa-calendar-alt"></i>
+                Calendário
+            </a>
+
+            <a href="#" class="link_menu">
+                <i class="fas fa-pencil-ruler"></i>
+                Dicas
+            </a>
+
+            <a href="../Ajuda/ajuda.php" class="link_menu">
+                <i class="fas fa-question"></i>
+                Ajuda
+            </a>
+
 
             <a href="../../../login/index.php?login=logout" class="link_menu">
                 <i class="fas fa-door-open"></i>
@@ -167,7 +170,13 @@ try {
             </a>
 
         </div>
+
         <div class="content_page" id="content-page">
+            <div class="btn_back_home">
+                <a href="../../index.php">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
             <h1>Editar Conta</h1>
 
             <div class="profile_image">
@@ -178,33 +187,34 @@ try {
                     </div>
                     <?php if (isset($_GET['image'])) { ?>
                         <img src="../../../..<?php echo $_GET['image']; ?>" alt="imagem_perfil">
-                    <?php } elseif(isset($image_user)) { ?>
-                        <img src="../../../..<?php echo $image_user;?>" alt="imagem_perfil">
-                    <?php }else{?>
+                    <?php } elseif (isset($image_user)) { ?>
+                        <img src="../../../..<?php echo $image_user; ?>" alt="imagem_perfil">
+                    <?php } else { ?>
                         <img src="" alt="Sem Imagem" srcset="">
-                    <?php }?>
-                    
+                    <?php } ?>
+
                 </div>
             </div>
+
             <div class="form-infos">
                 <h2>Informações</h2>
-                <?php if(isset($_SESSION['Msg_error'])){ ?>
+                <?php if (isset($_SESSION['Msg_error'])) { ?>
                     <span class="text-danger d-flex justify-content-center">
-                    <?php
+                        <?php
                         echo  $_SESSION['Msg_error'];
-                    ?>
+                        ?>
                     </span>
-                <?php }?>
+                <?php } ?>
 
-                <?php if(isset($_SESSION['Msg_sucess'])){ ?>
+                <?php if (isset($_SESSION['Msg_sucess'])) { ?>
                     <span class="text-success d-flex justify-content-center">
-                    <?php
+                        <?php
                         echo  $_SESSION['Msg_sucess'];
-                    ?>
+                        ?>
                     </span>
-                <?php }?>
+                <?php } ?>
 
-                    <form action="Model/main.php" method="post">
+                <form action="Model/main.php" method="post">
 
                     <div class="row-01">
                         <input type="text" placeholder="Nome" name='nome' value="<?php echo $user_name ?>">

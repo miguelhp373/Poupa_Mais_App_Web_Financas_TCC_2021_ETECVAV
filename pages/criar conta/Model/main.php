@@ -68,6 +68,9 @@ if((isset($_POST['typeAccount']))){
     }
 }
 
+$cat = '[{"id":"1","description":"Compras"},{"id":"2","description":"Supermercado"},{"id":"3","description":"Salário"},{"id":"4","description":"Pagamentos"}]';
+
+
 
 try{
     $existsUser =   $connection->prepare("SELECT * FROM userstableapplication WHERE email = :email OR cpf = :cpf LIMIT 1");
@@ -91,7 +94,7 @@ try{
         
         try{
         
-            $insert = $connection->prepare("INSERT INTO userstableapplication (Nome, email, cpf, telefone, senha, plano) VALUES (:nome,:email, :cpf, :telefone,  :pass, :typeaccount)");
+            $insert = $connection->prepare("INSERT INTO userstableapplication (Nome, email, cpf, telefone, senha, plano, categorias) VALUES (:nome,:email, :cpf, :telefone,  :pass, :typeaccount, :categories)");
             
             $insert->bindParam(':nome',$UserName);
             $insert->bindParam(':email',$_SESSION['email_user']);
@@ -99,6 +102,7 @@ try{
             $insert->bindParam(':telefone',$UserPhoneNumber );
             $insert->bindParam(':pass',$UserPass);
             $insert->bindParam(':typeaccount',$AccountType);
+            $insert->bindParam(':categories',$cat);
             
             $insert->execute();
             

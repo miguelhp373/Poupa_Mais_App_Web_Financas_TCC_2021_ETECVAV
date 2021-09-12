@@ -1,0 +1,34 @@
+@media (min-width: 1000px) {
+  .nav_bar_top_mobile {
+    display: none;
+  }
+}
+@media (max-width: 1000px) {
+  .nav-bar-left-desktop {
+    display: none;
+  }
+  .container_page {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    background-color: var(--input-background);
+  }
+  .content_page {
+    width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .container_page {
+    width: 143%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: var(--input-background);
+  }
+}

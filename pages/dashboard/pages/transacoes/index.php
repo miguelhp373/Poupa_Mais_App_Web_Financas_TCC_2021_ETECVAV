@@ -53,20 +53,20 @@ try {
 //////////////////////////////////////////////////////////
 
 
-$datini = filter_input(INPUT_GET,'dateini',FILTER_SANITIZE_STRING);
-$datfim = filter_input(INPUT_GET,'datefim',FILTER_SANITIZE_STRING);
-$tipo   = filter_input(INPUT_GET,'tipo',FILTER_SANITIZE_STRING);
+$datini = filter_input(INPUT_GET, 'dateini', FILTER_SANITIZE_STRING);
+$datfim = filter_input(INPUT_GET, 'datefim', FILTER_SANITIZE_STRING);
+$tipo   = filter_input(INPUT_GET, 'tipo', FILTER_SANITIZE_STRING);
 
 
-if($datini == ''){
+if ($datini == '') {
     $datini = '1999-01-01 00:00:00';
 }
 
-if($datfim == ''){
+if ($datfim == '') {
     $datfim = '2099-01-01 00:00:00';
 }
 
-if(($tipo == null) || ($tipo == '') || ($tipo == 'todas')){
+if (($tipo == null) || ($tipo == '') || ($tipo == 'todas')) {
     $tipo = null;
 }
 
@@ -81,7 +81,8 @@ try {
                     :tip IS NULL AND cod > 0        OR
                     tipo = :tip
             ORDER BY cod DESC
-        ");
+        "
+    );
     $searchOperations->bindParam(':cod', $user_cod);
     $searchOperations->bindParam(':datin', $datini);
     $searchOperations->bindParam(':datfi', $datfim);
@@ -124,7 +125,8 @@ try {
 
     <link rel="stylesheet" href="../../../../source/root/root.css">
     <link rel="stylesheet" href="../../../../source/styles/dashboard/transaction/main.css">
-    <!-- <link rel="stylesheet" href="../../source/styles/mobile/main.css"> -->
+    <link rel="stylesheet" href="../../../../source/styles/components/button-back/main.css">
+    <link rel="stylesheet" href="../../../../source/styles/mobile/transact_page/main.css">
 
     <!-- Mask Input JS -->
     <script src="https://cdn.jsdelivr.net/gh/miguelhp373/MaskInputJS/maskjs@1.3/maskjs.min.js"></script>
@@ -135,6 +137,38 @@ try {
 
 <body>
     <div class="container_page">
+        <!--NavBar Mobile-->
+        <div class="nav_bar_top_mobile">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light mobile">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="../../index.php">Logo</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-bars btn_menu"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="../Transacoes/index.php">Transações</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../Calendario/index.php">Calendário</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Dicas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../Ajuda/ajuda.php">Ajuda</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../../login/index.php?login=logout">Sair</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <!------------------>
         <!--NavBar Desktop-->
         <div class="nav-bar-left-desktop">
 
@@ -187,15 +221,20 @@ try {
         <!------------------>
 
         <div class="content_page">
+            <div class="btn_back_home">
+                <a href="../../index.php">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
             <div class="row_button_filter">
-            <h1>Transações</h1>
+                <h1>Transações</h1>
                 <button id="btn_filter_show">
                     <i class="fas fa-filter"></i>
                 </button>
             </div>
 
             <div class="container_content_grid">
-                
+
                 <table class="table table-striped table-hover">
                     <tr>
                         <th>#</th>
@@ -213,7 +252,7 @@ try {
                             <tr>
                                 <td><?php echo $getOperation['cod']; ?></td>
                                 <td><?php echo $getOperation['tipo']; ?></td>
-                                <td><?php echo date('d/m/y',strtotime($getOperation['data']));?></td>
+                                <td><?php echo date('d/m/y', strtotime($getOperation['data'])); ?></td>
                                 <td><?php echo $getOperation['categoria']; ?></td>
                                 <td><?php echo $getOperation['descricao']; ?></td>
                                 <td>R$ <?php echo $getOperation['valor']; ?></td>

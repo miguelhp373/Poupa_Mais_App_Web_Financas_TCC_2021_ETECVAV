@@ -88,7 +88,8 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
 
     <link rel="stylesheet" href="../../../../source/root/root.css">
     <link rel="stylesheet" href="../../../../source/styles/dashboard/calendar/main.css">
-    <!-- <link rel="stylesheet" href="../../source/styles/mobile/main.css"> -->
+  
+
 
     <!-- Mask Input JS -->
     <script src="https://cdn.jsdelivr.net/gh/miguelhp373/MaskInputJS/maskjs@1.3/maskjs.min.js"></script>
@@ -101,12 +102,14 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            
             var idEventURL = ''
             var getDatClicked = ''
             var dateini = ''
             var datefim = ''
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
+                
                 displayEventTime: true,
                 timeZone: 'local',
                 locale: 'pt-br',
@@ -138,6 +141,7 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
 
 
                 },
+                timeFormat: 'hh:mm A',
                 events: [
                     <?php foreach ($rowEvents as $getevents) { ?> {
                             id: "<?php printf($getevents['id']) ?>",
@@ -149,9 +153,12 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
                     <?php  } ?>
                 ]
             });
+            
             calendar.render();
 
-            $('#btn_delete').click(function(){
+
+
+            $('#btn_delete').click(function() {
                 window.location.href = `model/DeleteEvent.php?id=${idEventURL}`
             })
         });
@@ -173,6 +180,38 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
         .fc-daygrid-day {
             cursor: pointer;
         }
+
+        @media(min-width:1000px){
+            .page_not_found_gif{
+                display: none;
+            }
+        }
+
+        @media(max-width:1000px){
+            .container_page{
+                display: none;
+            }
+            .page_not_found_gif{
+                width: 100%;
+                height: 100vh;
+            }
+
+            .page_not_found_gif > img{
+                width: 100%;
+                height: auto;
+
+            }
+
+            .page_not_found_gif > a{
+                margin: 20px;
+                margin-top: 18px;
+                padding: 20px;
+                background-color: var(--primary-color);
+                color: var(--text-primary);
+                border-radius: 12px;
+               
+            }
+        }
     </style>
 
     <script>
@@ -186,7 +225,7 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
 
             });
 
-    
+
 
         });
     </script>
@@ -195,7 +234,14 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
 </head>
 
 <body>
+    <div class="page_not_found_gif">
+        <a href="../../index.php">
+            Voltar
+        </a>
+        <img src="../../../../source/assets/udraw_images/page-not-found-error-404.gif" alt="">
+    </div>
     <div class="container_page">
+    
         <!--POPUP-->
         <div class="popup_filter hidden">
             <div class="row_content">
@@ -291,8 +337,8 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
                             </div>
                         </form>
                         <div class="row_btn_delete">
-                                <button id="btn_delete">Apagar</button>
-                            
+                            <button id="btn_delete">Apagar</button>
+
                         </div>
                     </div>
                 </div>
@@ -328,11 +374,6 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
             </a>
 
             <a href="#" class="link_menu">
-                <i class="far fa-calendar-alt"></i>
-                Calendário
-            </a>
-
-            <a href="#" class="link_menu">
                 <i class="fas fa-pencil-ruler"></i>
                 Dicas
             </a>
@@ -349,11 +390,13 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
             </a>
 
         </div>
+         
         <!------------------>
+        
         <div id='calendar'>
 
         </div>
-
+     
     </div>
 
 </body>
