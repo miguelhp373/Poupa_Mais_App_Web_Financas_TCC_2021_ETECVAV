@@ -1,0 +1,138 @@
+/* Nav Bar Styles */
+.nav_bar_top {
+  width: 100%;
+  height: 90px;
+
+  background-image: var(--gradiente-color);
+}
+
+.row_nav_bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 88px;
+}
+
+.row_nav_bar > .left_logo {
+  padding-top: 12px;
+}
+
+.row_nav_bar > .left_logo > a {
+  text-decoration: none;
+  color: #ffff;
+  font-family: "Poppins", sans-serif;
+}
+
+.row_nav_bar > .right_menu > a {
+  text-decoration: none;
+  color: #ffff;
+  font-family: "Poppins", sans-serif;
+
+  padding: 25px;
+
+  transition: 0.2s;
+}
+
+.row_nav_bar > .right_menu > a:hover {
+  filter: brightness(70%);
+  border-bottom: 3px solid var(--text-primary);
+}
+
+/*------------------------------------*/
+
+.container-content {
+  width: 100%;
+  height: 100vh;
+  background-color: #ffff;
+}
+.content {
+  width: 100%;
+  height: 100%;
+
+  margin: 12px;
+
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.card-poster {
+  width: 350px;
+  height: 350px;
+  margin: 10px;
+  background-color: var(--input-background);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+  border-radius: 12px;
+
+  transition: 0.2s;
+}
+
+
+
+.title-post > h1 {
+  color: #000;
+  font-size: 24px;
+  text-align: center;
+  padding: 14px;
+}
+
+.post_content {
+  text-align: center;
+  margin: 16px;
+  color: #000;
+}
+
+.read_more{
+    width: 80px;
+    height: 50px;
+
+    background-color: var(--primary-color);
+    color: var(--text-primary);
+    padding: 10px;
+    border-radius: 12px;
+
+    transition: 0.2s;
+}
+
+.read_more:hover{
+    cursor: pointer;
+    filter: brightness(80%); 
+}
+
+
+
+
+/* page post */
+
+.container-content-post{
+    width: 100%;
+    background-color: #ffff;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-post{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.title-post-view{
+    margin: 17px;
+    padding: 10px;
+}
+
+.intro-description{
+    margin: 17px;
+}
+
+.text-notice{
+    margin: 20px;
+}
