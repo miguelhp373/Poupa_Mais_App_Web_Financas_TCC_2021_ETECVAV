@@ -72,7 +72,7 @@ try {
           </h1>
         </a>
       </div>
-      <div class="right_menu">
+      <div class="right_menu" style="visibility: hidden;">
         <div class="search-field">
           <input type="search" placeholder="Procurar">
         </div>
@@ -91,7 +91,7 @@ try {
           Logo
           <sup>Blog</sup>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fas fa-bars btn_menu"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -100,7 +100,7 @@ try {
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
-        </div>
+        </div> -->
       </div>
     </nav>
 
@@ -112,7 +112,7 @@ try {
       <?php
       foreach ($row as $getdata) { ?>
         <a href="view/post.php?id=<?php echo $getdata['id']; ?>">
-          <div class="card-poster">
+          <div class="card-poster" style="margin-top: 20px;">
             <div class="title-post">
               <h1><?php echo $getdata['title']; ?></h1>
             </div>

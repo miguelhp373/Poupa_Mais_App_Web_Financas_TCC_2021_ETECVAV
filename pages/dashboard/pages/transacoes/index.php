@@ -248,7 +248,11 @@ try {
                     ?>
                             <tr>
                                 <td><?php echo $getOperation['cod']; ?></td>
-                                <td><?php echo $getOperation['tipo']; ?></td>
+                                <?php if ($getOperation['tipo'] == 'receita') { ?>
+                                    <td class="text-success"><?php echo strtoupper($getOperation['tipo']); ?></td>
+                                <?php } else { ?>
+                                    <td class="text-danger"><?php echo strtoupper($getOperation['tipo']); ?></td>
+                                <?php } ?>
                                 <td><?php echo date('d/m/y', strtotime($getOperation['data'])); ?></td>
                                 <td><?php echo $getOperation['categoria']; ?></td>
                                 <td><?php echo $getOperation['descricao']; ?></td>

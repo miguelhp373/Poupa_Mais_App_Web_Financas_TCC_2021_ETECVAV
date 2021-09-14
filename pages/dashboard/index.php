@@ -30,7 +30,7 @@ if (isset($_SESSION['Msg_sucess'])) {
 //BUSCA INFORMAÇÕES DO USUÁRIO
 try {
 
-  $searchinfos = $connection->prepare("SELECT cod, nome, email, cpf, telefone, plano, image_user, saldo, categorias FROM userstableapplication WHERE email = :email LIMIT 1");
+  $searchinfos = $connection->prepare("SELECT cod, nome, email, cpf, telefone, plano, image_user, saldo, categorias, access FROM userstableapplication WHERE email = :email LIMIT 1");
   $searchinfos->bindParam(':email', $_SESSION['user_email']);
 
   $searchinfos->execute();
@@ -48,6 +48,11 @@ try {
       $user_plano          =   $getdata['plano'];
       $image_user          =   $getdata['image_user'];
       $saldo_user          =   $getdata['saldo'];
+      $access_user         =   $getdata['access'];
+
+      if($access_user == 'master'){
+        $_SESSION['ADM_USER'] = 'root_user_acept';
+      }
     }
   } else {
     $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
@@ -283,8 +288,17 @@ try {
               <a class="nav-link" href="pages/Transacoes/index.php">Transações</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Dicas</a>
+              <a class="nav-link" href="../blog/index.php">Blog</a>
             </li>
+
+            <?php if ($access_user === 'master') { ?>
+
+              <li class="nav-item">
+                <a class="nav-link" href="pages/Painel do Administrador/index.php">Painel ADM</a>
+              </li>
+
+            <?php } ?>
+
             <li class="nav-item">
               <a class="nav-link" href="pages/Ajuda/ajuda.php">Ajuda</a>
             </li>
@@ -329,15 +343,26 @@ try {
         Calendário
       </a>
 
-      <a href="#" class="link_menu">
-        <i class="fas fa-pencil-ruler"></i>
-        Dicas
+      <a href="../blog/index.php" class="link_menu">
+        <i class="fas fa-rss-square"></i>
+        Blog
       </a>
+
+      <?php if ($access_user === 'master') { ?>
+
+        <a href="pages/Painel do Administrador/index.php" class="link_menu">
+          <i class="fas fa-tachometer-alt"></i>
+          Painel ADM
+        </a>
+
+      <?php } ?>
 
       <a href="pages/Ajuda/ajuda.php" class="link_menu">
         <i class="fas fa-question"></i>
         Ajuda
       </a>
+
+
 
 
       <a href="../login/index.php?login=logout" class="link_menu">
@@ -711,7 +736,7 @@ try {
   <script>
     //notifica eventos do dia no desktop
     <?php
-    if (isset($notifyData)) { 
+    if (isset($notifyData)) {
       if ($notifyData != null) {
         foreach ($notifyData as $dataset) {
           echo "

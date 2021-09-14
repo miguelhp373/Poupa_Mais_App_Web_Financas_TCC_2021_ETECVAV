@@ -126,7 +126,7 @@ try {
                                 <?php echo nl2br($get_Data['text']); ?>
                             </p>
                         </div>
-
+                        <?php if($get_Data['origin'] !== ''){?>
                         <div class="autor">
                             <span>Adaptado de
                                 <a href="<?php echo $get_Data['origin']; ?>" target="_blank" rel="noopener noreferrer">
@@ -135,6 +135,7 @@ try {
                             </span>
                             <br><br>
                         </div>
+                        <?php }?>
             <?php }
                 }
             } else {

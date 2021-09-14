@@ -28,8 +28,16 @@
     .content{
         display: flex;
         flex-direction: column;
-        justify-content: center;
+    
         align-items: center;
+    }
+
+    .card-poster{
+        margin: 0;
+    }
+    
+    .content-post{
+        width: 80%;
     }
 }
 
@@ -50,4 +58,12 @@
     .nav_bar_top_mobile{
         display: none;
     }
+}
+
+@media(min-width:100px) and (max-width:360px){
+    .card-poster{
+        width: 350px !important;
+    }
+
+
 }
