@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../../source/controller/connection.php');
+require_once('../../../../source/controller/connection.php');
 ////////////
 //VALIDA USUÁRIO
 if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
@@ -48,11 +48,12 @@ if (isset($_SESSION['Msg_sucess'])) {
   <script src="https://kit.fontawesome.com/bb41ae50aa.js" crossorigin="anonymous"></script>
 
   <!--Importante-->
-  <link rel="stylesheet" href="root/root.css" />
+  <link rel="stylesheet" href="../../../../source/root/root.css" />
 
   <!--Estilos-->
-  <link rel="stylesheet" href="styles/main.css" />
-  <link rel="stylesheet" href="styles/mobile/main_page/main.css">
+  <link rel="stylesheet" href="../../../../source/styles/main.css" />
+  <link rel="stylesheet" href="../../../../source/styles/mobile/main_page/main.css">
+  <link rel="stylesheet" href="../../../../source/styles/components/button-back/main.css">
 
   <!-- Mask Input JS -->
   <script src="https://cdn.jsdelivr.net/gh/miguelhp373/MaskInputJS/maskjs@1.3/maskjs.min.js"></script>
@@ -67,6 +68,12 @@ if (isset($_SESSION['Msg_sucess'])) {
   <main>
 
     <div class="form_contact" id="form_contact">
+    <div class="btn_back_home">
+                <a href="../../index.php" style="display: flex;flex-direction: row;">
+                    <i class="fas fa-arrow-left"></i>
+                    <span style="margin-left: 15px;color: black;">Voltar</span>
+                </a>
+            </div>
       <section class="page-section" id="contact">
         <div class="container-fluid">
           <h2 class="

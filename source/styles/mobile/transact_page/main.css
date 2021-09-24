@@ -2,6 +2,9 @@
   .nav_bar_top_mobile {
     display: none;
   }
+  .content-page-mobile {
+    display: none;
+  }
 }
 @media (max-width: 1000px) {
   .nav-bar-left-desktop {
@@ -18,13 +21,136 @@
     background-color: var(--input-background);
   }
   .content_page {
+    display: none;
+  }
+
+  .content-page-mobile {
     width: 100%;
+    height: 100vh;
+    background-color: var(--text-primary);
+  }
+
+  .top-title {
+    width: 100%;
+    height: 50px;
+  }
+
+  .top-title > h1 {
+    padding: 10px;
+    margin: 10px;
+  }
+
+  .container-content-grid-transactions {
+    width: 100%;
+    height: 100vh auto;
+    margin-top: 20px;
+    background-color: var(--input-background);
+    border-radius: 30px 30px 0px 0px;
+  }
+  .top-container-grid{
+    
+    width: 100%;
+    height: 50px;
+   
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .container-left-top{
+    margin-top: 30px;
+    width: 50%;
+    height: 40px;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .container-right-top{
+    margin-top: 30px;
+    width: 50%;
+    height: 40px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .text-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+  }
+  .content-grid-container{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .row-card-content{
+    width: 100%;
+    height: 90px;
+
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .icon-left{
+    width: 90px;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .icon-left > img{
+    width: 50%;
+    height: auto;
+  }
+
+  .title-column{
+    width: 55%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .title-description-row{
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .currency-value-display{
+    width: 20%;
+    height: 100%;
+    margin-right: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 
 @media (max-width: 360px) {
   .container_page {
-    width: 143%;
+    width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;

@@ -28,7 +28,7 @@ if (isset($_SESSION['Msg_sucess'])) {
 //consulta usuário
 try {
 
-    $searchinfos = $connection->prepare("SELECT cod, nome, email, cpf, telefone, plano, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
+    $searchinfos = $connection->prepare("SELECT cod, nome, email, cpf, telefone, plano, image_user, saldo FROM userstableapplication WHERE email = :email LIMIT 1");
     $searchinfos->bindParam(':email', $_SESSION['user_email']);
 
     $searchinfos->execute();
@@ -45,12 +45,60 @@ try {
             $user_telefone  =   $getdata['telefone'];
             $user_plano     =   $getdata['plano'];
             $image_user     =   $getdata['image_user'];
+            $saldo_user     =   $getdata['saldo'];
         }
     }
 } catch (PDOException $error) {
     die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
 //////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//BUSCA O TOTAL DE RECEITAS
+try {
+
+    $searchOperations = $connection->prepare("SELECT SUM(valor) AS TOTAL FROM operationsapplication  WHERE   idUser = :cod AND tipo = 'receita'");
+    $searchOperations->bindParam(':cod', $user_cod);
+  
+    $searchOperations->execute();
+  
+    if ($searchOperations->rowCount() > 0) {
+  
+      $row = $searchOperations->fetchAll(PDO::FETCH_ASSOC);
+  
+      foreach ($row as $getdata) {
+        $receitas       =   $getdata['TOTAL'];
+      }
+    }
+  } catch (PDOException $error) {
+    die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+  }
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  
+  
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  //BUSCA O TOTAL DE DESPESAS
+  try {
+  
+    $searchOperations = $connection->prepare("SELECT SUM(valor) AS TOTAL FROM operationsapplication  WHERE   idUser = :cod AND tipo = 'despesa'");
+    $searchOperations->bindParam(':cod', $user_cod);
+  
+    $searchOperations->execute();
+  
+    if ($searchOperations->rowCount() > 0) {
+  
+      $row = $searchOperations->fetchAll(PDO::FETCH_ASSOC);
+  
+      foreach ($row as $getdata) {
+        $despesas       =   $getdata['TOTAL'];
+      }
+    }
+  } catch (PDOException $error) {
+    die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+  }
+  /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 $datini = filter_input(INPUT_GET, 'dateini', FILTER_SANITIZE_STRING);
@@ -217,6 +265,7 @@ try {
         </div>
         <!------------------>
 
+        <!---ContentPage Desktop--->
         <div class="content_page">
             <div class="btn_back_home">
                 <a href="../../index.php">
@@ -232,33 +281,42 @@ try {
 
             <div class="container_content_grid">
 
-                <table class="table table-striped table-hover">
-                    <tr>
-                        <th>#</th>
-                        <th>Tipo</th>
-                        <th>Data</th>
-                        <th>Categoria</th>
-                        <th>Descrição</th>
-                        <th>Valor</th>
+                <table class="table table-bordered table-hover">
+                    <thead style="
+                               background-color: #dfe6e9;
+                    ">
+                        <tr>
+                            <th>#</th>
+                            <th>Tipo</th>
+                            <th>Data</th>
+                            <th>Categoria</th>
+                            <th>Descrição</th>
+                            <th>Valor</th>
 
-                    </tr>
+                        </tr>
+                    </thead>
 
                     <?php if (isset($rowOperation)) {
                         foreach ($rowOperation as $getOperation) {
                     ?>
-                            <tr>
-                                <td><?php echo $getOperation['cod']; ?></td>
-                                <?php if ($getOperation['tipo'] == 'receita') { ?>
-                                    <td class="text-success"><?php echo strtoupper($getOperation['tipo']); ?></td>
-                                <?php } else { ?>
-                                    <td class="text-danger"><?php echo strtoupper($getOperation['tipo']); ?></td>
-                                <?php } ?>
-                                <td><?php echo date('d/m/y', strtotime($getOperation['data'])); ?></td>
-                                <td><?php echo $getOperation['categoria']; ?></td>
-                                <td><?php echo $getOperation['descricao']; ?></td>
-                                <td>R$ <?php echo $getOperation['valor']; ?></td>
+                            <tbody style="
+                                    cursor: pointer;
+                                    background-color: #FFFF;
+                            ">
+                                <tr>
+                                    <td><?php echo $getOperation['cod']; ?></td>
+                                    <?php if ($getOperation['tipo'] == 'receita') { ?>
+                                        <td class="text-success"><?php echo strtoupper($getOperation['tipo']); ?></td>
+                                    <?php } else { ?>
+                                        <td class="text-danger"><?php echo strtoupper($getOperation['tipo']); ?></td>
+                                    <?php } ?>
+                                    <td><?php echo date('d/m/y', strtotime($getOperation['data'])); ?></td>
+                                    <td><?php echo $getOperation['categoria']; ?></td>
+                                    <td><?php echo $getOperation['descricao']; ?></td>
+                                    <td>R$ <?php echo number_format($getOperation['valor'], 2, ',', '.') ; ?></td>
 
-                            </tr>
+                                </tr>
+                            </tbody>
                         <?php }
                     } else { ?>
 
@@ -270,6 +328,72 @@ try {
 
             </div>
         </div>
+        <!------------------>
+
+        <!--Content-Mobile------->
+        <div class="content-page-mobile">
+            <div class="top-title">
+                <h1>
+                    Transações
+                </h1>
+            </div>
+
+            <div class="container-content-grid-transactions">
+                <div class="top-container-grid">
+                    <div class="container-left-top">
+                        <i class="fas fa-university" style="font-size: 22px;"></i>
+                        <div class="text-container">
+                            <span>Saldo Atual</span>
+                            <span>R$ <?php echo number_format($saldo_user, 2, ',', '.') ;?></span>
+                        </div>
+                    </div>
+                    <div class="container-right-top">
+                        <i class="fas fa-wallet" style="font-size: 22px;"></i>
+                        <div class="text-container">
+                            <span>Balanço Mensal</span>
+                            <span>R$ <?php echo number_format($receitas - $despesas, 2, ',', '.') ?></span>
+                        </div>
+                    </div>
+
+                </div>
+                <hr>
+                <div class="content-grid-container">
+
+                    <?php if (isset($rowOperation)) {
+                        foreach ($rowOperation as $getOperation) {
+                    ?>
+                            <div class="row-card-content">
+                                <div class="icon-left">
+                                    <?php if ($getOperation['tipo'] == 'receita') { ?>
+                                        <img src="../../../../source/assets/icons/icon_line_up.png" alt="">
+                                    <?php } else { ?>
+                                        <img src="../../../../source/assets/icons/icon_line_down.png" alt="">
+                                    <?php } ?>
+
+                                </div>
+                                <div class="title-column">
+                                    <div class="title-description-row">
+                                        <span class="title-row"><?php echo $getOperation['descricao']; ?></span>
+                                        <span class="type-row"><?php echo $getOperation['categoria']; ?></span>
+                                    </div>
+                                </div>
+                                <div class="currency-value-display">
+                                    R$ <?php echo number_format($getOperation['valor'], 2, ',', '.') ; ?>
+                                </div>
+                            </div>
+
+                        <?php }
+                    } else { ?>
+
+                        <h2 class="text-center">Nenhum Dado Encontrado</h2>
+
+                    <?php } ?>
+
+
+                </div>
+            </div>
+        </div>
+        <!------------------>
         <!--POPUP-->
         <div class="popup_filter hidden">
             <div class="row_content">
