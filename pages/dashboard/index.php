@@ -50,7 +50,7 @@ try {
       $saldo_user          =   $getdata['saldo'];
       $access_user         =   $getdata['access'];
 
-      if($access_user == 'master'){
+      if ($access_user == 'master') {
         $_SESSION['ADM_USER'] = 'root_user_acept';
       }
     }
@@ -237,6 +237,7 @@ try {
   <link rel="stylesheet" href="../../source/styles/dashboard/popup_categories/main.css">
   <link rel="stylesheet" href="../../source/styles/mobile/dash_page/main.css">
   <link rel="stylesheet" href="../../source/styles/dashboard/SwitchButton/main.css">
+  <link rel="stylesheet" href="../../source/styles/components/nav-bar-mobile/main.css">
 
   <script src="js/api_money/main.js"></script>
   <script src="js/buttons/btn_add_receita.js"></script>
@@ -273,9 +274,9 @@ try {
 <body>
   <!--NavBar Mobile-->
   <div class="nav_bar_top_mobile">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mobile">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="../../index.php">Logo</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mobile-navbar">
+      <div class="container-fluid mobile">
+        <a class="navbar-brand" href="#">Logo</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fas fa-bars btn_menu"></i>
         </button>
@@ -290,15 +291,6 @@ try {
             <li class="nav-item">
               <a class="nav-link" href="../blog/index.php">Blog</a>
             </li>
-
-            <?php if ($access_user === 'master') { ?>
-
-              <li class="nav-item">
-                <a class="nav-link" href="pages/Painel do Administrador/index.php">Painel ADM</a>
-              </li>
-
-            <?php } ?>
-
             <li class="nav-item">
               <a class="nav-link" href="pages/Ajuda/index.php">Ajuda</a>
             </li>
@@ -423,7 +415,6 @@ try {
                 <i class="fas fa-landmark icon-01"></i>
                 <h2>Saldo</h2>
               </div>
-              <!-- number_format($newSaldo, 2, ',', '.') -->
               <span class="Saldo_total">R$ <?php echo number_format($saldo_user, 2, ',', '.') ?></span>
             </div>
           </div>

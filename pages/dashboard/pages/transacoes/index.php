@@ -61,44 +61,44 @@ try {
 
     $searchOperations = $connection->prepare("SELECT SUM(valor) AS TOTAL FROM operationsapplication  WHERE   idUser = :cod AND tipo = 'receita'");
     $searchOperations->bindParam(':cod', $user_cod);
-  
+
     $searchOperations->execute();
-  
+
     if ($searchOperations->rowCount() > 0) {
-  
-      $row = $searchOperations->fetchAll(PDO::FETCH_ASSOC);
-  
-      foreach ($row as $getdata) {
-        $receitas       =   $getdata['TOTAL'];
-      }
+
+        $row = $searchOperations->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($row as $getdata) {
+            $receitas       =   $getdata['TOTAL'];
+        }
     }
-  } catch (PDOException $error) {
+} catch (PDOException $error) {
     die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
-  }
-  /////////////////////////////////////////////////////////////////////////////////////////////////
-  
-  
-  /////////////////////////////////////////////////////////////////////////////////////////////////
-  //BUSCA O TOTAL DE DESPESAS
-  try {
-  
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//BUSCA O TOTAL DE DESPESAS
+try {
+
     $searchOperations = $connection->prepare("SELECT SUM(valor) AS TOTAL FROM operationsapplication  WHERE   idUser = :cod AND tipo = 'despesa'");
     $searchOperations->bindParam(':cod', $user_cod);
-  
+
     $searchOperations->execute();
-  
+
     if ($searchOperations->rowCount() > 0) {
-  
-      $row = $searchOperations->fetchAll(PDO::FETCH_ASSOC);
-  
-      foreach ($row as $getdata) {
-        $despesas       =   $getdata['TOTAL'];
-      }
+
+        $row = $searchOperations->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($row as $getdata) {
+            $despesas       =   $getdata['TOTAL'];
+        }
     }
-  } catch (PDOException $error) {
+} catch (PDOException $error) {
     die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
-  }
-  /////////////////////////////////////////////////////////////////////////////////////////////////
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 $datini = filter_input(INPUT_GET, 'dateini', FILTER_SANITIZE_STRING);
@@ -175,6 +175,7 @@ try {
     <link rel="stylesheet" href="../../../../source/styles/dashboard/transaction/main.css">
     <link rel="stylesheet" href="../../../../source/styles/components/button-back/main.css">
     <link rel="stylesheet" href="../../../../source/styles/mobile/transact_page/main.css">
+    <link rel="stylesheet" href="../../../../source/styles/components/nav-bar-mobile/main.css">
 
     <!-- Mask Input JS -->
     <script src="https://cdn.jsdelivr.net/gh/miguelhp373/MaskInputJS/maskjs@1.3/maskjs.min.js"></script>
@@ -187,7 +188,7 @@ try {
     <div class="container_page">
         <!--NavBar Mobile-->
         <div class="nav_bar_top_mobile">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light mobile">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light mobile-navbar">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="../../index.php">Logo</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -313,7 +314,7 @@ try {
                                     <td><?php echo date('d/m/y', strtotime($getOperation['data'])); ?></td>
                                     <td><?php echo $getOperation['categoria']; ?></td>
                                     <td><?php echo $getOperation['descricao']; ?></td>
-                                    <td>R$ <?php echo number_format($getOperation['valor'], 2, ',', '.') ; ?></td>
+                                    <td>R$ <?php echo number_format($getOperation['valor'], 2, ',', '.'); ?></td>
 
                                 </tr>
                             </tbody>
@@ -332,19 +333,24 @@ try {
 
         <!--Content-Mobile------->
         <div class="content-page-mobile">
-            <div class="top-title">
-                <h1>
-                    Transações
-                </h1>
+            <div class="btn_back_home">
+                <a href="../../index.php" style="display: flex;flex-direction: row;">
+                    <i class="fas fa-arrow-left"></i>
+                    <h1 style="color: black; margin: 20px;">
+                        Transações
+                    </h1>
+                </a>
             </div>
 
+
             <div class="container-content-grid-transactions">
+
                 <div class="top-container-grid">
                     <div class="container-left-top">
                         <i class="fas fa-university" style="font-size: 22px;"></i>
                         <div class="text-container">
                             <span>Saldo Atual</span>
-                            <span>R$ <?php echo number_format($saldo_user, 2, ',', '.') ;?></span>
+                            <span>R$ <?php echo number_format($saldo_user, 2, ',', '.'); ?></span>
                         </div>
                     </div>
                     <div class="container-right-top">
@@ -378,7 +384,7 @@ try {
                                     </div>
                                 </div>
                                 <div class="currency-value-display">
-                                    R$ <?php echo number_format($getOperation['valor'], 2, ',', '.') ; ?>
+                                    R$ <?php echo number_format($getOperation['valor'], 2, ',', '.'); ?>
                                 </div>
                             </div>
 

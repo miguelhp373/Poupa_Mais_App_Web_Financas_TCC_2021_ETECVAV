@@ -89,6 +89,7 @@ try {
     <link rel="stylesheet" href="../../../../source/styles/dashboard/account_edit/main.css">
     <link rel="stylesheet" href="../../../../source/styles/mobile/dash_page/main.css">
     <link rel="stylesheet" href="../../../../source/styles/components/button-back/main.css">
+    <link rel="stylesheet" href="../../../../source/styles/components/nav-bar-mobile/main.css">
 </head>
 
 <body class="body">
@@ -115,7 +116,7 @@ try {
     </div>
     <!--NavBar Mobile-->
     <div class="nav_bar_top_mobile">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light mobile">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mobile-navbar">
             <div class="container-fluid">
                 <a class="navbar-brand" href="../../index.php">Logo</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

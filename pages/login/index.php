@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-if(isset($_GET['login'])){
-  
-  if($_GET['login'] == 'logout'){
+if (isset($_GET['login'])) {
+
+  if ($_GET['login'] == 'logout') {
     session_destroy();
   }
 }
@@ -49,6 +49,7 @@ if (isset($_GET['page'])) {
 
   <link rel="stylesheet" href="../../source/styles/login/main.css">
   <link rel="stylesheet" href="../../source/styles/mobile/login_page/main.css">
+  <link rel="stylesheet" href="../../source/styles/components/nav-bar-mobile/main.css">
 
   <!-- Mask Input JS -->
   <script src="https://cdn.jsdelivr.net/gh/miguelhp373/MaskInputJS/maskjs@1.3/maskjs.min.js"></script>
@@ -89,15 +90,15 @@ if (isset($_GET['page'])) {
 
   <!--NavBar Mobile-->
   <div class="nav_bar_top_mobile">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mobile">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mobile-navbar">
       <div class="container-fluid">
         <a class="navbar-brand" href="../../index.php">Logo</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="fas fa-bars btn_menu"></i>
+          <i class="fas fa-bars" style="color: #FFFF;"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item">
+            <li class="nav-item" >
               <a class="nav-link active" aria-current="page" href="#Info_section">O Que Somos?</a>
             </li>
             <li class="nav-item">
@@ -171,7 +172,6 @@ if (isset($_GET['page'])) {
       }
 
     })
-  
   </script>
 </body>
 
