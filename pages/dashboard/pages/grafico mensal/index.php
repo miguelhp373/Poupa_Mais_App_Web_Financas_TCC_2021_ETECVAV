@@ -164,7 +164,7 @@ try {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Document</title>
+    <title>Gráfico de Gastos Mensais | APP</title>
     <link rel="stylesheet" href="style.css">
     <!--Jquery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -184,10 +184,51 @@ try {
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <style>
+        @media(min-width:1000px) {
+            .page_not_found_gif {
+                display: none;
+            }
+        }
+
+        @media(max-width:1000px) {
+            .container_page {
+                display: none;
+            }
+
+            .page_not_found_gif {
+                width: 100%;
+                height: 100vh;
+            }
+
+            .page_not_found_gif>img {
+                width: 100%;
+                height: auto;
+
+            }
+
+            .page_not_found_gif>a {
+                margin: 20px;
+                margin-top: 18px;
+                padding: 20px;
+                background-color: var(--primary-color);
+                color: var(--text-primary);
+                border-radius: 12px;
+
+            }
+        }
+    </style>
 
 </head>
 
+
 <body>
+<div class="page_not_found_gif">
+        <a href="../../index.php">
+            Voltar
+        </a>
+        <img src="../../../../source/assets/udraw_images/page-not-found-error-404.gif" alt="">
+    </div>
     <div class="container_page">
         <div class="nav-bar-left-desktop">
 
@@ -232,13 +273,16 @@ try {
         </div>
 
         <div class="content_page" id="content-page" style="margin-top: -155px;">
-            <h1>Gráfico De Transações Mensal</h1>
+            <h1 id="Title-Page">Gráfico De Transações Mensal</h1>
+            <div id="uknowData"></div>
             <canvas id="chartApplication" style="width: 100%;height: 80vh;"></canvas>
         </div>
     </div>
 
     <script>
-        <?php echo "
+        <?php
+        if((isset($rowREC))&&(isset($rowDesp))){
+            echo "
             var ctx = document.getElementById('chartApplication').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'line',
@@ -296,7 +340,15 @@ try {
                     }
                 }
             });
-        "?>
+        ";
+        }else{
+            echo "
+            document.getElementById('uknowData').innerHTML += `<h2 style='Text-align: center;'>Nenhum Dado Encontrado.</h2>`
+            document.getElementById('Title-Page').style.display = 'none';
+            ";
+        }
+       ?>
+       
     </script>
 </body>
 

@@ -244,7 +244,7 @@ try {
   <script src="js/buttons/btn_add_receita.js"></script>
   <script src="js/popup/main.js"></script>
 
-
+<!--
   <script>
     //verifica se o navegador permite notificações
     document.addEventListener('DOMContentLoaded', function() {
@@ -257,7 +257,7 @@ try {
         Notification.requestPermission();
     });
   </script>
-
+  -->
 
   <script>
     <?php
@@ -316,7 +316,6 @@ try {
         <div class="text_name_user">
           <span>
             <?php
-            //nome do usuário pego pelo banco de dados
             echo $user_name;
             ?>
           </span>
@@ -749,34 +748,6 @@ try {
     });
   </script>
   <!---------------------->
-
-  <script>
-    //notifica eventos do dia no desktop
-    <?php
-    if (isset($notifyData)) {
-      if ($notifyData != null) {
-        foreach ($notifyData as $dataset) {
-          echo "
-                function notifyMe() {
-                    if (Notification.permission !== 'granted')
-                        Notification.requestPermission();
-                    else {
-                    var notification = new Notification('Você Tem Um Evento Programado para Hoje!', {
-                    icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
-                    body: '" . $dataset['title'] . "',
-                    });
-                    notification.onclick = function() {
-                    window.open('http://stackoverflow.com/a/13328397/1269037');
-                  };
-                }
-              }
-              notifyMe()
-            ";
-        }
-      }
-    }
-    ?>
-  </script>
 </body>
 
 </html>

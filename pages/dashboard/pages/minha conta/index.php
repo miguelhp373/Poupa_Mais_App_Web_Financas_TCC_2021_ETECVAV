@@ -132,7 +132,7 @@ try {
                             <a class="nav-link" href="../Calendario/index.php">Calendário</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Dicas</a>
+                            <a class="nav-link" href="#">Blog</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../Ajuda/ajuda.php">Ajuda</a>
@@ -170,9 +170,9 @@ try {
                 Calendário
             </a>
 
-            <a href="#" class="link_menu">
-                <i class="fas fa-pencil-ruler"></i>
-                Dicas
+            <a href="../../../blog/index.php" class="link_menu">
+            <i class="fas fa-rss-square"></i>
+                Blog
             </a>
 
             <a href="../Ajuda/ajuda.php" class="link_menu">

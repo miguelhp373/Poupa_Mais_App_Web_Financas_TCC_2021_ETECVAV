@@ -6,24 +6,24 @@ require_once('../../../../source/controller/connection.php');
 //VALIDA USUÁRIO
 if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
     if ($_SESSION['Authentication'] == '') {
-      $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
-      header('Location: ../../../login/index.php');
+        $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
+        header('Location: ../../../login/index.php');
     }
-  }
-  /////////////////////
-  
-  
-  ////////////////////////////
-  //LIMPA MENSAGENS DE ERRO
-  if (isset($_SESSION['Msg_error'])) {
-  
+}
+/////////////////////
+
+
+////////////////////////////
+//LIMPA MENSAGENS DE ERRO
+if (isset($_SESSION['Msg_error'])) {
+
     $_SESSION['Msg_error'] = '';
-  }
-  
-  if (isset($_SESSION['Msg_sucess'])) {
+}
+
+if (isset($_SESSION['Msg_sucess'])) {
     $_SESSION['Msg_sucess'] = '';
-  }
-  ////////////////////////////
+}
+////////////////////////////
 
 try {
 
@@ -93,7 +93,7 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
 
     <link rel="stylesheet" href="../../../../source/root/root.css">
     <link rel="stylesheet" href="../../../../source/styles/dashboard/calendar/main.css">
-  
+
 
 
     <!-- Mask Input JS -->
@@ -107,14 +107,14 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            
+
             var idEventURL = ''
             var getDatClicked = ''
             var dateini = ''
             var datefim = ''
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                
+
                 displayEventTime: true,
                 timeZone: 'local',
                 locale: 'pt-br',
@@ -158,7 +158,7 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
                     <?php  } ?>
                 ]
             });
-            
+
             calendar.render();
 
 
@@ -186,35 +186,36 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
             cursor: pointer;
         }
 
-        @media(min-width:1000px){
-            .page_not_found_gif{
+        @media(min-width:1000px) {
+            .page_not_found_gif {
                 display: none;
             }
         }
 
-        @media(max-width:1000px){
-            .container_page{
+        @media(max-width:1000px) {
+            .container_page {
                 display: none;
             }
-            .page_not_found_gif{
+
+            .page_not_found_gif {
                 width: 100%;
                 height: 100vh;
             }
 
-            .page_not_found_gif > img{
+            .page_not_found_gif>img {
                 width: 100%;
                 height: auto;
 
             }
 
-            .page_not_found_gif > a{
+            .page_not_found_gif>a {
                 margin: 20px;
                 margin-top: 18px;
                 padding: 20px;
                 background-color: var(--primary-color);
                 color: var(--text-primary);
                 border-radius: 12px;
-               
+
             }
         }
     </style>
@@ -246,7 +247,7 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
         <img src="../../../../source/assets/udraw_images/page-not-found-error-404.gif" alt="">
     </div>
     <div class="container_page">
-    
+
         <!--POPUP-->
         <div class="popup_filter hidden">
             <div class="row_content">
@@ -378,11 +379,10 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
                 Minha Conta
             </a>
 
-            <a href="#" class="link_menu">
-                <i class="fas fa-pencil-ruler"></i>
-                Dicas
+            <a href="../../../blog/index.php" class="link_menu">
+                <i class="fas fa-rss-square"></i>
+                Blog
             </a>
-
             <a href="#" class="link_menu">
                 <i class="fas fa-question"></i>
                 Ajuda
@@ -395,13 +395,13 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
             </a>
 
         </div>
-         
+
         <!------------------>
-        
+
         <div id='calendar'>
 
         </div>
-     
+
     </div>
 
 </body>

@@ -314,9 +314,9 @@ if (isset($_GET['id'])) {
                 Calendário
             </a>
 
-            <a href="#" class="link_menu">
-                <i class="fas fa-pencil-ruler"></i>
-                Dicas
+            <a href="../../../blog/index.php" class="link_menu">
+                <i class="fas fa-rss-square"></i>
+                Blog
             </a>
 
             <a href="../Ajuda/ajuda.ph" class="link_menu">
@@ -550,7 +550,7 @@ if (isset($_GET['id'])) {
                                         Editar
                                     </h1>
                                 </div>
-                                <form action="models/ActionOperation.php?operation=edit&id=<?php echo base64_encode($codTransaction)?>" method="POST" id="form_actions">
+                                <form action="models/ActionOperation.php?operation=edit&id=<?php echo base64_encode($codTransaction) ?>" method="POST" id="form_actions">
 
                                     <div class="col_dates" style="margin-top: 10px;">
                                         <strong style="width: 100%;"><span>Valor:</span></strong>
