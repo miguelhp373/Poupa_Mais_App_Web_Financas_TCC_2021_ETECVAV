@@ -1,6 +1,15 @@
 <?php
-session_start();
 require_once('../../../../../source/controller/connection.php');
+session_start();
+
+if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
+    if ($_SESSION['Authentication'] == '') {
+        $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
+        header('Location: ../../../../login/index.php');
+        
+
+    }
+}
 
 $_SESSION['Msg_sucess'] = '';
 $_SESSION['Msg_error'] = '';

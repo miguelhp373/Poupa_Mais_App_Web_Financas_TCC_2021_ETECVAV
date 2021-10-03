@@ -146,6 +146,68 @@ try {
     die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//BUSCA CATEGORIAS
+
+try {
+
+    $searchCat = $connection->prepare("SELECT categorias FROM userstableapplication WHERE email = :email LIMIT 1");
+    $searchCat->bindParam(':email', $_SESSION['user_email']);
+
+    $searchCat->execute();
+
+    if ($searchCat->rowCount() > 0) {
+
+        $rowCategorias = $searchCat->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($rowCategorias as $getCategorias) {
+            $user_categories = $getCategorias['categorias'];
+            $decode_Json  = json_decode($user_categories, true);
+        }
+    }
+} catch (PDOException $error) {
+    die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+if (isset($_GET['id'])) {
+    if (!is_numeric($_GET['id'])) {
+        $getParamURL    =   base64_decode($_GET['id']);
+
+        try {
+
+            $searchTransaction = $connection->prepare("SELECT cod, tipo, data, categoria, descricao, valor FROM operationsapplication WHERE cod = :cod AND idUser = :idUser LIMIT 1");
+            $searchTransaction->bindParam(':cod', $getParamURL);
+            $searchTransaction->bindParam(':idUser', $user_cod);
+
+            $searchTransaction->execute();
+
+            if ($searchTransaction->rowCount() > 0) {
+
+                $rowTransaction = $searchTransaction->fetchAll(PDO::FETCH_ASSOC);
+
+                $editTransaction    =   'true';
+
+
+                foreach ($rowTransaction as $getDataTransaction) {
+                    $codTransaction     =   $getDataTransaction['cod'];
+                    $typeTransaction    =   $getDataTransaction['tipo'];
+                    $dateTransaction    =   $getDataTransaction['data'];
+                    $description        =   $getDataTransaction['descricao'];
+                    $currency           =   $getDataTransaction['valor'];
+                    $categories         =   $getDataTransaction['categoria'];
+                }
+            }
+        } catch (PDOException $error) {
+            die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+        }
+    }
+}
+
+
+
+
 
 
 ?>
@@ -176,12 +238,17 @@ try {
     <link rel="stylesheet" href="../../../../source/styles/components/button-back/main.css">
     <link rel="stylesheet" href="../../../../source/styles/mobile/transact_page/main.css">
     <link rel="stylesheet" href="../../../../source/styles/components/nav-bar-mobile/main.css">
+    <link rel="stylesheet" href="../../../../source/styles/dashboard/popup_categories/main.css">
+    <link rel="stylesheet" href="../../../../source/styles/dashboard/main.css" />
+    <link rel="stylesheet" href="../../../../source/styles/components/" />
+
 
     <!-- Mask Input JS -->
     <script src="https://cdn.jsdelivr.net/gh/miguelhp373/MaskInputJS/maskjs@1.3/maskjs.min.js"></script>
 
     <!-- Botão do Filtro Open e Close -->
     <script src="js/btn_filter.js"></script>
+    <script src="js/EditModal.js"></script>
 </head>
 
 <body>
@@ -287,12 +354,13 @@ try {
                                background-color: #dfe6e9;
                     ">
                         <tr>
-                            <th>#</th>
-                            <th>Tipo</th>
-                            <th>Data</th>
+                            <th style="text-align: center;">Tipo</th>
+                            <th style="text-align: center;">Data</th>
                             <th>Categoria</th>
                             <th>Descrição</th>
                             <th>Valor</th>
+                            <th></th>
+                            <th></th>
 
                         </tr>
                     </thead>
@@ -300,24 +368,36 @@ try {
                     <?php if (isset($rowOperation)) {
                         foreach ($rowOperation as $getOperation) {
                     ?>
+
                             <tbody style="
                                     cursor: pointer;
                                     background-color: #FFFF;
                             ">
+
                                 <tr>
-                                    <td><?php echo $getOperation['cod']; ?></td>
                                     <?php if ($getOperation['tipo'] == 'receita') { ?>
-                                        <td class="text-success"><?php echo strtoupper($getOperation['tipo']); ?></td>
+                                        <td class="text-success" style="text-align: center;"><?php echo strtoupper($getOperation['tipo']); ?></td>
                                     <?php } else { ?>
-                                        <td class="text-danger"><?php echo strtoupper($getOperation['tipo']); ?></td>
+                                        <td class="text-danger" style="text-align: center;"><?php echo strtoupper($getOperation['tipo']); ?></td>
                                     <?php } ?>
-                                    <td><?php echo date('d/m/y', strtotime($getOperation['data'])); ?></td>
+                                    <td style="text-align: center;"><?php echo date('d/m/y', strtotime($getOperation['data'])); ?></td>
                                     <td><?php echo $getOperation['categoria']; ?></td>
                                     <td><?php echo $getOperation['descricao']; ?></td>
                                     <td>R$ <?php echo number_format($getOperation['valor'], 2, ',', '.'); ?></td>
-
+                                    <td style="text-align: center;">
+                                        <a href="index.php?id=<?php echo base64_encode($getOperation['cod']); ?>&modal=true" style="color: #2c3e50;">
+                                            <i class="far fa-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <a href="models/ActionOperation.php?id=<?php echo base64_encode($getOperation['cod']); ?>&operation=delete" style="color: #e74c3c;">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
                                 </tr>
+
                             </tbody>
+
                         <?php }
                     } else { ?>
 
@@ -448,6 +528,80 @@ try {
                 </div>
             </div>
         </div>
+        <!---FIM POPUP-->
+
+        <!--POPUP-->
+        <?php if (isset($_GET['modal'])) {
+            if (($_GET['modal'] == 'true') && ($editTransaction == 'true')) {
+        ?>
+                <div class="popup_actions">
+                    <div class="row_content">
+                        <div class="col_button_popup_close">
+                            <button id="close_pop_up02" class="close_pop_up">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="column_content">
+
+                            <div class="content" style="margin-top: 30px;">
+                                <br>
+                                <div class="title_popup">
+                                    <h1 class="title_pop">
+                                        Editar
+                                    </h1>
+                                </div>
+                                <form action="models/ActionOperation.php?operation=edit&id=<?php echo base64_encode($codTransaction)?>" method="POST" id="form_actions">
+
+                                    <div class="col_dates" style="margin-top: 10px;">
+                                        <strong style="width: 100%;"><span>Valor:</span></strong>
+                                        <input type="text" name="currency" class="fieds-pop" placeholder="Valor R$" required autocomplete="off" value="<?php echo number_format($currency, 2, '.', ','); ?>" />
+                                        <br>
+                                        <div class="row_categories">
+                                            <select name="categorias" id="" class="fieds-pop" required>
+                                                <option value="">Categorias</option>
+
+                                                <?php
+                                                if (isset($rowCategorias)) {
+                                                    foreach ($decode_Json as $showCategorias) {
+                                                        if ($showCategorias['description'] == $categories) {
+                                                ?>
+
+                                                            <option value="<?php echo $showCategorias['description']; ?>" selected><?php echo $showCategorias['description']; ?> </option>
+
+                                                        <?php } else { ?>
+                                                            <option value="<?php echo $showCategorias['description']; ?>"><?php echo $showCategorias['description']; ?> </option>
+                                                        <?php } ?>
+
+
+
+                                                <?php }
+                                                } ?>
+                                            </select>
+
+                                        </div>
+                                        <br>
+                                        <strong style="width: 100%;"><span>Descrição:</span></strong>
+                                        <input type="text" name="descricao" class="fieds-pop" placeholder="Descrição" value="<?php echo $description; ?>" required>
+                                        <br>
+                                        <strong style="width: 100%;"><span>Data:</span></strong>
+                                        <input type="date" name="date" class="fieds-pop" maxlength="9" value="<?php echo $dateTransaction; ?>" required>
+
+                                    </div>
+
+                                    <div class="row_btn_submit" style="margin-bottom: 25px;">
+                                        <button type="submit">
+                                            Salvar
+                                            &nbsp;
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <?php }
+        } ?>
         <!---FIM POPUP-->
     </div>
 

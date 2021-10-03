@@ -132,6 +132,7 @@ try {
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+
 //automatização de operações
 
 //pesquisa lancamentos
@@ -364,7 +365,9 @@ try {
 
     </div>
     <!------------------>
+
     <div class="content_page" id="content-page">
+
       <div class="notification_button">
         <button class="btn btn-secondary" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" title="Notificações">
           <i class="fas fa-bell"></i>
@@ -407,6 +410,28 @@ try {
       </div>
 
       <div class="container">
+
+        <!--////////////////////////////////////////////////////////////////////////////////////// -->
+        <!-- Mensagem de erro ao apagar categoria -->
+        <?php
+        if (isset($_SESSION['MsgCategorieError'])) {
+          if (($_SESSION['MsgCategorieError'] !== '')) {
+            echo '<div class="alert alert-danger" role="alert" >
+                    '.$_SESSION['MsgCategorieError'].'
+                  </div> ';
+
+            $_SESSION['MsgCategorieError'] = '';
+            unset($_SESSION['MsgCategorieError']);
+
+            echo '<script>
+                    setTimeout(function () {
+                      $(".alert").hide(); //oculta a mensagem de erro.
+                    }, 2500)
+                </script>';
+          }
+        }
+        ?>
+        <!--------------------------------------------------------------------------------------------->
         <div class="grid-display">
 
           <div class="card-01 cards">
@@ -567,7 +592,9 @@ try {
         </ul>
       </div>
       <!--------------------->
+
     </div>
+
 
     <!--POPUP-->
     <div class="popup_actions hidden">
@@ -601,7 +628,6 @@ try {
                         <option value="<?php echo $showCategorias['description']; ?>"><?php echo $showCategorias['description']; ?> </option>
                     <?php }
                     } ?>
-                    <option value="Posto de Gasolina">Posto de Gasolina</option>
                   </select>
                   &nbsp;
                   <button type="button" id="openCategories" class="btn-new-categories">
@@ -657,10 +683,10 @@ try {
                 Categorias
               </h1>
             </div>
-            <form action="" method="POST" id="form_actions">
+            <form action="model/categories/addCategories.php" method="POST" id="form_actions">
 
               <div class="row_fields">
-                <input type="text" name="value" class="fieds-pop" placeholder="Adicionar Categoria" required autocomplete="off">
+                <input type="text" name="newCategorie" class="fieds-pop" placeholder="Adicionar Categoria" required autocomplete="off">
                 <button type="submit">
                   Adicionar
                 </button>

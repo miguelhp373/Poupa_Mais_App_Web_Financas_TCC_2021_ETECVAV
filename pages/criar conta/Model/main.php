@@ -68,8 +68,7 @@ if((isset($_POST['typeAccount']))){
     }
 }
 
-$cat = '[{"id":"1","description":"Compras"},{"id":"2","description":"Supermercado"},{"id":"3","description":"Salário"},{"id":"4","description":"Pagamentos"}]';
-
+$cat = '[{"id":"0","description":"Compras"},{"id":"1","description":"Supermercado"},{"id":"2","description":"Salário"},{"id":"3","description":"Pagamentos"}]';
 
 
 try{

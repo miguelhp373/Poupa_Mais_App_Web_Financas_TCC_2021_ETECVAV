@@ -102,6 +102,7 @@ try {
             $newSaldo = $saldo_atual + $getValor;
 
 
+
             try {
                 $UpdateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :saldo  WHERE cod = :id LIMIT 1");
                 $UpdateSaldo->bindParam(':id', $user_cod);
@@ -113,9 +114,6 @@ try {
                 if ($UpdateSaldo->rowCount() > 0) {
                     header('Location: ../index.php');
                 }
-
-
-
             } catch (PDOException $error) {
                 $_SESSION['Msg_error']  =   "Erro ao Tentar Adicionar Nova " . $type;
                 header('Location: ../index.php');
@@ -143,8 +141,6 @@ try {
                 if ($UpdateSaldo->rowCount() > 0) {
                     header('Location: ../index.php');
                 }
-
-                
             } catch (PDOException $error) {
                 $_SESSION['Msg_error_01']  =   "Erro ao Tentar Adicionar Nova " . $type;
                 header('Location: ../index.php');
