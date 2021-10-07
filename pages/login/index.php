@@ -4,6 +4,8 @@ session_start();
 if (isset($_GET['login'])) {
 
   if ($_GET['login'] == 'logout') {
+    unset($_SESSION['user_email']);
+    unset($_SESSION['user_pass']);
     session_destroy();
   }
 }
@@ -18,6 +20,11 @@ if (isset($_GET['page'])) {
   $_SESSION['Msg_error'] = '';
 }
 
+if(isset($_SESSION['user_email']) && (isset($_SESSION['user_pass']))){
+  $_SESSION['Authentication'] = rand(1,9);
+  header('Location: ../dashboard/index.php');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +34,7 @@ if (isset($_GET['page'])) {
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login | Nome do App</title>
+  <title>Login | Poupa+</title>
   <!--Criado em 06/08/2021-->
 
   <!--Jquery-->
@@ -62,7 +69,7 @@ if (isset($_GET['page'])) {
     <div class="row_nav_bar">
       <div class="left_logo">
         <a href="#">
-          <h1>LOGO</h1>
+          <h1>Poupa<sup>+</sup></h1>
         </a>
       </div>
 
@@ -73,9 +80,9 @@ if (isset($_GET['page'])) {
         <a href="../../index.php#Info_section">
           <span> O Que Somos? </span>
         </a>
-        <a href="../../index.php#planos_account">
+        <!-- <a href="../../index.php#planos_account">
           <span>Nossos Planos</span>
-        </a>
+        </a> -->
         <a href="../../index.php#form_contact">
           <span> Fale Conosco </span>
         </a>
@@ -92,18 +99,18 @@ if (isset($_GET['page'])) {
   <div class="nav_bar_top_mobile">
     <nav class="navbar navbar-expand-lg navbar-light bg-light mobile-navbar">
       <div class="container-fluid">
-        <a class="navbar-brand" href="../../index.php">Logo</a>
+        <a class="navbar-brand" href="../../index.php">Poupa<sup>+</sup></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fas fa-bars" style="color: #FFFF;"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item" >
+            <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#Info_section">O Que Somos?</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="#planos_account">Nossos Planos</a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link" href="#form_contact">Fale Conosco</a>
             </li>
@@ -147,11 +154,26 @@ if (isset($_GET['page'])) {
               <i class="fas fa-eye-slash" id="togglePassword01"></i>
             </div>
             <button type="submit">Entrar</button>
-            <span>Esqueceu Sua Senha? <a href="../recuperar senha/index.php?email=<?php if ((isset($param))) {
-                                                                                    echo $param;
-                                                                                  } else {
-                                                                                    echo '';
-                                                                                  } ?>">Clique Aqui!</a></span>
+
+            <div class="remember-password">
+              <div class="left-items">
+                <input type="checkbox" name="remember_password" id="chkrememberpassword">
+                <span>Lembrar Senha?</span>
+              </div>
+              <div class="right-items">
+                <span>
+                  <a href="../recuperar senha/index.php?email=<?php if ((isset($param))) {
+                                                                echo $param;
+                                                              } else {
+                                                                echo '';
+                                                              } ?>">
+                    Esqueceu Sua Senha?
+                  </a>
+                </span>
+              </div>
+            </div>
+
+
           </form>
         </div>
       </div>

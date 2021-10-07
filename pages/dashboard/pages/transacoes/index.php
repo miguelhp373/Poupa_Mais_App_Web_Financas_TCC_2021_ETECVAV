@@ -222,6 +222,8 @@ if (isset($_GET['id'])) {
 
     <!--Jquery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../../../../source/jquery/jQuery-Mask-Plugin-master/dist/jquery.mask.min.js"></script>
+    <script src="../../../../source/jquery/StartMask/main.js"></script>
 
     <!--Bootstrap v5-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
@@ -554,7 +556,7 @@ if (isset($_GET['id'])) {
 
                                     <div class="col_dates" style="margin-top: 10px;">
                                         <strong style="width: 100%;"><span>Valor:</span></strong>
-                                        <input type="text" name="currency" class="fieds-pop" placeholder="Valor R$" required autocomplete="off" value="<?php echo number_format($currency, 2, '.', ','); ?>" />
+                                        <input type="text" name="currency" class="fieds-pop money2" placeholder="Valor R$" required autocomplete="off" value="<?php echo number_format($currency, 2, '.', ','); ?>" />
                                         <br>
                                         <div class="row_categories">
                                             <select name="categorias" id="" class="fieds-pop" required>

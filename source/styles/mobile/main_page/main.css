@@ -49,9 +49,15 @@
         align-items: center;
     }
 
-    .info_section > .coluna_01 > p{
-        width: 250px;
+    .info_section > .coluna_01 > h1{
         text-align: center;
+        white-space: nowrap;
+    }
+
+    .info_section > .coluna_01 > p{
+        width: 100vw;
+        text-align: center;
+        padding: 0px 20px 0px 20px;
     }
 
     .coluna_02{

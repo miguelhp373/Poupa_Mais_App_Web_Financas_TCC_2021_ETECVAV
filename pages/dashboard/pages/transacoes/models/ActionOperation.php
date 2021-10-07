@@ -86,12 +86,23 @@ if ($searchValor->rowCount() > 0) {
 
 function DeleteOperation($cod,$connection,$user,$Operation_Value,$user_Saldo){
 
-    $saldo_atual    = number_format($user_Saldo, 2, '.', ',');
-    $getValor       = number_format($Operation_Value, 2, '.', ',');
+    $saldo_atual    = number_format($user_Saldo, 2, ',', '.');
+    $getValor       = number_format($Operation_Value, 2, ',', '.');
+
+    if(is_int($Operation_Value)){
+        $getValor  = $Operation_Value; 
+    }
+
+
+    
+    // $saldo_atual    = str_replace (',', '.', str_replace ('.', '', $user_Saldo));
+    // $getValor       = str_replace (',', '.', str_replace ('.', '', $Operation_Value));
 
     $newSaldo = $saldo_atual - $getValor;
 
-    if($newSaldo <= 0)$newSaldo = 0;
+    // if($newSaldo <= 0){
+    //     $newSaldo = 0;
+    // }
 
     $UpdateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :saldo  WHERE cod = :id LIMIT 1");
     $UpdateSaldo->bindParam(':id', $user);

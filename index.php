@@ -18,6 +18,7 @@ if (isset($_SESSION['Msg_error'])) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aplicativo Web de Finanças</title>
+  <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
 
   <!--Criado em 06/08/2021-->
 
@@ -49,7 +50,7 @@ if (isset($_SESSION['Msg_error'])) {
     <div class="row_nav_bar">
       <div class="left_logo">
         <a href="#">
-          <h1>LOGO</h1>
+          <h1>Poupa<sup>+</sup></h1>
         </a>
       </div>
 
@@ -57,9 +58,9 @@ if (isset($_SESSION['Msg_error'])) {
         <a href="#Info_section">
           <span> O Que Somos? </span>
         </a>
-        <a href="#planos_account">
+        <!-- <a href="#planos_account">
           <span>Nossos Planos</span>
-        </a>
+        </a> -->
         <a href="#form_contact">
           <span> Fale Conosco </span>
         </a>
@@ -78,7 +79,7 @@ if (isset($_SESSION['Msg_error'])) {
   <div class="nav_bar_top_mobile">
     <nav class="navbar navbar-expand-lg navbar-light bg-light mobile">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Logo</a>
+        <a class="navbar-brand" href="#">Poupa<sup>+</sup></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fas fa-bars btn_menu"></i>
         </button>
@@ -87,9 +88,9 @@ if (isset($_SESSION['Msg_error'])) {
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#Info_section">O Que Somos?</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="#planos_account">Nossos Planos</a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link" href="#form_contact">Fale Conosco</a>
             </li>
@@ -154,10 +155,9 @@ if (isset($_SESSION['Msg_error'])) {
     <!-------------------------->
 
     <!-- Cards Container -->
-    <div class="cards_price container" id="planos_account">
+    <!-- <div class="cards_price container" id="planos_account">
       <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
         <h1 class="display-4 fw-normal">Nossos Planos</h1>
-        <!-- <p class="fs-5 text-muted">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p> -->
       </div>
       <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
         <div class="col">
@@ -224,11 +224,11 @@ if (isset($_SESSION['Msg_error'])) {
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-------------------------->
 
     <!-- Form De Contato -->
-    <div class="form_contact" id="form_contact">
+    <div class="form_contact" id="form_contact" style="margin-top: 12px;">
       <section class="page-section" id="contact">
         <div class="container-fluid">
           <h2 class="
@@ -319,7 +319,7 @@ if (isset($_SESSION['Msg_error'])) {
     <!-------------------------------------------------------------------------->
     <div class="footer_bar">
       <div class="copyright_text mx-auto text-center p-2">
-        <span>&copy;team - 2021</span>
+        <span> 2021 | &copy;Poupa+</span>
       </div>
 
     </div>

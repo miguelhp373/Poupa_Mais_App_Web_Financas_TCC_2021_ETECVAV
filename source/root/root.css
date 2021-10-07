@@ -1,54 +1,65 @@
 /* Arquivo de Estilos Globais - Utilizado em Todas As Páginas */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap");
 
-body{
-    margin: 0 auto;
-    padding: 0 auto;
-    scroll-behavior: smooth;
+body {
+  margin: 0 auto;
+  padding: 0 auto;
+  scroll-behavior: smooth;
 }
 
-*{
-    font-family: "Poppins", sans-serif;
-    text-decoration: none !important;
+body::-webkit-scrollbar {
+  width: 12px;
+  height: 10px;
+ 
+}
+
+body::-webkit-scrollbar-track {
+  background: #333;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #663399;
+}
+
+* {
+  font-family: "Poppins", sans-serif;
+  text-decoration: none !important;
 }
 
 /* Cores Padrões do Projeto */
 :root {
-    --primary-color: #8854d0;
-    --secondary-color: #a55eea;
-    --button_color:#663399;
-    --gradiente-color: linear-gradient(25deg, #40276f, #634a98, #8770c4, #ac97f1);
-    --text-primary: #FFFF;
-    --input-background:#F3F3F3;
+  --primary-color: #8854d0;
+  --secondary-color: #a55eea;
+  --button_color: #663399;
+  --gradiente-color: linear-gradient(25deg, #40276f, #634a98, #8770c4, #ac97f1);
+  --text-primary: #ffff;
+  --input-background: #f3f3f3;
 }
-
 
 /* Estilos - botão Voltar Ao Topo */
-.btn_top{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    
+.btn_top {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 
-
-    margin: 30px;
+  margin: 30px;
 }
 
-.btn_top > a > button{
-    background-color:#2c3e50;
-    color:#FFFF;
-    border-radius: 12px;
-    width: 60px;
-    height:60px;
-    border: none;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+.btn_top > a > button {
+  background-color: #2c3e50;
+  color: #ffff;
+  border-radius: 12px;
+  width: 60px;
+  height: 60px;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
-    transition: 0.2s;
+  transition: 0.2s;
 }
 
-.btn_top > a > button:hover{
-    filter: brightness(70%);
+.btn_top > a > button:hover {
+  filter: brightness(70%);
 }
 
 /*------------------------------------*/

@@ -46,6 +46,7 @@ try {
   <!--Estilos-->
   <link rel="stylesheet" href="../../source/styles/blog_page/main.css" />
   <link rel="stylesheet" href="../../source/styles/mobile/blog_page/main.css">
+  <link rel="stylesheet" href="../../source/styles/components/button-back/main.css">
 
   <!-- Mask Input JS -->
   <script src="https://cdn.jsdelivr.net/gh/miguelhp373/MaskInputJS/maskjs@1.3/maskjs.min.js"></script>
@@ -67,12 +68,13 @@ try {
     <div class="row_nav_bar">
       <div class="left_logo">
         <a href="../../index.php">
-          <h1>LOGO
+          <h1>Poupa
             <sup>Blog</sup>
           </h1>
         </a>
       </div>
-      <div class="right_menu" style="visibility: hidden;">
+      
+      <div class="right_menu">
         <div class="search-field">
           <input type="search" placeholder="Procurar">
         </div>
@@ -88,7 +90,7 @@ try {
     <nav class="navbar navbar-expand-lg navbar-light bg-light mobile">
       <div class="container-fluid">
         <a class="navbar-brand" href="../../index.php">
-          Logo
+          Poupa+
           <sup>Blog</sup>
         </a>
         <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -109,6 +111,11 @@ try {
 
   <div class="container-content">
     <div class="content">
+    <div class="btn_back_home">
+                <a href="../../index.php">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
       <?php
       foreach ($row as $getdata) { ?>
         <a href="view/post.php?id=<?php echo $getdata['id']; ?>">

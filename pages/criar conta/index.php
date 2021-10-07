@@ -20,7 +20,7 @@ if (isset($_GET['page'])) {
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Criar Conta | Nome do App</title>
+  <title>Criar Conta | Poupa+</title>
   <!--Criado em 06/08/2021-->
 
   <!--Jquery-->
@@ -53,7 +53,7 @@ if (isset($_GET['page'])) {
     <div class="row_nav_bar">
       <div class="left_logo">
         <a href="#">
-          <h1>LOGO</h1>
+          <h1>Poupa<sup>+</sup></h1>
         </a>
       </div>
 
@@ -64,9 +64,9 @@ if (isset($_GET['page'])) {
         <a href="../../index.php#Info_section">
           <span> O Que Somos? </span>
         </a>
-        <a href="../../index.php#planos_account">
+        <!-- <a href="../../index.php#planos_account">
           <span>Nossos Planos</span>
-        </a>
+        </a> -->
         <a href="../../index.php#form_contact">
           <span> Fale Conosco </span>
         </a>
@@ -83,7 +83,7 @@ if (isset($_GET['page'])) {
   <div class="nav_bar_top_mobile">
     <nav class="navbar navbar-expand-lg navbar-light bg-light mobile">
       <div class="container-fluid">
-        <a class="navbar-brand" href="../../index.php">Logo</a>
+        <a class="navbar-brand" href="../../index.php">Poupa<sup>+</sup></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fas fa-bars btn_menu"></i>
         </button>
@@ -92,9 +92,9 @@ if (isset($_GET['page'])) {
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#Info_section">O Que Somos?</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="#planos_account">Nossos Planos</a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link" href="#form_contact">Fale Conosco</a>
             </li>

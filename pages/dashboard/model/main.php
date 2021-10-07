@@ -10,6 +10,8 @@ if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
     }
 }
 
+
+
 $valor          =   filter_input(INPUT_POST, 'value', FILTER_SANITIZE_STRING);
 $categorias     =   filter_input(INPUT_POST, 'categorias', FILTER_SANITIZE_STRING);
 $descricao      =   filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_STRING);
@@ -73,6 +75,7 @@ if ($searchinfos->rowCount() > 0) {
 //INSERT OPERATION
 
 try {
+    $getValor       = str_replace (',', '.', str_replace ('.', '', $valor));
 
     $insert = $connection->prepare("INSERT INTO operationsapplication (idUser, tipo , data, categoria, descricao, valor, automatico, proximoAuto) VALUES (:cod_user,:tipo, :data, :cate,  :descri, :valor, :auto,:dateAuto)");
 
@@ -81,27 +84,32 @@ try {
     $insert->bindParam(':cate', $categorias);
     $insert->bindParam(':descri', $descricao);
     $insert->bindParam(':data', $data);
-    $insert->bindParam(':valor', $valor);
+    $insert->bindParam(':valor', $getValor);
     $insert->bindParam(':auto', $automatico);
     $insert->bindParam(':dateAuto', $dateAuto);
 
     $insert->execute();
-
+    
+    
     if ($insert->rowCount() > 0) {
 
         //////////////////////////////////////////////////////////
         //SALDO
-
+     
         ///////////////
         //RECEITA
         if ($type == 'receita') {
-
-            $saldo_atual    = number_format($user_Saldo, 2, '.', ',');
-            $getValor       = number_format($valor, 2, '.', ',');
+     
+            //$saldo_atual    = number_format($user_Saldo, 2,',', '.');
+            // $getValor       = number_format($valor, 2, '.', ',');
+            
+   
+             $saldo_atual    = str_replace (',', '.', str_replace ('.', '', $user_Saldo));
+            // $getValor       = str_replace (',', '.', str_replace ('.', '', $valor));
+        
 
             $newSaldo = $saldo_atual + $getValor;
-
-
+ 
 
             try {
                 $UpdateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :saldo  WHERE cod = :id LIMIT 1");
@@ -125,8 +133,9 @@ try {
         ////DESPESA
         if ($type == 'despesa') {
 
-            $saldo_atual    = number_format($user_Saldo, 2, '.', ',');
-            $getValor       = number_format($valor, 2, '.', ',');
+            //$saldo_atual    = number_format($user_Saldo, 2, '.', ',');
+
+            $saldo_atual    = str_replace (',', '.', str_replace ('.', '', $user_Saldo));
 
             $newSaldo = $saldo_atual - $getValor;
 
@@ -150,7 +159,7 @@ try {
         ///////////////////////////////////////////////////////////
 
     } else {
-        echo 'ESCOPO DE ERRO';
+        //echo 'ESCOPO DE ERRO';
     }
 } catch (PDOException $error) {
     die('<br>Erro Ao Tentar se comunicar com o Servidor! Tente Novamente Mais Tarde');

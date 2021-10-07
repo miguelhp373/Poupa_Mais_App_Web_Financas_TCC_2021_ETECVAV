@@ -290,7 +290,7 @@ try {
                     labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
                     datasets: [{
                         label: 'Despesas Mensais',
-                        data: [".number_format($january, 2, '.', ',').",".number_format($february, 2, '.', ',').",".number_format($march, 2, '.', ',').",".number_format($april, 2, '.', ',').",".number_format($may, 2, '.', ',').",".number_format($june, 2, '.', ',').",".number_format($july, 2, '.', ',').",".number_format($august, 2, '.', ',').",".number_format($september, 2, '.', ',').",".number_format($october, 2, '.', ',').",".number_format($november, 2, '.', ',').",".number_format($dezember, 2, '.', ',')."],
+                        data: [".ceil(number_format($january, 2, '.', ',')).",".ceil(number_format($february, 2, '.', ',')).",".ceil(number_format($march, 2, '.', ',')).",".ceil(number_format($april, 2, '.', ',')).",".ceil(number_format($may, 2, '.', ',')).",".ceil(number_format($june, 2, '.', ',')).",".ceil(number_format($july, 2, '.', ',')).",".ceil(number_format($august, 2, '.', ',')).",".ceil(number_format($september, 2, '.', ',')).",".ceil(number_format($october, 2, '.', ',')).",".ceil(number_format($november, 2, '.', ',')).",".ceil(number_format($dezember, 2, '.', ','))."],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -311,7 +311,7 @@ try {
                     },
                     {
                         label: 'Receitas Mensais',
-                        data: [".number_format($januaryR, 2, '.', ',').",".number_format($februaryR, 2, '.', ',').",".number_format($marchR, 2, '.', ',').",".number_format($aprilR, 2, '.', ',').",".number_format($mayR, 2, '.', ',').",".number_format($juneR, 2, '.', ',').",".number_format($julyR, 2, '.', ',').",".number_format($augustR, 2, '.', ',').",".number_format($septemberR, 2, '.', ',').",".number_format($octoberR, 2, '.', ',').",".number_format($novemberR, 2, '.', ',').",".number_format($dezemberR, 2, '.', ',')."],
+                        data: [".ceil(number_format($januaryR, 2, ',', '.')).",".ceil(number_format($februaryR, 2, '.', ',')).",".ceil(number_format($marchR, 2, '.', ',')).",".ceil(number_format($aprilR, 2, '.', ',')).",".ceil(number_format($mayR, 2, '.', ',')).",".ceil(number_format($juneR, 2, '.', ',')).",".ceil(number_format($julyR, 2, '.', ',')).",".ceil(number_format($augustR, 2, '.', ',')).",".ceil(number_format($septemberR, 2, '.', ',')).",".ceil(number_format($octoberR, 2, '.', ',')).",".ceil(number_format($novemberR, 2, '.', ',')).",".ceil(number_format($dezemberR, 2, '.', ','))."],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
