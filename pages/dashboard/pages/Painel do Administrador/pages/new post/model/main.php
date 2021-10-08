@@ -37,7 +37,8 @@
                 text, 
                 date, 
                 creatorpost, 
-                origin
+                origin,
+                email
             )
             VALUES
             (
@@ -46,7 +47,8 @@
                 :text, 
                 NOW(), 
                 :creatorpost, 
-                :link
+                :link,
+                :emailUser
             )"
         );
         $createPost->bindParam(':title', $title_post);
@@ -54,6 +56,7 @@
         $createPost->bindParam(':link', $link_post);
         $createPost->bindParam(':text', $text_post);
         $createPost->bindParam(':creatorpost', $user_name);
+        $createPost->bindParam(':emailUser',$_SESSION['user_email']);
         
     
         $createPost->execute();

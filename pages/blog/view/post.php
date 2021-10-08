@@ -8,14 +8,36 @@ $get_Id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
 
 try {
 
-    $searchPost = $connection->prepare("SELECT id, title, description, text, date, creatorpost, origin FROM blog_posts WHERE id = :id");
+    $searchPost = $connection->prepare("SELECT id, title, description, text, date, creatorpost, origin, views FROM blog_posts WHERE id = :id");
     $searchPost->bindParam(':id', $get_Id);
     $searchPost->execute();
 
     if ($searchPost->rowCount() > 0) {
         $row = $searchPost->fetchAll(PDO::FETCH_ASSOC);
+        foreach($row as $postView){
+            $getView    =   $postView['views'];
+        }
     }
 } catch (PDOException $error) {
+    die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+}
+
+
+//adiciona visualizações ao post
+try{
+    $setNewValue = $getView;
+    if($getView == 0){
+        $setNewValue = 1;
+    }
+
+    $setNewValue += 1;
+
+    $AddViewOnPost = $connection->prepare("UPDATE blog_posts SET views = :Newview WHERE id = :id");
+    $AddViewOnPost->bindParam(':id', $get_Id);
+    $AddViewOnPost->bindParam(':Newview',$setNewValue);
+    $AddViewOnPost->execute();
+
+} catch(PDOException $error){
     die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
 
@@ -48,6 +70,7 @@ try {
     <!--Estilos-->
     <link rel="stylesheet" href="../../../source/styles/blog_page/main.css" />
     <link rel="stylesheet" href="../../../source/styles/mobile/blog_page/main.css">
+    <link rel="stylesheet" href="../../../source/styles/components/button-back/main.css">
 
     <!-- Mask Input JS -->
     <script src="https://cdn.jsdelivr.net/gh/miguelhp373/MaskInputJS/maskjs@1.3/maskjs.min.js"></script>
@@ -94,6 +117,11 @@ try {
 
     <div class="container-content-post">
         <div class="content-post">
+        <div class="btn_back_home">
+                <a href="../index.php" title="Voltar Para Tela Inicial">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
             <?php
             if (isset($row)) {
                 if ($row != null) {
@@ -103,13 +131,13 @@ try {
                             <h1><?php echo $get_Data['title']; ?></h1>
                         </div>
                         <div class="date_post">
-                            <span> Enviado Por
+                            <span><i class="fas fa-eye"></i> &nbsp; <?php echo $get_Data['views']; ?> &nbsp; | &nbsp; Enviado Por
                                 <strong>
                                     <?php echo $get_Data['creatorpost']; ?>
                                 </strong>
                                 &nbsp; - &nbsp; <?php echo date('d/m/y', strtotime($get_Data['date'])); ?>
                             </span>
-                            <hr>
+                            <hr>                
                         </div>
 
                         <div class="intro-description">

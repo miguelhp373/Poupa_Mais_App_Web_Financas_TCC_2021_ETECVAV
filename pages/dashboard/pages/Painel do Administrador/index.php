@@ -206,15 +206,15 @@ try {
                 <i class="fas fa-file-medical"></i>
                 Criar Post
             </a>
-            <a href="../Calendario/index.php" class="link_menu">
+            <a href="pages/my posts/index.php" class="link_menu">
                 <i class="far fa-clone"></i>
                 Meus Posts
             </a>
 
-            <a href="#" class="link_menu">
+            <!-- <a href="#" class="link_menu">
                 <i class="far fa-comments"></i>
                 Mensagens
-            </a>
+            </a> -->
 
 
 
