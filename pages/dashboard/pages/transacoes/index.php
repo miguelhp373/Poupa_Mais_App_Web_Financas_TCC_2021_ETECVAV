@@ -218,7 +218,8 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Nome do App</title>
+    <title>Transações | Poupa+</title>
+    <link rel="shortcut icon" href="../../../../Favicon.svg" type="image/x-icon">
 
     <!--Jquery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -387,7 +388,7 @@ if (isset($_GET['id'])) {
                                     <td><?php echo $getOperation['descricao']; ?></td>
                                     <td>R$ <?php echo number_format($getOperation['valor'], 2, ',', '.'); ?></td>
                                     <td style="text-align: center;">
-                                        <a href="index.php?id=<?php echo base64_encode($getOperation['cod']); ?>&modal=true" style="color: #2c3e50;">
+                                        <a href="index.php?id=<?php echo base64_encode($getOperation['cod']);?>&modal=true" style="color: #2c3e50;">
                                             <i class="far fa-edit"></i>
                                         </a>
                                     </td>
@@ -552,7 +553,7 @@ if (isset($_GET['id'])) {
                                         Editar
                                     </h1>
                                 </div>
-                                <form action="models/ActionOperation.php?operation=edit&id=<?php echo base64_encode($codTransaction) ?>" method="POST" id="form_actions">
+                                <form action="models/ActionOperation.php?operation=edit&id=<?php echo base64_encode($codTransaction) ?>&EditValue=<?php echo $getOperation['valor'];?>" method="POST" id="form_actions">
 
                                     <div class="col_dates" style="margin-top: 10px;">
                                         <strong style="width: 100%;"><span>Valor:</span></strong>

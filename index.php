@@ -17,7 +17,7 @@ if (isset($_SESSION['Msg_error'])) {
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aplicativo Web de Finanças</title>
+  <title>Poupa+ | Web</title>
   <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
 
   <!--Criado em 06/08/2021-->
@@ -117,8 +117,8 @@ if (isset($_SESSION['Msg_error'])) {
       <div class="coluna_top_right">
         <h1>Bem Vindo</h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos,
-          suscipit, laborum dolorem iste iure molestias
+        O Poupa+ é o seu melhor amigo no controle financeiro.<br> Adicione seus rendimentos,
+        gastos e despesas na plataforma e tenha a sua vida financeira  <br> sempre sob controle.
         </p>
         <a href="pages/criar conta/index.php">
           <button class="btn_discovery">

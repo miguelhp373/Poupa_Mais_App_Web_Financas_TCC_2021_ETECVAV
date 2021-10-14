@@ -49,7 +49,7 @@ $automatico     =   filter_input(INPUT_POST, 'automatico', FILTER_SANITIZE_STRIN
 
 if ($automatico !== null) {
     $automatico = "S";
-    $dateAuto = date('Y-m-d', strtotime('+30 days', strtotime($data)));
+    $dateAuto = date('Y-m-d', strtotime('+1 months', strtotime($data)));
 } else {
     $automatico = "N";
     $dateAuto = null;
