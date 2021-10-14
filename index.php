@@ -117,7 +117,7 @@ if (isset($_SESSION['Msg_error'])) {
       <div class="coluna_top_right">
         <h1>Bem Vindo</h1>
         <p>
-        O Poupa+ é o seu melhor amigo no controle financeiro.<br> Adicione seus rendimentos,
+        O Poupa+ é o seu melhor amigo no controle financeiro. <br> Adicione seus rendimentos,
         gastos e despesas na plataforma e tenha a sua vida financeira  <br> sempre sob controle.
         </p>
         <a href="pages/criar conta/index.php">
