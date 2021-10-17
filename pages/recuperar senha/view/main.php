@@ -2,7 +2,7 @@
 session_start();
 
 require_once('../../../source/controller/connection.php');
-require_once('../../../source/ENV.php');
+require_once('../../../ENV.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -61,8 +61,8 @@ try{
 }
 
 //quem enviou
-$email_from =   'miguelgamer373@gmail.com';//email da nossa empresa
-$name_from  =   'Finances App';//nome da empresa
+$email_from =   'apppoupamais@gmail.com';//email da nossa empresa
+$name_from  =   'Poupa Mais';//nome da empresa
 
 $mail = new PHPMailer(true);
 
