@@ -20,7 +20,7 @@ $DecriptoParam =   base64_decode($getUrlParam);
 
 try {
 
-    $searchinfos = $connection->prepare("SELECT cod, nome, email, cpf, telefone, plano, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
+    $searchinfos = $connection->prepare("SELECT cod, nome, email, cpf, telefone, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
     $searchinfos->bindParam(':email', $_SESSION['user_email']);
 
     $searchinfos->execute();
@@ -35,7 +35,6 @@ try {
             $user_email     =   $getdata['email'];
             $user_cpf       =   $getdata['cpf'];
             $user_telefone  =   $getdata['telefone'];
-            $user_plano     =   $getdata['plano'];
             $image_user     =   $getdata['image_user'];
         }
     }

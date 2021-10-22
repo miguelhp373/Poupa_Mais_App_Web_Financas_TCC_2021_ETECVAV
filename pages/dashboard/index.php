@@ -30,7 +30,7 @@ if (isset($_SESSION['Msg_sucess'])) {
 //BUSCA INFORMAÇÕES DO USUÁRIO
 try {
 
-  $searchinfos = $connection->prepare("SELECT cod, nome, email, cpf, telefone, plano, image_user, saldo, categorias, access FROM userstableapplication WHERE email = :email LIMIT 1");
+  $searchinfos = $connection->prepare("SELECT cod, nome, email, cpf, telefone, image_user, saldo, categorias, access FROM userstableapplication WHERE email = :email LIMIT 1");
   $searchinfos->bindParam(':email', $_SESSION['user_email']);
 
   $searchinfos->execute();
@@ -45,7 +45,6 @@ try {
       $user_email          =   $getdata['email'];
       $user_cpf            =   $getdata['cpf'];
       $user_telefone       =   $getdata['telefone'];
-      $user_plano          =   $getdata['plano'];
       $image_user          =   $getdata['image_user'];
       $saldo_user          =   $getdata['saldo'];
       $access_user         =   $getdata['access'];
@@ -281,7 +280,7 @@ try {
   <div class="nav_bar_top_mobile">
     <nav class="navbar navbar-expand-lg navbar-light bg-light mobile-navbar">
       <div class="container-fluid mobile">
-        <a class="navbar-brand" href="#">Logo</a>
+        <a class="navbar-brand" href="#">Poupa+</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fas fa-bars btn_menu"></i>
         </button>

@@ -65,9 +65,6 @@ if (isset($_GET['page'])) {
         <a href="../../index.php#Info_section">
           <span> O Que Somos? </span>
         </a>
-        <!-- <a href="../../index.php#planos_account">
-          <span>Nossos Planos</span>
-        </a> -->
         <a href="../../index.php#form_contact">
           <span> Fale Conosco </span>
         </a>
@@ -93,9 +90,6 @@ if (isset($_GET['page'])) {
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#Info_section">O Que Somos?</a>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="#planos_account">Nossos Planos</a>
-            </li> -->
             <li class="nav-item">
               <a class="nav-link" href="#form_contact">Fale Conosco</a>
             </li>
@@ -140,13 +134,6 @@ if (isset($_GET['page'])) {
               <i class="fas fa-eye-slash" id="togglePassword02"></i>
               <!-- <i class="fas fa-eye"></i> -->
             </div>
-
-            <select name="typeAccount" id="typeAccount" class="typeAccount">
-              <option value="null">Escolha seu Plano</option>
-              <option value="plano01">Pessoal</option>
-              <option value="plano02">Familiar</option>
-              <option value="plano03">Estudantil</option>
-            </select>
             <button type="submit">Criar</button>
           </form>
         </div>

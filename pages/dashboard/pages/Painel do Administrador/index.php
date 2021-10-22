@@ -14,12 +14,12 @@ if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
     }
 }
 
-if(isset($_SESSION['ADM_USER'])){
-    if($_SESSION['ADM_USER'] != 'root_user_acept'){
+if (isset($_SESSION['ADM_USER'])) {
+    if ($_SESSION['ADM_USER'] != 'root_user_acept') {
         header('Location: ../../../dashboard/index.php');
         die();
     }
-}else{
+} else {
     header('Location: ../../../dashboard/index.php');
     die();
 }
@@ -42,7 +42,7 @@ if (isset($_SESSION['Msg_sucess'])) {
 
 try {
 
-    $searchinfos = $connection->prepare("SELECT nome, email, cpf, telefone, plano, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
+    $searchinfos = $connection->prepare("SELECT nome, email, cpf, telefone, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
     $searchinfos->bindParam(':email', $_SESSION['user_email']);
 
     $searchinfos->execute();
@@ -56,7 +56,6 @@ try {
             $user_email     =   $getdata['email'];
             $user_cpf       =   $getdata['cpf'];
             $user_telefone  =   $getdata['telefone'];
-            $user_plano     =   $getdata['plano'];
             $image_user     =   $getdata['image_user'];
         }
     }
@@ -108,7 +107,7 @@ try {
 
 try {
 
-    $searchUsers = $connection->prepare("SELECT cod, nome, email, plano, access FROM userstableapplication WHERE access = 'master' ");
+    $searchUsers = $connection->prepare("SELECT cod, nome, email, access FROM userstableapplication WHERE access = 'master' ");
 
 
     $searchUsers->execute();
@@ -116,7 +115,6 @@ try {
     if ($searchUsers->rowCount() > 0) {
 
         $rowUsersALL = $searchUsers->fetchAll(PDO::FETCH_ASSOC);
-
     }
 } catch (PDOException $error) {
     die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
@@ -212,6 +210,11 @@ try {
                 Meus Posts
             </a>
 
+            <a href="pages/my posts/index.php" class="link_menu">
+                <i class="far fa-bell"></i>
+                Nova Notificação
+            </a>
+
             <!-- <a href="#" class="link_menu">
                 <i class="far fa-comments"></i>
                 Mensagens
@@ -232,7 +235,7 @@ try {
                 <div class="cards" style="width: 260px;">
                     <div class="col_left" style="margin-left: 26px;">
                         <strong>
-                            <span><?php echo $tot_users;?></span>
+                            <span><?php echo $tot_users; ?></span>
                         </strong>
                         <span>Usuários</span>
                     </div>
@@ -245,7 +248,7 @@ try {
                 <div class="cards">
                     <div class="col_left">
                         <strong>
-                            <span><?php echo $tot_Posts;?></span>
+                            <span><?php echo $tot_Posts; ?></span>
                         </strong>
                         <span>Posts</span>
                     </div>
@@ -258,7 +261,7 @@ try {
                 <!-- <div class="cards">
                     <div class="col_left">
                         <strong>
-                            <span><?php echo $post_views;?></span>
+                            <span><?php echo $post_views; ?></span>
                         </strong>
                         <span>Views</span>
                     </div>
@@ -271,41 +274,38 @@ try {
 
             </div>
             <br>
-            <h1> 
-            &nbsp;
-            <i class="fas fa-user-shield"></i>
-               Usuários Administradores
+            <h1>
+                &nbsp;
+                <i class="fas fa-user-shield"></i>
+                Usuários Administradores
             </h1>
             <table class="table table-striped table-hover">
-                    <tr>
-                        <th>#</th>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th style="text-align: center;">Plano</th>
-                        <th style="text-align: center;">Acesso</th>
-                    </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th style="text-align: center;">Acesso</th>
+                </tr>
 
-                    <?php if (isset($rowUsersALL)) {
-                        foreach ($rowUsersALL as $getUsersAll) {
-                    ?>
-                            <tr>
-                                <td><?php echo $getUsersAll['cod']; ?></td>
-                                <td><?php echo $getUsersAll['nome']; ?></td>
-                                <td><?php echo $getUsersAll['email']; ?></td>
-                                <td style="text-align: center;"><?php echo $getUsersAll['plano']; ?></td>
+                <?php if (isset($rowUsersALL)) {
+                    foreach ($rowUsersALL as $getUsersAll) {
+                ?>
+                        <tr>
+                            <td><?php echo $getUsersAll['cod']; ?></td>
+                            <td><?php echo $getUsersAll['nome']; ?></td>
+                            <td><?php echo $getUsersAll['email']; ?></td>
+                            <?php if ($getUsersAll['access'] === 'master') { ?>
+                                <td style="text-align: center;"><input type="checkbox" name="" id="" checked disabled></td>
+                            <?php } ?>
 
-                                <?php if($getUsersAll['access'] === 'master'){?>
-                                    <td style="text-align: center;"><input type="checkbox" name="" id="" checked disabled></td>
-                                <?php }?>
-                                
-                            </tr>
-                        <?php }
-                    } else { ?>
+                        </tr>
+                    <?php }
+                } else { ?>
 
-                        <h2 class="text-center">Nenhum Dado Encontrado</h2>
+                    <h2 class="text-center">Nenhum Dado Encontrado</h2>
 
-                    <?php } ?>
-                </table>
+                <?php } ?>
+            </table>
         </div>
     </div>
 </body>

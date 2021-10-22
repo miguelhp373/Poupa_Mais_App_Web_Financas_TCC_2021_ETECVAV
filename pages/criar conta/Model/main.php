@@ -55,18 +55,7 @@ if($_POST['pass_user'] !== $_POST['pass_user_confirm']){
     die();
 }
 
-if((isset($_POST['typeAccount']))){
-    if($_POST['typeAccount'] == 'null'){
 
-        $_SESSION['Msg_error']  =   "Escolha Um Plano Antes De Criar a Conta!";
-        header('Location: ../index.php');
-
-        die();
-
-    }else{
-        $AccountType = $_POST['typeAccount'];
-    }
-}
 
 $cat = '[{"id":"0","description":"Compras"},{"id":"1","description":"Supermercado"},{"id":"2","description":"Salário"},{"id":"3","description":"Pagamentos"}]';
 
@@ -93,14 +82,13 @@ try{
         
         try{
         
-            $insert = $connection->prepare("INSERT INTO userstableapplication (Nome, email, cpf, telefone, senha, plano, categorias) VALUES (:nome,:email, :cpf, :telefone,  :pass, :typeaccount, :categories)");
+            $insert = $connection->prepare("INSERT INTO userstableapplication (Nome, email, cpf, telefone, senha, categorias) VALUES (:nome,:email, :cpf, :telefone, :pass, :categories)");
             
             $insert->bindParam(':nome',$UserName);
             $insert->bindParam(':email',$_SESSION['email_user']);
             $insert->bindParam(':cpf',$UserCpf);
             $insert->bindParam(':telefone',$UserPhoneNumber );
             $insert->bindParam(':pass',$UserPass);
-            $insert->bindParam(':typeaccount',$AccountType);
             $insert->bindParam(':categories',$cat);
             
             $insert->execute();

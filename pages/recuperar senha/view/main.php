@@ -10,7 +10,6 @@ use PHPMailer\PHPMailer\Exception;
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
-
 //para quem será enviado
 $_SESSION['email']  =   filter_input(INPUT_POST,'email_user',FILTER_SANITIZE_EMAIL);//email que será utilizado para enviar
 

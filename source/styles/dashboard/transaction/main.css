@@ -35,13 +35,13 @@
   background-color: var(--text-primary);
   width: 80px;
   height: 80px;
-  border-radius: 12px;
+  border-radius: 100%;
   margin: 10px;
 }
 
 .image_user_icon > img {
-  height: 78px;
-  width: 78px;
+  height: 70px;
+  width: 70px;
 }
 
 .text_name_user > span {

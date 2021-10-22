@@ -81,9 +81,6 @@ if(isset($_SESSION['user_email']) && (isset($_SESSION['user_pass']))){
         <a href="../../index.php#Info_section">
           <span> O Que Somos? </span>
         </a>
-        <!-- <a href="../../index.php#planos_account">
-          <span>Nossos Planos</span>
-        </a> -->
         <a href="../../index.php#form_contact">
           <span> Fale Conosco </span>
         </a>

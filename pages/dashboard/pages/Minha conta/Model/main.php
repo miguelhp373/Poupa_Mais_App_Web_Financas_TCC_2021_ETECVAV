@@ -59,20 +59,6 @@ function validaCPF($cpf) {
 
 validaCPF($UserCpf);
 
-
-if((isset($_POST['typeAccount']))){
-    if($_POST['typeAccount'] == 'null'){
-
-        $_SESSION['Msg_error']  =   "Escolha Um Plano Antes De Criar a Conta!";
-        header('Location: ../index.php');
-
-        die();
-
-    }else{
-        $AccountType = $_POST['typeAccount'];
-    }
-}
-
 if(isset($_SESSION['image_selected'])){
 
     try{        
@@ -91,14 +77,13 @@ if(isset($_SESSION['image_selected'])){
 
 if(strlen($UserPassVerify) > 0) {
     try{        
-        $update = $connection->prepare("UPDATE userstableapplication SET Nome = :nome , email = :email , cpf = :cpf, telefone = :telefone , senha = :pass, plano = :typeaccount WHERE email = :email LIMIT 1");
+        $update = $connection->prepare("UPDATE userstableapplication SET Nome = :nome , email = :email , cpf = :cpf, telefone = :telefone , senha = :pass WHERE email = :email LIMIT 1");
         
         $update->bindParam(':nome',$UserName);
         $update->bindParam(':email',$userEmail);
         $update->bindParam(':cpf',$UserCpf);
         $update->bindParam(':telefone',$UserPhoneNumber );
         $update->bindParam(':pass',$UserPass);
-        $update->bindParam(':typeaccount',$AccountType);
         
         $update->execute();
         
@@ -120,7 +105,7 @@ if(strlen($UserPassVerify) > 0) {
 
 }else{
     try{        
-        $update = $connection->prepare("UPDATE userstableapplication SET Nome = :nome , email = :email, cpf = :cpf, telefone = :telefone, plano = :typeaccount   WHERE email = :email LIMIT 1");
+        $update = $connection->prepare("UPDATE userstableapplication SET Nome = :nome , email = :email, cpf = :cpf, telefone = :telefone  WHERE email = :email LIMIT 1");
         
         $update->bindParam(':nome',$UserName);
         $update->bindParam(':email',$userEmail);

@@ -14,7 +14,7 @@ if (isset($_GET['email'])) {
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Recuperar Senha| Poupa+</title>
+    <title>Recuperar Senha | Poupa+</title>
     <link rel="shortcut icon" href="../../Favicon.svg" type="image/x-icon">
     <!--Criado em 06/08/2021-->
 
@@ -49,7 +49,7 @@ if (isset($_GET['email'])) {
         <div class="row_nav_bar">
             <div class="left_logo">
                 <a href="#">
-                    <h1>LOGO</h1>
+                    <h1>Poupa+</h1>
                 </a>
             </div>
 
@@ -79,7 +79,7 @@ if (isset($_GET['email'])) {
     <div class="nav_bar_top_mobile">
         <nav class="navbar navbar-expand-lg navbar-light bg-light mobile">
             <div class="container-fluid">
-                <a class="navbar-brand" href="../../index.php">Logo</a>
+                <a class="navbar-brand" href="../../index.php">Poupa+</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-bars btn_menu"></i>
                 </button>

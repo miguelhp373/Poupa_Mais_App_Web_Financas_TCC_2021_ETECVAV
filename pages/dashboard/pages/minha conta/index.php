@@ -26,8 +26,6 @@ if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
   }
   ////////////////////////////
 
-$index_options = ['plano01', 'plano02', 'plano03'];
-$optionsValues = ['Pessoal', 'Familiar', 'Estudantil'];
 
 if (isset($_GET['image'])) {
     $_SESSION['image_selected'] = $_GET['image'];
@@ -36,7 +34,7 @@ if (isset($_GET['image'])) {
 
 try {
 
-    $searchinfos = $connection->prepare("SELECT nome, email, cpf, telefone, plano, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
+    $searchinfos = $connection->prepare("SELECT nome, email, cpf, telefone, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
     $searchinfos->bindParam(':email', $_SESSION['user_email']);
 
     $searchinfos->execute();
@@ -50,7 +48,6 @@ try {
             $user_email     =   $getdata['email'];
             $user_cpf       =   $getdata['cpf'];
             $user_telefone  =   $getdata['telefone'];
-            $user_plano     =   $getdata['plano'];
             $image_user     =   $getdata['image_user'];
         }
     }
@@ -249,23 +246,6 @@ try {
                             <input type="password" name="senha" placeholder="Senha" id="pass_field">
                             <i class="fas fa-eye-slash" id="togglePassword01"></i>
                         </div>
-                        <select name="typeAccount" id="typeAccount" class="typeAccount">
-                            <option value="null">Escolha seu Plano</option>
-                            <?php for ($i = 0; $i < 3; $i++) {
-                                if ($index_options[$i] == $user_plano) {
-                            ?>
-                                    <option value="<?php echo $index_options[$i]; ?>" selected>
-                                        <?php echo $optionsValues[$i]; ?>
-                                    </option>
-
-                                <?php } else { ?>
-                                    <option value="<?php echo $index_options[$i]; ?>">
-                                        <?php echo $optionsValues[$i]; ?>
-                                    </option>
-                            <?php }
-                            } ?>
-
-                        </select>
                     </div>
 
                     <div class="btn_save">
