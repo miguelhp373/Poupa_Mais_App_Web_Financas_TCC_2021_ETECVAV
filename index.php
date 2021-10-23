@@ -240,7 +240,7 @@ if (isset($_SESSION['Msg_error'])) {
           </h2>
           <div class="row">
             <div class="col-lg-8 mx-auto container_contact">
-              <form id="contactForm" action="source/email/main.php" method="POST">
+              <form id="contactForm" action="https://formspree.io/f/mvodnbre" method="POST">
                 <div class="control-group">
                   <div class="
                         form-group
@@ -276,7 +276,7 @@ if (isset($_SESSION['Msg_error'])) {
                         pb-2
                       ">
                     <label class="p-1">Telefone</label>
-                    <input class="form-control inputnumberphoneformat" id="phone" type="tel" required="required" data-validation-required-message="Insira seu telefone." />
+                    <input class="form-control inputnumberphoneformat" id="phone" name= 'telefone' type="tel" required="required" data-validation-required-message="Insira seu telefone." />
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
@@ -289,14 +289,14 @@ if (isset($_SESSION['Msg_error'])) {
                         pb-2
                       ">
                     <label class="p-1">Mensagem</label>
-                    <textarea class="form-control message_area" id="message" name="msg" rows="5" required="required" data-validation-required-message="Digite sua mensagem."></textarea>
+                    <textarea class="form-control message_area" id="message" name="mensagem" rows="5" required="required" data-validation-required-message="Digite sua mensagem."></textarea>
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <br />
                 <div id="sucesso"></div>
                 <div class="form-group d-flex justify-content-center">
-                  <button class="btn btn-primary btn-xl btn_submit_form" id="sendMessageButton" type="submit">
+                  <button class="btn btn-primary btn-xl btn_submit_form" id="my-form-button" >
                     Enviar
                   </button>
                 </div>
@@ -324,6 +324,7 @@ if (isset($_SESSION['Msg_error'])) {
 
     </div>
   </main>
+  <script src="source/js/Formspree/home.js"></script>
 </body>
 
 </html>

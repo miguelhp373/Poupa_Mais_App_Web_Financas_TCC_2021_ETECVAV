@@ -30,7 +30,7 @@ if (isset($_SESSION['Msg_sucess'])) {
 //BUSCA INFORMAÇÕES DO USUÁRIO
 try {
 
-  $searchinfos = $connection->prepare("SELECT cod, nome, email, cpf, telefone, image_user, saldo, categorias, access FROM userstableapplication WHERE email = :email LIMIT 1");
+  $searchinfos = $connection->prepare("SELECT cod, nome, email, telefone, image_user, saldo, categorias, access FROM userstableapplication WHERE email = :email LIMIT 1");
   $searchinfos->bindParam(':email', $_SESSION['user_email']);
 
   $searchinfos->execute();
@@ -43,7 +43,7 @@ try {
       $user_cod            =   $getdata['cod'];
       $user_name           =   $getdata['nome'];
       $user_email          =   $getdata['email'];
-      $user_cpf            =   $getdata['cpf'];
+      //$user_cpf            =   $getdata['cpf'];
       $user_telefone       =   $getdata['telefone'];
       $image_user          =   $getdata['image_user'];
       $saldo_user          =   $getdata['saldo'];
@@ -135,24 +135,24 @@ try {
 //automatização de operações
 
 //pesquisa lancamentos
-// try {
+try {
 
-//   $searchLancamento = $connection->prepare(
-//     "INSERT INTO operationsapplication VALUES(descricao, data)
-//     WHERE idUser   =   :cod  AND automatico = 'S' 
-//     "
-//   );
-//   $searchLancamento->bindParam(':cod', $user_cod);
+  $searchLancamento = $connection->prepare(
+    "INSERT INTO operationsapplication VALUES(descricao, data)
+    WHERE idUser   =   :cod  AND automatico = 'S' 
+    "
+  );
+  $searchLancamento->bindParam(':cod', $user_cod);
 
-//   $searchLancamento->execute();
+  $searchLancamento->execute();
 
-//   if ($searchLancamento->rowCount() > 0) {
-//     echo 'biuwdbjhbsd';
-//     $rowLancamentos = $searchLancamento->fetchAll(PDO::FETCH_ASSOC);
-//   }
-// } catch (PDOException $error) {
-//   die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
-// }
+  if ($searchLancamento->rowCount() > 0) {
+    echo 'biuwdbjhbsd';
+    $rowLancamentos = $searchLancamento->fetchAll(PDO::FETCH_ASSOC);
+  }
+} catch (PDOException $error) {
+  die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+}
 
 
 

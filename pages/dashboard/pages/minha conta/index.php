@@ -34,7 +34,7 @@ if (isset($_GET['image'])) {
 
 try {
 
-    $searchinfos = $connection->prepare("SELECT nome, email, cpf, telefone, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
+    $searchinfos = $connection->prepare("SELECT nome, email, telefone, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
     $searchinfos->bindParam(':email', $_SESSION['user_email']);
 
     $searchinfos->execute();
@@ -46,7 +46,7 @@ try {
         foreach ($row as $getdata) {
             $user_name      =   $getdata['nome'];
             $user_email     =   $getdata['email'];
-            $user_cpf       =   $getdata['cpf'];
+           // $user_cpf       =   $getdata['cpf'];
             $user_telefone  =   $getdata['telefone'];
             $image_user     =   $getdata['image_user'];
         }
@@ -236,10 +236,10 @@ try {
                         <input type="email" placeholder="Email" name="email" value="<?php echo $user_email ?>">
                     </div>
 
-                    <div class="row-02">
+                    <!-- <div class="row-02">
                         <input type="text" placeholder="Telefone" name="telefone" class='inputnumberphoneformat' value="<?php echo $user_telefone ?>">
-                        <input type="text" placeholder="CPF" name="cpf" class="inputCpfformat" value="<?php echo $user_cpf ?>">
-                    </div>
+                        <input type="text" placeholder="CPF" name="cpf" class="inputCpfformat" value="<?php //echo $user_cpf ?>">
+                    </div> -->
 
                     <div class="row-03">
                         <div class="field_pass">

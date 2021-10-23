@@ -42,6 +42,7 @@ if (isset($_SESSION['Msg_sucess'])) {
   <!--Jquery-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+
   <!--Bootstrap v5-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -87,7 +88,7 @@ if (isset($_SESSION['Msg_sucess'])) {
           </h2>
           <div class="row">
             <div class="col-lg-8 mx-auto container_contact">
-              <form id="contactForm" action="source/email/main.php" method="POST">
+              <form id="contactForm" action="https://formspree.io/f/mgerblyj" method="POST">
                 <div class="control-group">
                   <div class="
                         form-group
@@ -110,7 +111,7 @@ if (isset($_SESSION['Msg_sucess'])) {
                         pb-2
                       ">
                     <label class="p-1">Email</label>
-                    <input class="form-control" id="email" type="email" name="email" required="required" data-validation-required-message="Insira seu endereço de email." />
+                    <input class="form-control" id="email" type="email" name="_replyto" required="required" data-validation-required-message="Insira seu endereço de email." />
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
@@ -136,14 +137,14 @@ if (isset($_SESSION['Msg_sucess'])) {
                         pb-2
                       ">
                     <label class="p-1">Mensagem</label>
-                    <textarea class="form-control message_area" id="message" name="msg" rows="5" required="required" data-validation-required-message="Digite sua mensagem."></textarea>
+                    <textarea class="form-control message_area" id="message" name="mensagem" rows="5" required="required" data-validation-required-message="Digite sua mensagem."></textarea>
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
                 <br />
                 <div id="sucesso"></div>
                 <div class="form-group d-flex justify-content-center">
-                  <button class="btn btn-primary btn-xl btn_submit_form" id="sendMessageButton" type="submit">
+                  <button class="btn btn-primary btn-xl btn_submit_form" id="my-form-button">
                     Enviar
                   </button>
                 </div>
@@ -154,6 +155,7 @@ if (isset($_SESSION['Msg_sucess'])) {
       </section>
     </div>
   </main>
+  <script src="../../../../source/js/Formspree/help.js"></script>
 </body>
 
 </html>

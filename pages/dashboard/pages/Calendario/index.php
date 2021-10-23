@@ -27,7 +27,7 @@ if (isset($_SESSION['Msg_sucess'])) {
 
 try {
 
-    $searchinfos = $connection->prepare("SELECT cod, nome, email, cpf, telefone, plano, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
+    $searchinfos = $connection->prepare("SELECT cod, nome, email, telefone, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
     $searchinfos->bindParam(':email', $_SESSION['user_email']);
 
     $searchinfos->execute();
@@ -40,9 +40,8 @@ try {
             $user_cod      =   $getdata['cod'];
             $user_name      =   $getdata['nome'];
             $user_email     =   $getdata['email'];
-            $user_cpf       =   $getdata['cpf'];
+            //$user_cpf       =   $getdata['cpf'];
             $user_telefone  =   $getdata['telefone'];
-            $user_plano     =   $getdata['plano'];
             $image_user     =   $getdata['image_user'];
         }
     }
@@ -53,7 +52,7 @@ try {
 
 try {
 
-    $serchEvents = $connection->prepare("SELECT id, title, color, start, end FROM eventstableapplicartion WHERE coduser =" . $user_cod);
+    $serchEvents = $connection->prepare("SELECT id, title, color, start, end FROM eventstableapplicartion WHERE coduser =".$user_cod);
     $serchEvents->execute();
 
     $rowEvents = $serchEvents->fetchAll(PDO::FETCH_ASSOC);

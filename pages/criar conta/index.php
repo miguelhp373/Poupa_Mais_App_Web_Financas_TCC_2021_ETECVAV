@@ -121,7 +121,7 @@ if (isset($_GET['page'])) {
           <form action="Model/main.php" method="POST" class="form_content">
             <input type="text" name="name_user" id="name_user" placeholder="Nome Completo" required />
             <input type="email" name="email_user" id="email_user" placeholder="Email" required />
-            <input type="text" name="cpf_user" id="cpf_user" class="inputCpfformat" placeholder="Cpf" required />
+            <!-- <input type="text" name="cpf_user" id="cpf_user" class="inputCpfformat" placeholder="Cpf" required /> -->
             <input type="text" name="phonenumber_user" id="phonenumber_user" class="inputnumberphoneformat" placeholder="Telefone" required />
 
             <div class="fields">
