@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-if (isset($_GET['login'])) {
+// if (isset($_GET['login'])) {
 
-  if ($_GET['login'] == 'logout') {
-    unset($_SESSION['user_email']);
-    unset($_SESSION['user_pass']);
-    session_destroy();
-  }
-}
+//   if ($_GET['login'] == 'logout') {
+//     unset($_SESSION['user_email']);
+//     unset($_SESSION['user_pass']);
+//     session_destroy();
+//   }
+// }
 
 if (isset($_GET['register'])) {
   if ($_GET['register'] == 'true') {
@@ -20,10 +20,10 @@ if (isset($_GET['page'])) {
   $_SESSION['Msg_error'] = '';
 }
 
-if(isset($_SESSION['user_email']) && (isset($_SESSION['user_pass']))){
-  $_SESSION['Authentication'] = rand(1,9);
-  header('Location: ../dashboard/index.php');
-}
+// if(isset($_SESSION['user_email']) && (isset($_SESSION['user_pass']))){
+//   $_SESSION['Authentication'] = rand(1,9);
+//   header('Location: ../dashboard/index.php');
+// }
 
 ?>
 
@@ -151,10 +151,10 @@ if(isset($_SESSION['user_email']) && (isset($_SESSION['user_pass']))){
             <button type="submit">Entrar</button>
 
             <div class="remember-password">
-              <div class="left-items">
+              <!-- <div class="left-items">
                 <input type="checkbox" name="remember_password" id="chkrememberpassword">
                 <span>Lembrar Senha?</span>
-              </div>
+              </div> -->
               <div class="right-items">
                 <span>
                   <a href="../recuperar senha/index.php?email=<?php if ((isset($param))) {

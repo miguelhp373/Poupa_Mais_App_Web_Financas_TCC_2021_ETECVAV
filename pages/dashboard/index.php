@@ -312,26 +312,18 @@ try {
 }
 
 
-
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////
 //PESQUISA EVENTOS PARA NOTIFICAÇÕES
+$getActualDate = date('Y-m-d');
 try {
 
-  $searchEvents = $connection->prepare(
-    "SELECT title 
-    FROM eventstableapplicartion 
-    WHERE coduser   =   :cod  AND  DAY(end)  =   DAY(NOW())"
-  );
-  $searchEvents->bindParam(':cod', $user_cod);
+  $searchNotify = $connection->prepare("SELECT * FROM notificationtableapplication WHERE date = :date");
+  $searchNotify->bindParam(':date',$getActualDate);
+  $searchNotify->execute();
 
-  $searchEvents->execute();
+  if ($searchNotify->rowCount() > 0) {
 
-  if ($searchEvents->rowCount() > 0) {
-
-    $rowEvents = $searchEvents->fetchAll(PDO::FETCH_ASSOC);
-    $notifyData = $searchEvents->fetchAll(PDO::FETCH_ASSOC);
+    $notifyData = $searchNotify->fetchAll(PDO::FETCH_ASSOC);
   }
 } catch (PDOException $error) {
   die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
@@ -402,21 +394,6 @@ try {
   <script src="js/api_money/main.js"></script>
   <script src="js/buttons/btn_add_receita.js"></script>
   <script src="js/popup/main.js"></script>
-
-  <!--
-  <script>
-    //verifica se o navegador permite notificações
-    document.addEventListener('DOMContentLoaded', function() {
-      if (!Notification) {
-        alert('Desktop notifications not available in your browser. Try Chromium.');
-        return;
-      }
-
-      if (Notification.permission !== 'granted')
-        Notification.requestPermission();
-    });
-  </script>
-  -->
 
   <script>
     <?php
@@ -534,22 +511,22 @@ try {
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
           <?php
-          if (isset($rowEvents)) {
-            if ($rowEvents != null) { ?>
+          if (isset($notifyData)) {
+            if ($notifyData != null) { ?>
               <strong class="text-center">
                 &nbsp;
                 Notificações
                 &nbsp;
               </strong>
               <?php
-              foreach ($rowEvents as $dataset) { ?>
+              foreach ($notifyData as $dataset) { ?>
 
                 <li>
                   <hr class="dropdown-divider">
                 </li>
                 <li>
                   <a class="dropdown-item" href="#">
-                    🔔 Evento <?php echo $dataset['title']; ?>
+                    🔔&nbsp;<?php echo $dataset['text']; ?>
                   </a>
                 </li>
             <?php }

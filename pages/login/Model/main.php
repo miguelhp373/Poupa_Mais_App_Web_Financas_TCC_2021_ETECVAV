@@ -34,10 +34,10 @@ if ($loginquery->rowCount() > 0) {
             $_SESSION['sucess_msg'] =   '';
         }
         
-        if(isset($_POST['remember_password'])){
-            $_SESSION['setRememberUser']   = $_SESSION['user_email'];
-            $_SESSION['setPassWord']       = $_SESSION['user_pass'];
-        }
+        // if(isset($_POST['remember_password'])){
+        //     $_SESSION['setRememberUser']   = $_SESSION['user_email'];
+        //     $_SESSION['setPassWord']       = $_SESSION['user_pass'];
+        // }
 
         header('Location: ../../dashboard/index.php');
     } else {

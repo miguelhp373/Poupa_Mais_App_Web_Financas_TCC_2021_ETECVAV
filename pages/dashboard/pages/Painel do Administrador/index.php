@@ -201,27 +201,26 @@ try {
                     </span>
                 </div>
             </div>
-            <a href="pages/new post/index.php" class="link_menu">
-                <i class="fas fa-file-medical"></i>
-                Criar Post
-            </a>
+
             <a href="pages/my posts/index.php" class="link_menu">
                 <i class="far fa-clone"></i>
                 Meus Posts
             </a>
 
-            <a href="pages/my posts/index.php" class="link_menu">
+            <a href="pages/new post/index.php" class="link_menu">
+                <i class="fas fa-file-medical"></i>
+                Criar Post
+            </a>
+
+            <a href="pages/new notification/pages/index.php" class="link_menu">
+                <i class="far fa-clone"></i>
+                Notificações
+            </a>
+
+            <a href="pages/new notification/index.php" class="link_menu">
                 <i class="far fa-bell"></i>
                 Nova Notificação
             </a>
-
-            <!-- <a href="#" class="link_menu">
-                <i class="far fa-comments"></i>
-                Mensagens
-            </a> -->
-
-
-
 
         </div>
 
