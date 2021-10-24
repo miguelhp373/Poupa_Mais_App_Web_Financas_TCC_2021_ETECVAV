@@ -116,7 +116,7 @@ try {
     <div class="nav_bar_top_mobile">
         <nav class="navbar navbar-expand-lg navbar-light bg-light mobile-navbar">
             <div class="container-fluid">
-                <a class="navbar-brand" href="../../index.php">Logo</a>
+                <a class="navbar-brand" href="../../index.php">Poupa+</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-bars btn_menu"></i>
                 </button>
@@ -130,7 +130,7 @@ try {
                             <a class="nav-link" href="../Calendario/index.php">Calendário</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Blog</a>
+                            <a class="nav-link" href="../../../blog/index.php">Blog</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../Ajuda/ajuda.php">Ajuda</a>
@@ -232,12 +232,10 @@ try {
                 <form action="Model/main.php" method="post">
 
                     <div class="row-01">
-                        <input type="text" placeholder="Nome" name='nome' value="<?php echo $user_name ?>">
-                        <input type="email" placeholder="Email" name="email" value="<?php echo $user_email ?>">
-                    </div>
-                    <div class="row-03">
+                        <input type="text" class="fields" placeholder="Nome" name='nome' value="<?php echo $user_name ?>">
+                        <input type="email" class="fields" placeholder="Email" name="email" value="<?php echo $user_email ?>">
                         <div class="field_pass">
-                            <input type="password" name="senha" placeholder="Senha" id="pass_field">
+                            <input style="    margin-left: -8px;" type="password" class="fields" name="senha" placeholder="Senha" id="pass_field">
                             <i class="fas fa-eye-slash" id="togglePassword01"></i>
                         </div>
                     </div>
