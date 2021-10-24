@@ -374,7 +374,7 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
                 Home
             </a>
 
-            <a href="../Minha conta/index.php" class="link_menu">
+            <a href="../Minha_conta/index.php" class="link_menu">
                 <i class="fas fa-user-alt"></i>
                 Minha Conta
             </a>
@@ -383,7 +383,7 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
                 <i class="fas fa-rss-square"></i>
                 Blog
             </a>
-            <a href="#" class="link_menu">
+            <a href="../Ajuda/index.php" class="link_menu">
                 <i class="fas fa-question"></i>
                 Ajuda
             </a>

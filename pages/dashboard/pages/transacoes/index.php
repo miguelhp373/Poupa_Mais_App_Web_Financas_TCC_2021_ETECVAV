@@ -259,7 +259,7 @@ if (isset($_GET['id'])) {
         <div class="nav_bar_top_mobile">
             <nav class="navbar navbar-expand-lg navbar-light bg-light mobile-navbar">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="../../index.php">Logo</a>
+                    <a class="navbar-brand" href="../../index.php">Poupa+</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-bars btn_menu"></i>
                     </button>
@@ -270,10 +270,10 @@ if (isset($_GET['id'])) {
                                 <a class="nav-link" href="../Transacoes/index.php">Transações</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Dicas</a>
+                                <a class="nav-link" href="../../../blog/index.php">Blog</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../Ajuda/ajuda.php">Ajuda</a>
+                                <a class="nav-link" href="../Ajuda/index.php">Ajuda</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="../../../login/index.php?login=logout">Sair</a>
@@ -306,7 +306,7 @@ if (isset($_GET['id'])) {
                 Home
             </a>
 
-            <a href="../Minha conta/index.php" class="link_menu">
+            <a href="../Minha_conta/index.php" class="link_menu">
                 <i class="fas fa-user-alt"></i>
                 Minha Conta
             </a>
@@ -321,7 +321,7 @@ if (isset($_GET['id'])) {
                 Blog
             </a>
 
-            <a href="../Ajuda/ajuda.ph" class="link_menu">
+            <a href="../Ajuda/ajuda.php" class="link_menu">
                 <i class="fas fa-question"></i>
                 Ajuda
             </a>

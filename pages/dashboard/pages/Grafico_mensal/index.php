@@ -250,7 +250,7 @@ try {
                 Home
             </a>
 
-            <a href="../Minha conta/index.php" class="link_menu">
+            <a href="../Minha_conta/index.php" class="link_menu">
                 <i class="fas fa-user-alt"></i>
                 Minha Conta
             </a>

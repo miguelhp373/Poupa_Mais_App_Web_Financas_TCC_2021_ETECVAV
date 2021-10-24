@@ -85,7 +85,7 @@ if (isset($_GET['page'])) {
           <span> Fale Conosco </span>
         </a>
 
-        <a href="../criar conta/index.php">
+        <a href="../criar_conta/index.php">
           <span>Criar Conta</span>
         </a>
       </div>
@@ -113,7 +113,7 @@ if (isset($_GET['page'])) {
               <a class="nav-link" href="pages/dicas/index.php">Dicas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../criar conta/index.php">Criar Conta</a>
+              <a class="nav-link" href="../criar_conta/index.php">Criar Conta</a>
             </li>
           </ul>
         </div>
@@ -157,7 +157,7 @@ if (isset($_GET['page'])) {
               </div> -->
               <div class="right-items">
                 <span>
-                  <a href="../recuperar senha/index.php?email=<?php if ((isset($param))) {
+                  <a href="../recuperar_senha/index.php?email=<?php if ((isset($param))) {
                                                                 echo $param;
                                                               } else {
                                                                 echo '';

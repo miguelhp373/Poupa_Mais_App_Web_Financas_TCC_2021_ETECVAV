@@ -42,6 +42,17 @@ if (isset($_SESSION['Msg_error'])) {
   <!-- Mask Input JS -->
   <script src="https://cdn.jsdelivr.net/gh/miguelhp373/MaskInputJS/maskjs@1.3/maskjs.min.js"></script>
 
+  <style>
+    .email-link {
+      color: #FFF;
+      transition: 0.2s;
+    }
+
+    .email-link :hover {
+      color: #ecf0f1;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -120,7 +131,7 @@ if (isset($_SESSION['Msg_error'])) {
           O Poupa+ é o seu melhor amigo no controle financeiro. <br> Adicione seus rendimentos,
           gastos e despesas na plataforma e tenha a sua vida financeira <br> sempre sob controle.
         </p>
-        <a href="pages/criar conta/index.php">
+        <a href="pages/criar_conta/index.php">
           <button class="btn_discovery">
             Começar
           </button>
@@ -139,7 +150,7 @@ if (isset($_SESSION['Msg_error'])) {
           descomplicando o dia a dia e trazendo informações de fácil visualização para que você
           entenda para onde está indo seu dinheiro e onde você pode economizar.
         </p>
-        <a href="pages/criar conta/index.php">
+        <a href="pages/criar_conta/index.php">
           <button class="btn_info">Começar</button>
         </a>
       </div>
@@ -243,6 +254,8 @@ if (isset($_SESSION['Msg_error'])) {
     <div class="footer_bar">
       <div class="copyright_text mx-auto text-center p-2">
         <span> 2021 | &copy;Poupa+</span>
+        <br>
+        <span><a href="mailto: apppoupamais@gmail.com" class="email-link">apppoupamais@gmail.com</a></span>
       </div>
 
     </div>

@@ -421,7 +421,7 @@ try {
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="pages/minha conta/index.php">Minha Conta</a>
+              <a class="nav-link" href="pages/minha_conta/index.php">Minha Conta</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="pages/Transacoes/index.php">Transações</a>
@@ -459,7 +459,7 @@ try {
         </div>
       </div>
 
-      <a href="pages/minha conta/index.php" class="link_menu">
+      <a href="pages/minha_conta/index.php" class="link_menu">
         <i class="fas fa-user-alt"></i>
         Minha Conta
       </a>
@@ -479,7 +479,7 @@ try {
 
       <?php if ($access_user === 'master') { ?>
 
-        <a href="pages/Painel do Administrador/index.php" class="link_menu">
+        <a href="pages/Painel_do_Administrador/index.php" class="link_menu">
           <i class="fas fa-tachometer-alt"></i>
           Painel ADM
         </a>
@@ -719,7 +719,7 @@ try {
             </a>
           </li>
           <li>
-            <a href="pages/grafico mensal/index.php?page=chart">
+            <a href="pages/Grafico_mensal/index.php?page=chart">
               <button title="Gráfico Mensal">
                 <i class="fas fa-chart-bar"></i>
               </button>
