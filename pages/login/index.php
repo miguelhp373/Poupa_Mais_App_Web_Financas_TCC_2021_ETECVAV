@@ -106,9 +106,6 @@ if(isset($_SESSION['user_email']) && (isset($_SESSION['user_pass']))){
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#Info_section">O Que Somos?</a>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="#planos_account">Nossos Planos</a>
-            </li> -->
             <li class="nav-item">
               <a class="nav-link" href="#form_contact">Fale Conosco</a>
             </li>

@@ -99,14 +99,8 @@ try {
         ///////////////
         //RECEITA
         if ($type == 'receita') {
-     
-            //$saldo_atual    = number_format($user_Saldo, 2,',', '.');
-            // $getValor       = number_format($valor, 2, '.', ',');
-            
-   
-             $saldo_atual    = str_replace (',', '.', str_replace ('.', '', $user_Saldo));
-            // $getValor       = str_replace (',', '.', str_replace ('.', '', $valor));
-        
+
+            $saldo_atual    = str_replace (',', '.', str_replace ('.', '', $user_Saldo));
 
             $newSaldo = $saldo_atual + $getValor;
  
@@ -133,8 +127,6 @@ try {
         ////DESPESA
         if ($type == 'despesa') {
 
-            //$saldo_atual    = number_format($user_Saldo, 2, '.', ',');
-
             $saldo_atual    = str_replace (',', '.', str_replace ('.', '', $user_Saldo));
 
             $newSaldo = $saldo_atual - $getValor;
@@ -159,7 +151,7 @@ try {
         ///////////////////////////////////////////////////////////
 
     } else {
-        //echo 'ESCOPO DE ERRO';
+        die('<br>Erro Ao Tentar se comunicar com o Servidor! Tente Novamente Mais Tarde');
     }
 } catch (PDOException $error) {
     die('<br>Erro Ao Tentar se comunicar com o Servidor! Tente Novamente Mais Tarde');

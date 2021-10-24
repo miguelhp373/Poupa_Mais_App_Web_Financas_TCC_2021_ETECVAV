@@ -24,22 +24,27 @@ try {
 
 
 //adiciona visualizações ao post
-try{
-    $setNewValue = $getView;
-    if($getView == 0){
-        $setNewValue = 1;
+
+if(isset($getView)){
+    try{
+        $setNewValue = $getView;
+        if($getView == 0){
+            $setNewValue = 1;
+        }
+    
+        $setNewValue += 1;
+    
+        $AddViewOnPost = $connection->prepare("UPDATE blog_posts SET views = :Newview WHERE id = :id");
+        $AddViewOnPost->bindParam(':id', $get_Id);
+        $AddViewOnPost->bindParam(':Newview',$setNewValue);
+        $AddViewOnPost->execute();
+    
+    } catch(PDOException $error){
+        die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
     }
-
-    $setNewValue += 1;
-
-    $AddViewOnPost = $connection->prepare("UPDATE blog_posts SET views = :Newview WHERE id = :id");
-    $AddViewOnPost->bindParam(':id', $get_Id);
-    $AddViewOnPost->bindParam(':Newview',$setNewValue);
-    $AddViewOnPost->execute();
-
-} catch(PDOException $error){
-    die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
+
+
 
 ?>
 
@@ -92,7 +97,7 @@ try{
         <div class="row_nav_bar">
             <div class="left_logo">
                 <a href="../index.php">
-                    <h1>LOGO
+                    <h1>Poupa+
                         <sup>Blog</sup>
                     </h1>
                 </a>
@@ -106,7 +111,7 @@ try{
         <nav class="navbar navbar-expand-lg navbar-light bg-light mobile">
             <div class="container-fluid">
                 <a class="navbar-brand" href="../index.php">
-                    Logo
+                    Poupa+
                     <sup>Blog</sup>
                 </a>
             </div>
@@ -135,7 +140,10 @@ try{
                                 <strong>
                                     <?php echo $get_Data['creatorpost']; ?>
                                 </strong>
-                                &nbsp; - &nbsp; <?php echo date('d/m/y', strtotime($get_Data['date'])); ?>
+                                &nbsp; - &nbsp; 
+                                <span class="date-send">
+                                <?php echo date('d/m/y', strtotime($get_Data['date'])); ?>
+                                </span>
                             </span>
                             <hr>                
                         </div>

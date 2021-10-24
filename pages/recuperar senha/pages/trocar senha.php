@@ -16,7 +16,7 @@ if (isset($_SESSION['AlterPassWord']) && isset($_SESSION['ValidationCode']) && i
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Recuperar Senha | Nome do App</title>
+    <title>Recuperar Senha | Poupa+</title>
     <!--Criado em 06/08/2021-->
 
     <!--Jquery-->
@@ -51,7 +51,7 @@ if (isset($_SESSION['AlterPassWord']) && isset($_SESSION['ValidationCode']) && i
         <div class="row_nav_bar">
             <div class="left_logo">
                 <a href="#">
-                    <h1>LOGO</h1>
+                    <h1>Poupa+</h1>
                 </a>
             </div>
 

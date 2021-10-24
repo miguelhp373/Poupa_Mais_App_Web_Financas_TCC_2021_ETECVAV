@@ -130,6 +130,151 @@ try {
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
+function newOperation($cod, $tipo, $data, $categoria, $descricao, $valor, $automatico, $connection)
+{
+
+  if ($automatico !== null) {
+    $automatico = "S";
+    $dateAuto = date('Y-m-d', strtotime('+1 months', strtotime($data)));
+  } else {
+    $automatico = "N";
+    $dateAuto = null;
+  }
+
+  /////////////////////////////////////////////////////////////////
+  //PESQUISA SALDO
+  $searchinfos = $connection->prepare("SELECT cod, saldo FROM userstableapplication WHERE email = :email LIMIT 1");
+  $searchinfos->bindParam(':email', $_SESSION['user_email']);
+
+  $searchinfos->execute();
+
+  if ($searchinfos->rowCount() > 0) {
+
+    $row = $searchinfos->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($row as $getdata) {
+      $user_cod      =   $getdata['cod'];
+      $user_Saldo      =   $getdata['saldo'];
+    }
+  }
+  //////////////////////////////////////////////////////////////
+  //INSERT OPERATION
+
+  try {
+    $getValor       = str_replace(',', '.', str_replace('.', '', $valor));
+
+    $insert = $connection->prepare("INSERT INTO operationsapplication (idUser, tipo , data, categoria, descricao, valor, automatico, proximoAuto) VALUES (:cod_user,:tipo, :data, :cate,  :descri, :valor, :auto,:dateAuto)");
+
+    $insert->bindParam(':cod_user', $user_cod);
+    $insert->bindParam(':tipo', $tipo);
+    $insert->bindParam(':cate', $categoria);
+    $insert->bindParam(':descri', $descricao);
+    $insert->bindParam(':data', $data);
+    $insert->bindParam(':valor', $getValor);
+    $insert->bindParam(':auto', $automatico);
+    $insert->bindParam(':dateAuto', $dateAuto);
+
+    $insert->execute();
+
+
+    if ($insert->rowCount() > 0) {
+
+
+      //SALDO
+
+      ///////////////
+      //RECEITA
+      if ($tipo == 'receita') {
+
+        $saldo_atual    = str_replace(',', '.', str_replace('.', '', $user_Saldo));
+
+        $newSaldo = $saldo_atual + $getValor;
+
+
+        try {
+          $UpdateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :saldo  WHERE cod = :id LIMIT 1");
+          $UpdateSaldo->bindParam(':id', $user_cod);
+          $UpdateSaldo->bindParam(':saldo', $newSaldo);
+
+          $UpdateSaldo->execute();
+
+
+          if ($UpdateSaldo->rowCount() > 0) {
+            header('Location: index.php');
+          }
+        } catch (PDOException $error) {
+          $_SESSION['Msg_error']  =   "Erro ao Tentar Adicionar Nova " . $tipo;
+          header('Location: index.php');
+          die();
+        }
+      }
+
+      ////////////// 
+      ////DESPESA
+      if ($tipo == 'despesa') {
+
+        $saldo_atual    = str_replace(',', '.', str_replace('.', '', $user_Saldo));
+
+        $newSaldo = $saldo_atual - $getValor;
+
+        try {
+          $UpdateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :saldo  WHERE cod = :id LIMIT 1");
+          $UpdateSaldo->bindParam(':id', $user_cod);
+          $UpdateSaldo->bindParam(':saldo', $newSaldo);
+
+          $UpdateSaldo->execute();
+
+
+          if ($UpdateSaldo->rowCount() > 0) {
+            header('Location: index.php');
+          }
+        } catch (PDOException $error) {
+          $_SESSION['Msg_error_01']  =   "Erro ao Tentar Adicionar Nova " . $tipo;
+          header('Location: ../index.php');
+          die();
+        }
+      }
+      ///////////////////////////////////////////////////////////
+
+      ////////////////////////////////////////////
+      //remove a data automatica da data atual
+
+      $removeAuto = null;
+      $SetAuto    = 'N';
+
+      try {
+        $UpdateData = $connection->prepare("UPDATE operationsapplication SET proximoAuto = :data, automatico = :setAuto  WHERE cod = :cod LIMIT 1");
+        $UpdateData->bindParam(':cod', $cod);
+        $UpdateData->bindParam(':data', $removeAuto);
+        $UpdateData->bindParam(':setAuto', $SetAuto);
+
+        $UpdateData->execute();
+
+
+        if ($UpdateData->rowCount() > 0) {
+          header('Location: index.php');
+          die();
+        }
+      } catch (PDOException $error) {
+        header('Location: index.php');
+        die();
+      }
+
+
+
+      //////////////////////////////////////////////////////////
+
+    } else {
+      die('<br>Erro Ao Tentar se comunicar com o Servidor! Tente Novamente Mais Tarde');
+    }
+  } catch (PDOException $error) {
+    die('<br>Erro Ao Tentar se comunicar com o Servidor! Tente Novamente Mais Tarde');
+  }
+}
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 //automatização de operações
@@ -138,8 +283,9 @@ try {
 try {
 
   $searchLancamento = $connection->prepare(
-    "INSERT INTO operationsapplication VALUES(descricao, data)
-    WHERE idUser   =   :cod  AND automatico = 'S' 
+    "SELECT cod, idUser, tipo , data, categoria, descricao, valor, automatico, proximoAuto
+    FROM operationsapplication 
+    WHERE idUser   =   :cod  AND automatico = 'S' AND proximoAuto =  '2021-11-25'
     "
   );
   $searchLancamento->bindParam(':cod', $user_cod);
@@ -147,8 +293,23 @@ try {
   $searchLancamento->execute();
 
   if ($searchLancamento->rowCount() > 0) {
-    echo 'biuwdbjhbsd';
+
     $rowLancamentos = $searchLancamento->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($rowLancamentos as $getdata) {
+      $cod            =   $getdata['cod'];
+      $idUser         =   $getdata['idUser'];
+      $tipo           =   $getdata['tipo'];
+      $data           =   $getdata['data'];
+      $categoria      =   $getdata['categoria'];
+      $descricao      =   $getdata['descricao'];
+      $valor          =   $getdata['valor'];
+      $automatico     =   $getdata['automatico'];
+      $proximoAuto    =   $getdata['proximoAuto'];
+    }
+
+    newOperation($cod, $tipo, $data, $categoria, $descricao, $valor, $automatico, $connection);
+    $searchLancamento = null;
   }
 } catch (PDOException $error) {
   die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
@@ -246,7 +407,7 @@ try {
   <script src="js/buttons/btn_add_receita.js"></script>
   <script src="js/popup/main.js"></script>
 
-<!--
+  <!--
   <script>
     //verifica se o navegador permite notificações
     document.addEventListener('DOMContentLoaded', function() {
@@ -419,7 +580,7 @@ try {
         if (isset($_SESSION['MsgCategorieError'])) {
           if (($_SESSION['MsgCategorieError'] !== '')) {
             echo '<div class="alert alert-danger" role="alert" >
-                    '.$_SESSION['MsgCategorieError'].'
+                    ' . $_SESSION['MsgCategorieError'] . '
                   </div> ';
 
             $_SESSION['MsgCategorieError'] = '';
@@ -618,7 +779,7 @@ try {
             <form action="" method="POST" id="form_actions">
 
               <div class="col_dates" style="margin-top: 10px;">
-                <input type="text" name="value" class="fieds-pop money2"  placeholder="Valor R$" required>
+                <input type="text" name="value" class="fieds-pop money2" placeholder="Valor R$" required>
                 <br>
                 <div class="row_categories">
                   <select name="categorias" id="" class="fieds-pop" required>

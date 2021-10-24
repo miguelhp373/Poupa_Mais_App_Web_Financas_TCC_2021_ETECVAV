@@ -39,6 +39,13 @@
     .content-post{
         width: 80%;
     }
+    .date-send{
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 

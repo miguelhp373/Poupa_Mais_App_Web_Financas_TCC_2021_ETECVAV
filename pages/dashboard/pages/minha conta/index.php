@@ -235,12 +235,6 @@ try {
                         <input type="text" placeholder="Nome" name='nome' value="<?php echo $user_name ?>">
                         <input type="email" placeholder="Email" name="email" value="<?php echo $user_email ?>">
                     </div>
-
-                    <!-- <div class="row-02">
-                        <input type="text" placeholder="Telefone" name="telefone" class='inputnumberphoneformat' value="<?php echo $user_telefone ?>">
-                        <input type="text" placeholder="CPF" name="cpf" class="inputCpfformat" value="<?php //echo $user_cpf ?>">
-                    </div> -->
-
                     <div class="row-03">
                         <div class="field_pass">
                             <input type="password" name="senha" placeholder="Senha" id="pass_field">

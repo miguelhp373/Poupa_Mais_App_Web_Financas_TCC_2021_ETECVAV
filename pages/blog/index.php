@@ -17,6 +17,23 @@ try {
   die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
 
+
+if(isset($_GET['search'])){
+
+  $queryText = filter_input(INPUT_GET,'search',FILTER_SANITIZE_URL);
+
+  try {
+    $searchPostsQuery = $connection->prepare("SELECT id, title, description, text, date, creatorpost, origin FROM blog_posts WHERE title LIKE '%".$queryText."%' ORDER BY date DESC");
+    $searchPostsQuery->execute();
+  
+    if ($searchPostsQuery->rowCount() > 0) {
+      $row = $searchPostsQuery->fetchAll(PDO::FETCH_ASSOC);
+    }
+  } catch (PDOException $error) {
+    die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+  }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -74,12 +91,17 @@ try {
           </h1>
         </a>
       </div>
-      
-      <div class="right_menu">
-        <div class="search-field">
-          <input type="search" placeholder="Procurar">
+
+      <form action="index.php" method="get">
+        <div class="right_menu">
+          <div class="search-field">
+            <input type="search" placeholder="Procurar" name="search" class="search-box" value="<?php if(isset($_GET['search'])){ echo $_GET['search'];}?>">
+            <button type="submit" class="btn-search">
+              Buscar
+            </button>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
   <!------------------>
@@ -94,16 +116,16 @@ try {
           Poupa+
           <sup>Blog</sup>
         </a>
-        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fas fa-bars btn_menu"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
 
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+          <form class="d-flex" action="index.php" method="get">
+            <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" value="<?php if(isset($_GET['search'])){ echo $_GET['search'];}?>">
+            <button class="btn btn-light" type="submit">Buscar</button>
           </form>
-        </div> -->
+        </div>
       </div>
     </nav>
 
@@ -112,11 +134,11 @@ try {
 
   <div class="container-content">
     <div class="content">
-    <div class="btn_back_home">
-                <a href="../../index.php">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-            </div>
+      <div class="btn_back_home">
+        <a href="../../index.php">
+          <i class="fas fa-arrow-left"></i>
+        </a>
+      </div>
       <?php
       foreach ($row as $getdata) { ?>
         <a href="view/post.php?id=<?php echo $getdata['id']; ?>">
@@ -125,14 +147,14 @@ try {
               <h1><?php echo $getdata['title']; ?></h1>
             </div>
             <div class="post_content">
-              <p><?php echo  substr($getdata['description'],0,200); ?>...</p>
-             
+              <p><?php echo  substr($getdata['description'], 0, 200); ?>...</p>
+
               <strong>
-              <span class="read_more">Continue Lendo</span>
+                <span class="read_more">Continue Lendo</span>
               </strong>
-             
+
             </div>
-            
+
           </div>
         </a>
       <?php

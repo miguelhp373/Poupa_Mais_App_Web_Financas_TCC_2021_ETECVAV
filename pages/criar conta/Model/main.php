@@ -58,7 +58,7 @@ if($_POST['pass_user'] !== $_POST['pass_user_confirm']){
 
 
 $cat = '[{"id":"0","description":"Compras"},{"id":"1","description":"Supermercado"},{"id":"2","description":"Salário"},{"id":"3","description":"Pagamentos"}]';
-
+$defaultPath = '/source/assets/avatar_profiles/default.png';
 
 try{
     $existsUser =   $connection->prepare("SELECT * FROM userstableapplication WHERE email = :email LIMIT 1");
@@ -82,7 +82,7 @@ try{
         
         try{
         
-            $insert = $connection->prepare("INSERT INTO userstableapplication (Nome, email, telefone, senha, categorias) VALUES (:nome,:email, :telefone, :pass, :categories)");
+            $insert = $connection->prepare("INSERT INTO userstableapplication (Nome, email, telefone, senha, categorias, image_user) VALUES (:nome,:email, :telefone, :pass, :categories, :imageDefault)");
             
             $insert->bindParam(':nome',$UserName);
             $insert->bindParam(':email',$_SESSION['email_user']);
@@ -90,6 +90,7 @@ try{
             $insert->bindParam(':telefone',$UserPhoneNumber );
             $insert->bindParam(':pass',$UserPass);
             $insert->bindParam(':categories',$cat);
+            $insert->bindParam(':imageDefault',$defaultPath);
             
             $insert->execute();
             

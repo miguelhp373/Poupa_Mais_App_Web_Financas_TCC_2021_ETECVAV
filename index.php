@@ -117,8 +117,8 @@ if (isset($_SESSION['Msg_error'])) {
       <div class="coluna_top_right">
         <h1>Bem Vindo</h1>
         <p>
-        O Poupa+ é o seu melhor amigo no controle financeiro. <br> Adicione seus rendimentos,
-        gastos e despesas na plataforma e tenha a sua vida financeira  <br> sempre sob controle.
+          O Poupa+ é o seu melhor amigo no controle financeiro. <br> Adicione seus rendimentos,
+          gastos e despesas na plataforma e tenha a sua vida financeira <br> sempre sob controle.
         </p>
         <a href="pages/criar conta/index.php">
           <button class="btn_discovery">
@@ -134,97 +134,20 @@ if (isset($_SESSION['Msg_error'])) {
     <div class="info_section" id="Info_section">
       <div class="coluna_01">
         <h1>Quem Somos?</h1>
-        <!-- <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora
-            non quia, quas doloremque voluptas exercitationem necessitatibus
-            tempore, mollitia commodi voluptates obcaecati fugit. Facere eaque
-            cum iusto at. Itaque, repudiandae culpa.
-          </p> -->
         <p>
-          Essa plataforma foi desenvolvida para facilitar a gestão de suas finanças pessoais, 
-          descomplicando o dia a dia e trazendo informações de fácil visualização para que você 
+          Essa plataforma foi desenvolvida para facilitar a gestão de suas finanças pessoais,
+          descomplicando o dia a dia e trazendo informações de fácil visualização para que você
           entenda para onde está indo seu dinheiro e onde você pode economizar.
         </p>
-        <button class="btn_info">Começar</button>
+        <a href="pages/criar conta/index.php">
+          <button class="btn_info">Começar</button>
+        </a>
       </div>
 
       <div class="coluna_02">
         <img src="source/assets/udraw_images/undraw_personal_finance_tqcd.svg" alt="" />
       </div>
     </div>
-    <!-------------------------->
-
-    <!-- Cards Container -->
-    <!-- <div class="cards_price container" id="planos_account">
-      <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-        <h1 class="display-4 fw-normal">Nossos Planos</h1>
-      </div>
-      <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-        <div class="col">
-          <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3">
-              <h4 class="my-0 fw-normal">Free</h4>
-            </div>
-            <div class="card-body">
-              <h1 class="card-title pricing-card-title">
-                $0<small class="text-muted fw-light">/mo</small>
-              </h1>
-              <ul class="list-unstyled mt-3 mb-4">
-                <li>10 users included</li>
-                <li>2 GB of storage</li>
-                <li>Email support</li>
-                <li>Help center access</li>
-              </ul>
-              <button type="button" class="w-100 btn btn-lg btn-outline-primary btn_cards">
-                Sign up for free
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mb-4 rounded-3 shadow-sm card_02_container">
-            <div class="card-header text-white bg-primary py-3 card_02">
-              <h4 class="my-0 fw-normal">Pro</h4>
-            </div>
-            <div class="card-body">
-              <h1 class="card-title pricing-card-title">
-                $15<small class="text-muted fw-light">/mo</small>
-              </h1>
-              <ul class="list-unstyled mt-3 mb-4">
-                <li>20 users included</li>
-                <li>10 GB of storage</li>
-                <li>Priority email support</li>
-                <li>Help center access</li>
-              </ul>
-              <button type="button" class="w-100 btn btn-lg btn-primary btn_cards">
-                Get started
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mb-4 rounded-3 shadow-sm border-primary">
-            <div class="card-header py-3">
-              <h4 class="my-0 fw-normal">Enterprise</h4>
-            </div>
-            <div class="card-body">
-              <h1 class="card-title pricing-card-title">
-                $29<small class="text-muted fw-light">/mo</small>
-              </h1>
-              <ul class="list-unstyled mt-3 mb-4">
-                <li>30 users included</li>
-                <li>15 GB of storage</li>
-                <li>Phone and email support</li>
-                <li>Help center access</li>
-              </ul>
-              <button type="button" class="w-100 btn btn-lg btn-outline-primary btn_cards">
-                Contact us
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
     <!-------------------------->
 
     <!-- Form De Contato -->
@@ -276,7 +199,7 @@ if (isset($_SESSION['Msg_error'])) {
                         pb-2
                       ">
                     <label class="p-1">Telefone</label>
-                    <input class="form-control inputnumberphoneformat" id="phone" name= 'telefone' type="tel" required="required" data-validation-required-message="Insira seu telefone." />
+                    <input class="form-control inputnumberphoneformat" id="phone" name='telefone' type="tel" required="required" data-validation-required-message="Insira seu telefone." />
                     <p class="help-block text-danger"></p>
                   </div>
                 </div>
@@ -296,7 +219,7 @@ if (isset($_SESSION['Msg_error'])) {
                 <br />
                 <div id="sucesso"></div>
                 <div class="form-group d-flex justify-content-center">
-                  <button class="btn btn-primary btn-xl btn_submit_form" id="my-form-button" >
+                  <button class="btn btn-primary btn-xl btn_submit_form" id="my-form-button">
                     Enviar
                   </button>
                 </div>
