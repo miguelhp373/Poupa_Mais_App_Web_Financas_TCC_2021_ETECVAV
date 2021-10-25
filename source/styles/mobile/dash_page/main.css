@@ -187,3 +187,11 @@
     width: 88%;  
   }
 }
+
+
+@media (min-height: 1000px){
+  .column_content{
+    height: 50vh;  
+  }
+}
+
