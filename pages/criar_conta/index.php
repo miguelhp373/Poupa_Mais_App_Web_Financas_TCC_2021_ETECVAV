@@ -83,11 +83,11 @@ if (isset($_GET['page'])) {
       <div class="container-fluid">
         <a class="navbar-brand" href="../../index.php">Poupa<sup>+</sup></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="fas fa-bars btn_menu"></i>
+          <i class="fas fa-bars" style="color: #FFFF;"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-          <li class="nav-item">
+            <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="../../index.php">Home</a>
             </li>
             <li class="nav-item">
@@ -106,8 +106,11 @@ if (isset($_GET['page'])) {
         </div>
       </div>
     </nav>
+
   </div>
   <!------------------>
+
+
 
   <main>
     <div class="background_cover_newaccount">
@@ -143,34 +146,34 @@ if (isset($_GET['page'])) {
   </main>
 
   <script>
-    $('#togglePassword01').click(function(){
-      
-      if(($('#togglePassword01').attr('class') === 'fas fa-eye-slash') && ($('#id_password').attr('type') === 'password')){
-        $('#id_password').attr('type','text')
-        $('#togglePassword01').removeClass('fa-eye-slash') 
+    $('#togglePassword01').click(function() {
+
+      if (($('#togglePassword01').attr('class') === 'fas fa-eye-slash') && ($('#id_password').attr('type') === 'password')) {
+        $('#id_password').attr('type', 'text')
+        $('#togglePassword01').removeClass('fa-eye-slash')
         $('#togglePassword01').addClass('fa-eye')
-      } else{ 
-        $('#id_password').attr('type','password')
-        $('#togglePassword01').removeClass('fa-eye') 
+      } else {
+        $('#id_password').attr('type', 'password')
+        $('#togglePassword01').removeClass('fa-eye')
         $('#togglePassword01').addClass('fa-eye-slash')
-        
+
       }
- 
+
     })
 
-    $('#togglePassword02').click(function(){
-      
-      if(($('#togglePassword02').attr('class') === 'fas fa-eye-slash') && ($('#id_password_confirm').attr('type') === 'password')){
-        $('#id_password_confirm').attr('type','text')
-        $('#togglePassword02').removeClass('fa-eye-slash') 
+    $('#togglePassword02').click(function() {
+
+      if (($('#togglePassword02').attr('class') === 'fas fa-eye-slash') && ($('#id_password_confirm').attr('type') === 'password')) {
+        $('#id_password_confirm').attr('type', 'text')
+        $('#togglePassword02').removeClass('fa-eye-slash')
         $('#togglePassword02').addClass('fa-eye')
-      } else{ 
-        $('#id_password_confirm').attr('type','password')
-        $('#togglePassword02').removeClass('fa-eye') 
+      } else {
+        $('#id_password_confirm').attr('type', 'password')
+        $('#togglePassword02').removeClass('fa-eye')
         $('#togglePassword02').addClass('fa-eye-slash')
-        
+
       }
- 
+
     })
   </script>
 

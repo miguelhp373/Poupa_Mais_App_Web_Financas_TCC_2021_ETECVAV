@@ -569,7 +569,7 @@ if (isset($_GET['id'])) {
                                         Editar
                                     </h1>
                                 </div>
-                                <form action="models/ActionOperation.php?operation=edit&id=<?php echo base64_encode($codTransaction) ?>&EditValue=<?php echo $getOperation['valor']; ?>" method="POST" id="form_actions">
+                                <form action="models/ActionOperation.php?operation=edit&id=<?php echo base64_encode($codTransaction) ?>&EditValue=<?php echo $getOperation['valor']; ?>" method="POST" id="form_actions" autocomplete="false">
 
                                     <div class="col_dates" style="margin-top: 10px;">
                                         <strong style="width: 100%;"><span>Valor:</span></strong>

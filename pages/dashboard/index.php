@@ -749,10 +749,10 @@ try {
                 <!--Aqui Vai o Titulo da Janela-->
               </h1>
             </div>
-            <form action="" method="POST" id="form_actions">
+            <form action="" method="POST" id="form_actions" autocomplete="off">
 
               <div class="col_dates" style="margin-top: 10px;">
-                <input type="text" name="value" class="fieds-pop money2" placeholder="Valor R$" required>
+                <input type="text" name="value" class="fieds-pop money2" placeholder="Valor R$" required autocomplete="off">
                 <br>
                 <div class="row_categories">
                   <select name="categorias" id="" class="fieds-pop" required>
@@ -819,7 +819,7 @@ try {
                 Categorias
               </h1>
             </div>
-            <form action="model/categories/addCategories.php" method="POST" id="form_actions">
+            <form action="model/categories/addCategories.php" method="POST" id="form_actions" autocomplete="false">
 
               <div class="row_fields">
                 <input type="text" name="newCategorie" class="fieds-pop" placeholder="Adicionar Categoria" required autocomplete="off">
