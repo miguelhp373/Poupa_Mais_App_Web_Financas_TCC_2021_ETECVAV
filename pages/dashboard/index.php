@@ -421,7 +421,7 @@ try {
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="pages/minha_conta/index.php">Minha Conta</a>
+              <a class="nav-link" href="pages/Minha_conta/index.php">Minha Conta</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="pages/Transacoes/index.php">Transações</a>
@@ -459,7 +459,7 @@ try {
         </div>
       </div>
 
-      <a href="pages/minha_conta/index.php" class="link_menu">
+      <a href="pages/Minha_conta/index.php" class="link_menu">
         <i class="fas fa-user-alt"></i>
         Minha Conta
       </a>
