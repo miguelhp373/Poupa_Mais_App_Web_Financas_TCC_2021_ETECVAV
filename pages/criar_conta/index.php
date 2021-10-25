@@ -87,14 +87,17 @@ if (isset($_GET['page'])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#Info_section">O Que Somos?</a>
+          <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="../../index.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#form_contact">Fale Conosco</a>
+              <a class="nav-link" href="../../index.php#Info_section">O Que Somos?</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../dicas/index.php">Dicas</a>
+              <a class="nav-link" href="../../index.php#form_contact">Fale Conosco</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../blog/index.php">Blog</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../login/index.php?page=login+from+create">Entrar</a>

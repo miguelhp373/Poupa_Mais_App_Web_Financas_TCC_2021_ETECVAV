@@ -229,6 +229,11 @@ if (isset($_GET['id'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
+    <!-- Material Design Lite -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
 
     <!--Icones FontAwesome-->
     <script src="https://kit.fontawesome.com/bb41ae50aa.js" crossorigin="anonymous"></script>
@@ -267,7 +272,7 @@ if (isset($_GET['id'])) {
                         <ul class="navbar-nav">
 
                             <li class="nav-item">
-                                <a class="nav-link" href="../Transacoes/index.php">Transações</a>
+                                <a class="nav-link" href="../Minha_conta/index.php">Minha Conta</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="../../../blog/index.php">Blog</a>
@@ -387,7 +392,7 @@ if (isset($_GET['id'])) {
                                     <td><?php echo $getOperation['descricao']; ?></td>
                                     <td>R$ <?php echo number_format($getOperation['valor'], 2, ',', '.'); ?></td>
                                     <td style="text-align: center;">
-                                        <a href="index.php?id=<?php echo base64_encode($getOperation['cod']);?>&modal=true" style="color: #2c3e50;">
+                                        <a href="index.php?id=<?php echo base64_encode($getOperation['cod']); ?>&modal=true" style="color: #2c3e50;">
                                             <i class="far fa-edit"></i>
                                         </a>
                                     </td>
@@ -468,6 +473,18 @@ if (isset($_GET['id'])) {
                                 <div class="currency-value-display">
                                     R$ <?php echo number_format($getOperation['valor'], 2, ',', '.'); ?>
                                 </div>
+                                <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
+                                    <i class="material-icons">more_vert</i>
+                                </button>
+
+                                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+                                    <a href="index.php?id=<?php echo base64_encode($getOperation['cod']); ?>&modal=true">
+                                        <li class="mdl-menu__item">Editar</li>
+                                    </a>
+                                    <a href="models/ActionOperation.php?id=<?php echo base64_encode($getOperation['cod']); ?>&operation=delete">
+                                    <li class="mdl-menu__item">Apagar</li>
+                                    </a>
+                                </ul>
                             </div>
 
                         <?php }
@@ -552,7 +569,7 @@ if (isset($_GET['id'])) {
                                         Editar
                                     </h1>
                                 </div>
-                                <form action="models/ActionOperation.php?operation=edit&id=<?php echo base64_encode($codTransaction) ?>&EditValue=<?php echo $getOperation['valor'];?>" method="POST" id="form_actions">
+                                <form action="models/ActionOperation.php?operation=edit&id=<?php echo base64_encode($codTransaction) ?>&EditValue=<?php echo $getOperation['valor']; ?>" method="POST" id="form_actions">
 
                                     <div class="col_dates" style="margin-top: 10px;">
                                         <strong style="width: 100%;"><span>Valor:</span></strong>
