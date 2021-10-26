@@ -120,6 +120,23 @@ if(isset($_GET['search'])){
           <i class="fas fa-bars btn_menu"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="../../index.php">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../../index.php#Info_section">O Que Somos?</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../../index.php#form_contact">Fale Conosco</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../criar_conta/index.php">Criar Conta</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../login/index.php">Login</a>
+            </li>
+          </ul>
 
           <form class="d-flex" action="index.php" method="get">
             <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" value="<?php if(isset($_GET['search'])){ echo $_GET['search'];}?>">
