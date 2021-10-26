@@ -3,6 +3,8 @@
 session_start();
 require_once('../../source/controller/connection.php');
 
+date_default_timezone_set('America/Sao_Paulo');
+
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //VALIDA USUÁRIO
 if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
