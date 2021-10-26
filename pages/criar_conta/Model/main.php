@@ -9,6 +9,17 @@ $UserPhoneNumber            =   filter_input(INPUT_POST,'phonenumber_user',FILTE
 $UserPass                   =   password_hash(filter_input(INPUT_POST,'pass_user',FILTER_SANITIZE_STRING),PASSWORD_DEFAULT);
 
 
+
+///////////////////////
+//SALVA OS CAMPOS:
+
+$_SESSION['user_name_create_account']            =  $UserName; 
+$_SESSION['user_email_create_account']           =  $_SESSION['email_user'] ;
+$_SESSION['user_phone_create_account']           =  $UserPhoneNumber; 
+$_SESSION['user_pass_create_account']            =  $_POST['pass_user'];
+$_SESSION['user_passconfirm_create_account']     =  $_POST['pass_user_confirm']; 
+
+
 // function validaCPF($cpf) {
  
 //     // Extrai somente os números
@@ -50,7 +61,7 @@ $UserPass                   =   password_hash(filter_input(INPUT_POST,'pass_user
 if($_POST['pass_user'] !== $_POST['pass_user_confirm']){
 
     $_SESSION['Msg_error']  =   "As Senhas Não Batem! Verifique e Tente Novamente.";
-    header('Location: ../index.php');
+    header('Location: ../index.php?wrong_fields=true');
 
     die();
 }
@@ -69,7 +80,7 @@ try{
 
     if($existsUser->rowCount() > 0){
         $_SESSION['Msg_error']  =   "Erro ao Tentar Criar a Conta! Usuário Já Existente.";
-        header('Location: ../index.php');
+        header('Location: ../index.php?wrong_fields=true');
 
         die();
         
@@ -95,6 +106,14 @@ try{
             $insert->execute();
             
             if($insert->rowCount() > 0){
+
+                //LIMPA AS VARIAVEIS TEMPORARIAS
+                $_SESSION['user_name_create_account']            =  ''; 
+                $_SESSION['user_email_create_account']           =  '';
+                $_SESSION['user_phone_create_account']           =  '';
+                $_SESSION['user_pass_create_account']            =  '';
+                $_SESSION['user_passconfirm_create_account']     =  '';
+
                 header('location: ../../login/index.php?register=true');
             }else{
                 $_SESSION['Msg_error']  =   "Erro ao Tentar Criar a Conta! Tente Novamente Mais Tarde.";

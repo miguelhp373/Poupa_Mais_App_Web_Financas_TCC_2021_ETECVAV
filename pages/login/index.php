@@ -16,6 +16,13 @@ if (isset($_GET['register'])) {
   }
 }
 
+if (isset($_GET['wrong_fields'])) {
+  if ($_GET['wrong_fields'] == 'true') {
+    $param  = $_SESSION['user_email'];
+    $param1  = $_SESSION['user_pass'];
+  }
+}
+
 if (isset($_GET['page'])) {
   $_SESSION['Msg_error'] = '';
 }
@@ -145,7 +152,11 @@ if (isset($_GET['page'])) {
                                                                             echo '';
                                                                           } ?>" placeholder="Email" required />
             <div class="fields_pass">
-              <input type="password" name="user_pass" id="pass_field" placeholder="Senha" required />
+              <input type="password" name="user_pass" id="pass_field" placeholder="Senha" required  value="<?php if ((isset($param1))) {
+                                                                                                             echo $param1;
+                                                                                                                  } else {
+                                                                                                                  echo '';
+                                                                                                                  } ?>"/>
               <i class="fas fa-eye-slash" id="togglePassword01"></i>
             </div>
             <button type="submit">Entrar</button>

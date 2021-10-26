@@ -127,6 +127,12 @@
     outline: 0;
 }
 
+#togglePassword01, #togglePassword02{
+    margin-left:-55px;
+    cursor:pointer;
+}
+
+
 @media(min-width:1300px){
     .content{
         margin-top: 4rem;

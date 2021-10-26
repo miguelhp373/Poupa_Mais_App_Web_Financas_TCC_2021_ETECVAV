@@ -43,14 +43,14 @@ if ($loginquery->rowCount() > 0) {
     } else {
         $_SESSION['Authentication'] = '';
         $_SESSION['Msg_error'] = 'Senha Incorreta!';
-        header('Location: ../index.php');
+        header('Location: ../index.php?wrong_fields=true');
         die;
         //enviar uma mensagem de erro pro login
     }
 } else {
     $_SESSION['Msg_error'] = 'Usuário Não Encontrado!';
     $_SESSION['Authentication'] = '';
-    header('Location: ../index.php');
+    header('Location: ../index.php?wrong_fields=true');
     die;
     //enviar uma mensagem de erro pro login
 }

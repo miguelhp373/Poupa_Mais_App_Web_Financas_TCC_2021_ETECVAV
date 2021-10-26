@@ -1,9 +1,11 @@
 <?php
-$host = 'localhost'; //host type
-$port = '3306'; //host port
-$dbname = 'web_master'; //data base name
-$user = 'root'; //user database
-$pass = 'root'; //password from database
+require_once('config/ENV.php');
+
+$host   = $HOST_NAME; //host type
+$port   = $PORT_SERVER; //host port
+$dbname = $DATA_BASE_NAME; //data base name
+$user   = $USER_DATA_BASE; //user database
+$pass   = $PASS_DATA_BASE; //password from database
 
 
 try {

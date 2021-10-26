@@ -11,6 +11,16 @@ if (isset($_GET['page'])) {
   $_SESSION['Msg_error'] = '';
 }
 
+if (isset($_GET['wrong_fields'])) {
+  if ($_GET['wrong_fields'] == 'true') {
+    $param1  = $_SESSION['user_name_create_account'];
+    $param2  = $_SESSION['user_email_create_account'];
+    $param3  = $_SESSION['user_phone_create_account'];
+    $param4  = $_SESSION['user_pass_create_account'];
+    $param5  = $_SESSION['user_passconfirm_create_account'];
+  }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -125,17 +135,37 @@ if (isset($_GET['page'])) {
             <span class="text-success p-4"><?php echo $_SESSION['sucess_msg']; ?></span>
           <?php } ?>
           <form action="Model/main.php" method="POST" class="form_content">
-            <input type="text" name="name_user" id="name_user" placeholder="Nome Completo" required />
-            <input type="email" name="email_user" id="email_user" placeholder="Email" required />
-            <input type="text" name="phonenumber_user" id="phonenumber_user" class="inputnumberphoneformat" placeholder="Telefone" required />
+            <input type="text" name="name_user" id="name_user" placeholder="Nome Completo" required value="<?php if ((isset($param1))) {
+                                                                                                                                          echo $param1;
+                                                                                                                                        } else {
+                                                                                                                                          echo '';
+                                                                                                                                        } ?>"/>
+            <input type="email" name="email_user" id="email_user" placeholder="Email" required value="<?php if ((isset($param2))) {
+                                                                                                                                    echo $param2;
+                                                                                                                                  } else {
+                                                                                                                                    echo '';
+                                                                                                                                  } ?>"/>
+            <input type="text" name="phonenumber_user" id="phonenumber_user" class="inputnumberphoneformat" placeholder="Telefone" required value="<?php if ((isset($param3))) {
+                                                                                                                                                                                echo $param3;
+                                                                                                                                                                               } else {
+                                                                                                                                                                                echo '';
+                                                                                                                                                                               } ?>"/>
 
             <div class="fields">
-              <input type="password" name="pass_user" id="id_password" placeholder="Senha" required />
+              <input type="password" name="pass_user" id="id_password" placeholder="Senha" required value="<?php if ((isset($param4))) {
+                                                                                                                                        echo $param4;
+                                                                                                                                        } else {
+                                                                                                                                         echo '';
+                                                                                                                                        } ?>"/>
               <i class="fas fa-eye-slash" id="togglePassword01"></i>
             </div>
 
             <div class="fields">
-              <input type="password" name="pass_user_confirm" id="id_password_confirm" placeholder="Confirmar Senha" required />
+              <input type="password" name="pass_user_confirm" id="id_password_confirm" placeholder="Confirmar Senha" required value="<?php if ((isset($param5))) {
+                                                                                                                                                echo $param5;
+                                                                                                                                              } else {
+                                                                                                                                                echo '';
+                                                                                                                                              } ?>"/>
               <i class="fas fa-eye-slash" id="togglePassword02"></i>
             </div>
             <button type="submit">Criar</button>
