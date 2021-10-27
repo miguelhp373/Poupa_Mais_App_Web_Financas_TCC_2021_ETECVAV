@@ -60,18 +60,18 @@ try {
 
     $getMonthTot = $connection->prepare(
         "SELECT 
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 1  AND tipo = 'receita')  as 'jan', 
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 2  AND tipo = 'receita')  as 'feb',
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 3  AND tipo = 'receita')  as 'mar',
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 4  AND tipo = 'receita')  as 'apr',
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 5  AND tipo = 'receita')  as 'may',
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 6  AND tipo = 'receita')  as 'jun',
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 7  AND tipo = 'receita')  as 'jul',
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 8  AND tipo = 'receita')  as 'aug', 
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 9  AND tipo = 'receita')  as 'sep',
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 10 AND tipo = 'receita') as 'oct',
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 11 AND tipo = 'receita') as 'nov',
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 12 AND tipo = 'receita') as 'dez'
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 1  AND tipo = 'receita' AND idUser = :cod)  as 'jan', 
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 2  AND tipo = 'receita' AND idUser = :cod)  as 'feb',
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 3  AND tipo = 'receita' AND idUser = :cod)  as 'mar',
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 4  AND tipo = 'receita' AND idUser = :cod)  as 'apr',
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 5  AND tipo = 'receita' AND idUser = :cod)  as 'may',
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 6  AND tipo = 'receita' AND idUser = :cod)  as 'jun',
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 7  AND tipo = 'receita' AND idUser = :cod)  as 'jul',
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 8  AND tipo = 'receita' AND idUser = :cod)  as 'aug', 
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 9  AND tipo = 'receita' AND idUser = :cod)  as 'sep',
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 10 AND tipo = 'receita' AND idUser = :cod) as 'oct',
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 11 AND tipo = 'receita' AND idUser = :cod) as 'nov',
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 12 AND tipo = 'receita' AND idUser = :cod) as 'dez'
         FROM  operationsapplication
         WHERE  idUser = :cod    
         "
@@ -110,18 +110,18 @@ try {
 
     $getMonthDESP = $connection->prepare(
         "SELECT 
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 1  AND tipo = 'despesa')  as 'jan', 
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 2  AND tipo = 'despesa')  as 'feb',
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 3  AND tipo = 'despesa')  as 'mar',
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 4  AND tipo = 'despesa')  as 'apr',
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 5  AND tipo = 'despesa')  as 'may',
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 6  AND tipo = 'despesa')  as 'jun',
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 7  AND tipo = 'despesa')  as 'jul',
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 8  AND tipo = 'despesa')  as 'aug', 
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 9  AND tipo = 'despesa')  as 'sep',
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 10 AND tipo = 'despesa') as 'oct',
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 11 AND tipo = 'despesa') as 'nov',
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 12 AND tipo = 'despesa') as 'dez'
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 1  AND tipo = 'despesa' AND idUser = :cod)  as 'jan', 
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 2  AND tipo = 'despesa' AND idUser = :cod)  as 'feb',
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 3  AND tipo = 'despesa' AND idUser = :cod)  as 'mar',
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 4  AND tipo = 'despesa' AND idUser = :cod)  as 'apr',
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 5  AND tipo = 'despesa' AND idUser = :cod)  as 'may',
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 6  AND tipo = 'despesa' AND idUser = :cod)  as 'jun',
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 7  AND tipo = 'despesa' AND idUser = :cod)  as 'jul',
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 8  AND tipo = 'despesa' AND idUser = :cod)  as 'aug', 
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 9  AND tipo = 'despesa' AND idUser = :cod)  as 'sep',
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 10 AND tipo = 'despesa' AND idUser = :cod) as 'oct',
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 11 AND tipo = 'despesa' AND idUser = :cod) as 'nov',
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 12 AND tipo = 'despesa' AND idUser = :cod) as 'dez'
         FROM  operationsapplication
         WHERE idUser = :cod    
         "
