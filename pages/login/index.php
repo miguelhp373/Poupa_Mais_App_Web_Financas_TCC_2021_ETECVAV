@@ -161,10 +161,10 @@ if (isset($_GET['page'])) {
             <button type="submit">Entrar</button>
 
             <div class="remember-password">
-              <div class="left-items">
+              <!-- <div class="left-items">
                 <input type="checkbox" name="remember_password" id="chkrememberpassword">
                 <span>Lembrar Senha?</span>
-              </div>
+              </div> -->
               <div class="right-items">
                 <span>
                   <a href="../recuperar_senha/index.php?email=<?php if ((isset($param))) {
