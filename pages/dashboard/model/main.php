@@ -100,11 +100,8 @@ try {
         //RECEITA
         if ($type == 'receita') {
 
-            $saldo_atual    = str_replace (',', '.', str_replace ('.', '', $user_Saldo));
-
-            $newSaldo = $saldo_atual + $getValor;
- 
-
+            $newSaldo = $user_Saldo + $getValor;
+    
             try {
                 $UpdateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :saldo  WHERE cod = :id LIMIT 1");
                 $UpdateSaldo->bindParam(':id', $user_cod);
@@ -127,9 +124,7 @@ try {
         ////DESPESA
         if ($type == 'despesa') {
 
-            $saldo_atual    = str_replace (',', '.', str_replace ('.', '', $user_Saldo));
-
-            $newSaldo = $saldo_atual - $getValor;
+            $newSaldo = $user_Saldo - $getValor;
 
             try {
                 $UpdateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :saldo  WHERE cod = :id LIMIT 1");
