@@ -521,11 +521,11 @@ if (isset($_GET['id'])) {
         <!--POPUP-->
         <div class="popup_filter hidden">
             <div class="row_content">
-                <div class="col_button_popup_close">
+                <!-- <div class="col_button_popup_close">
                     <button id="close_pop_up" class="close_pop_up">
                         <i class="fas fa-times"></i>
                     </button>
-                </div>
+                </div> -->
                 <div class="column_content">
 
                     <div class="content">
@@ -560,6 +560,11 @@ if (isset($_GET['id'])) {
 
                             <div class="row_btn_submit">
                                 <button type="submit">Filtrar</button>
+                                <a id="close_pop_up" class="close-button-bottom close_pop_up">
+                                    Fechar
+                                    &nbsp;
+                                    <i class="fas fa-times"></i>
+                                </a>
                             </div>
                         </form>
                     </div>
