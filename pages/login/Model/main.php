@@ -36,21 +36,10 @@ if ($loginquery->rowCount() > 0) {
             $_SESSION['sucess_msg'] =   '';
         }
 
-        // if(isset($_POST['remember_password'])){
-        //     $_SESSION['setRememberUser']   = $_SESSION['user_email'];
-        //     $_SESSION['setPassWord']       = $_SESSION['user_pass'];
-        // }
 
         if (isset($_POST["remember_password"])) {
-            setcookie("member_login", $_SESSION['user_email'], time() + (10 * 365 * 24 * 60 * 60));
-            setcookie("member_password", $_SESSION['user_pass'], time() + (10 * 365 * 24 * 60 * 60));
-        } else {
-            // if (isset($_COOKIE["member_login"])) {
-            //     setcookie("member_login", "");
-            // }
-            // if (isset($_COOKIE["member_password"])) {
-            //     setcookie("member_password", "");
-            // }
+            setcookie("member_login", $_SESSION['user_email'], time() + 3600);
+            setcookie("member_password", $_SESSION['user_pass'], time() + 3600);
         }
 
 

@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+
+
 if (isset($_GET['register'])) {
   if ($_GET['register'] == 'true') {
     $param  = $_SESSION['email_user'];

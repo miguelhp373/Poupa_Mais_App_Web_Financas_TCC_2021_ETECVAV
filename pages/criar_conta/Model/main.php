@@ -58,11 +58,22 @@ $_SESSION['user_passconfirm_create_account']     =  $_POST['pass_user_confirm'];
 // validaCPF($UserCpf);
 
 
+//VALIDA SENHAS
 if($_POST['pass_user'] !== $_POST['pass_user_confirm']){
 
     $_SESSION['Msg_error']  =   "As Senhas Não Batem! Verifique e Tente Novamente.";
     header('Location: ../index.php?wrong_fields=true');
 
+    die();
+}
+
+
+//VALIDA TELEFONE
+if(strlen($UserPhoneNumber) < 14){
+
+    $_SESSION['Msg_error']  =   "Telefone Inválido! Verifique e Tente Novamente.";
+    header('Location: ../index.php?wrong_fields=true');
+    
     die();
 }
 

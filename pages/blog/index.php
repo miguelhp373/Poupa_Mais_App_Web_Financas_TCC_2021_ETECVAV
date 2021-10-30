@@ -1,5 +1,8 @@
 <?php
+session_start();
 require_once('../../source/controller/connection.php');
+
+$URL_PATH = '../../index.php';
 
 
 //busca posts
@@ -32,6 +35,11 @@ if(isset($_GET['search'])){
   } catch (PDOException $error) {
     die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
   }
+}
+
+//VALIDA SE O USUÁRIO ESTÁ LOGADO
+if (isset($_SESSION['user_email']) && (isset($_SESSION['Authentication']))) {
+  $URL_PATH = '../dashboard/index.php';
 }
 
 ?>
@@ -112,7 +120,7 @@ if(isset($_GET['search'])){
   <div class="nav_bar_top_mobile">
     <nav class="navbar navbar-expand-lg navbar-light bg-light mobile">
       <div class="container-fluid">
-        <a class="navbar-brand" href="../../index.php">
+        <a class="navbar-brand" href="<?php echo $URL_PATH;?>">
           Poupa+
           <sup>Blog</sup>
         </a>
@@ -152,7 +160,7 @@ if(isset($_GET['search'])){
   <div class="container-content">
     <div class="content">
       <div class="btn_back_home">
-        <a href="../../index.php">
+        <a href="<?php echo $URL_PATH;?>">
           <i class="fas fa-arrow-left"></i>
         </a>
       </div>

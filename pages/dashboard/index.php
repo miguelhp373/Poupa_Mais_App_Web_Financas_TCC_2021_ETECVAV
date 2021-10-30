@@ -1,5 +1,10 @@
 <?php
 
+if(isset($_COOKIE["member_login"])){
+  echo 'teste';
+  die();
+}
+
 session_start();
 require_once('../../source/controller/connection.php');
 
