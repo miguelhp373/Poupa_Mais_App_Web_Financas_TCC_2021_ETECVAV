@@ -86,8 +86,7 @@ if ($searchValor->rowCount() > 0) {
 
 
 function DeleteOperation($cod,$connection,$user,$Operation_Value,$user_Saldo){
-    
-    $saldo_atual    = str_replace (',', '.', str_replace ('.', '', $user_Saldo));
+
     $getValor       = str_replace (',', '.', str_replace ('.', '', $Operation_Value));
 
     if(is_int($Operation_Value)){
@@ -95,7 +94,7 @@ function DeleteOperation($cod,$connection,$user,$Operation_Value,$user_Saldo){
     }
 
 
-    $newSaldo = $saldo_atual - $getValor;
+    $newSaldo = $user_Saldo - $getValor;
 
     $UpdateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :saldo  WHERE cod = :id LIMIT 1");
     $UpdateSaldo->bindParam(':id', $user);
@@ -124,12 +123,8 @@ function DeleteOperation($cod,$connection,$user,$Operation_Value,$user_Saldo){
 function EditOperation($connection,$user,$setCod,$setData,$setCategoria,$setDescricao,$setValor,$user_Saldo,$before_Value){
   
     $getValor       = str_replace (',', '.', str_replace ('.', '', $setValor));
-    $saldo_atual    = str_replace (',', '.', str_replace ('.', '', $user_Saldo));
 
-   
-
-
-    $newSaldo   = ($saldo_atual - $before_Value) + $getValor;
+    $newSaldo   = ($user_Saldo - $before_Value) + $getValor;
 
     $UpdateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :saldo  WHERE cod = :id LIMIT 1");
     $UpdateSaldo->bindParam(':id', $user);
