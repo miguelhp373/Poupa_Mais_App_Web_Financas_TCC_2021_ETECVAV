@@ -126,7 +126,8 @@ try {
             WHERE   idUser = :cod  AND
                     data BETWEEN :datin AND :datfi  AND
                     :tip IS NULL AND cod > 0        OR
-                    tipo = :tip
+                    tipo = :tip     AND
+                    idUser = :cod
             ORDER BY cod DESC
         "
     );

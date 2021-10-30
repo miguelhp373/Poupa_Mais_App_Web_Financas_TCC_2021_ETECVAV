@@ -52,7 +52,7 @@ try {
 
 try {
 
-    $serchEvents = $connection->prepare("SELECT id, title, color, start, end FROM eventstableapplicartion WHERE coduser =".$user_cod);
+    $serchEvents = $connection->prepare("SELECT id, title, color, start, end FROM eventstableapplicartion WHERE coduser =" . $user_cod);
     $serchEvents->execute();
 
     $rowEvents = $serchEvents->fetchAll(PDO::FETCH_ASSOC);
@@ -251,11 +251,6 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
         <!--POPUP-->
         <div class="popup_filter hidden">
             <div class="row_content">
-                <div class="col_button_popup_close">
-                    <button id="close_pop_up" class="close_pop_up">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
                 <div class="column_content">
 
                     <div class="content">
@@ -289,7 +284,16 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
 
 
                             <div class="row_btn_submit">
-                                <button type="submit">Salvar</button>
+                                <button type="submit">
+                                    Salvar
+                                    &nbsp;
+                                    <i class="far fa-save"></i>
+                                </button>
+                                <a id="close_pop_up" class="close-button-bottom">
+                                    Fechar
+                                    &nbsp;
+                                    <i class="fas fa-times"></i>
+                                </a>
                             </div>
                         </form>
                     </div>
@@ -301,11 +305,6 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
         <!--POPUP delete-->
         <div class="popup_delete hidden">
             <div class="row_content">
-                <div class="col_button_popup_close">
-                    <button id="close_pop_delete" class="close_pop_up">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
                 <div class="column_content">
 
                     <div class="content">
@@ -339,13 +338,23 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
 
 
                             <div class="row_btn_submit">
-                                <button type="submit">Salvar</button>
+                                <button type="submit">
+                                    Salvar
+                                    &nbsp;
+                                    <i class="far fa-save"></i>
+                                </button>
+                                <a id="btn_delete" class="delete-button-bottom">
+                                    Apagar
+                                    &nbsp;
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                                <a id="close_pop_delete" class="close-button-bottom">
+                                    Fechar
+                                    &nbsp;
+                                    <i class="fas fa-times"></i>
+                                </a>
                             </div>
                         </form>
-                        <div class="row_btn_delete">
-                            <button id="btn_delete">Apagar</button>
-
-                        </div>
                     </div>
                 </div>
             </div>
