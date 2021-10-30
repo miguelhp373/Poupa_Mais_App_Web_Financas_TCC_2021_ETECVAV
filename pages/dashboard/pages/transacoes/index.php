@@ -256,6 +256,22 @@ if (isset($_GET['id'])) {
     <!-- Botão do Filtro Open e Close -->
     <script src="js/btn_filter.js"></script>
     <script src="js/EditModal.js"></script>
+
+    <script>
+        <?php
+        //valida mensagem de erro, ao tentar realizar a operação de editar
+        if (isset($_SESSION['WRONG_OPERATION'])) {
+            if ((!empty($_SESSION['WRONG_OPERATION'])) && (($_SESSION['WRONG_OPERATION'] == 'true'))) {
+                echo "alert('Não Foi Possivel Concluir a Operação.')";
+            }
+
+            $_SESSION['WRONG_OPERATION'] = '';
+            unset($_SESSION['WRONG_OPERATION']);
+        }
+
+        ?>
+    </script>
+
 </head>
 
 <body>
@@ -345,6 +361,7 @@ if (isset($_GET['id'])) {
             <div class="btn_back_home">
                 <a href="../../index.php">
                     <i class="fas fa-arrow-left"></i>
+
                 </a>
             </div>
             <div class="row_button_filter">
@@ -423,7 +440,8 @@ if (isset($_GET['id'])) {
             <div class="btn_back_home">
                 <a href="../../index.php" style="display: flex;flex-direction: row;">
                     <i class="fas fa-arrow-left"></i>
-                    <h1 style="color: black; margin: 20px;">
+
+                    <h1 style="color: black; margin: 20px;font-size:2rem;text-align: center;">
                         Transações
                     </h1>
                 </a>
@@ -482,7 +500,7 @@ if (isset($_GET['id'])) {
                                         <li class="mdl-menu__item">Editar</li>
                                     </a>
                                     <a href="models/ActionOperation.php?id=<?php echo base64_encode($getOperation['cod']); ?>&operation=delete">
-                                    <li class="mdl-menu__item">Apagar</li>
+                                        <li class="mdl-menu__item">Apagar</li>
                                     </a>
                                 </ul>
                             </div>
@@ -555,14 +573,14 @@ if (isset($_GET['id'])) {
         ?>
                 <div class="popup_actions">
                     <div class="row_content">
-                        <div class="col_button_popup_close">
+                        <!-- <div class="col_button_popup_close">
                             <button id="close_pop_up02" class="close_pop_up">
                                 <i class="fas fa-times"></i>
                             </button>
-                        </div>
+                        </div> -->
                         <div class="column_content">
 
-                            <div class="content" style="margin-top: 30px;">
+                            <div class="content" style="margin-top: 30px;width: 70%;">
                                 <br>
                                 <div class="title_popup">
                                     <h1 class="title_pop">
@@ -573,7 +591,7 @@ if (isset($_GET['id'])) {
 
                                     <div class="col_dates" style="margin-top: 10px;">
                                         <strong style="width: 100%;"><span>Valor:</span></strong>
-                                        <input type="text" name="currency" class="fieds-pop money2" placeholder="Valor R$" required autocomplete="off" value="<?php echo number_format($currency, 2, '.', ','); ?>" />
+                                        <input type="text" name="currency" class="fieds-pop money2" placeholder="Valor R$" required autocomplete="off" value="<?php echo number_format($currency, 2, '.', ','); ?>" maxlength="13" />
                                         <br>
                                         <div class="row_categories">
                                             <select name="categorias" id="" class="fieds-pop" required>
@@ -613,9 +631,19 @@ if (isset($_GET['id'])) {
                                             &nbsp;
                                             <i class="fas fa-check"></i>
                                         </button>
+
+
+                                        <a id="close_pop_up02" class="close-button-bottom close_pop_up">
+                                            Fechar
+                                            &nbsp;
+                                            <i class="fas fa-times"></i>
+                                        </a>
+
+
                                     </div>
-                                </form>
+
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>

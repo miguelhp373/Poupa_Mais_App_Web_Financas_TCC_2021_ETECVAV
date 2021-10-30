@@ -7,24 +7,24 @@ require_once('../../../../source/controller/connection.php');
 //VALIDA USUÁRIO
 if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
     if ($_SESSION['Authentication'] == '') {
-      $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
-      header('Location: ../../../login/index.php');
+        $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
+        header('Location: ../../../login/index.php');
     }
-  }
-  /////////////////////
-  
-  
-  ////////////////////////////
-  //LIMPA MENSAGENS DE ERRO
-  if (isset($_SESSION['Msg_error'])) {
-  
+}
+/////////////////////
+
+
+////////////////////////////
+//LIMPA MENSAGENS DE ERRO
+if (isset($_SESSION['Msg_error'])) {
+
     $_SESSION['Msg_error'] = '';
-  }
-  
-  if (isset($_SESSION['Msg_sucess'])) {
+}
+
+if (isset($_SESSION['Msg_sucess'])) {
     $_SESSION['Msg_sucess'] = '';
-  }
-  ////////////////////////////
+}
+////////////////////////////
 
 
 if (isset($_GET['image'])) {
@@ -46,7 +46,7 @@ try {
         foreach ($row as $getdata) {
             $user_name      =   $getdata['nome'];
             $user_email     =   $getdata['email'];
-           // $user_cpf       =   $getdata['cpf'];
+            // $user_cpf       =   $getdata['cpf'];
             $user_telefone  =   $getdata['telefone'];
             $image_user     =   $getdata['image_user'];
         }
@@ -122,7 +122,7 @@ try {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                    
+
                         <li class="nav-item">
                             <a class="nav-link" href="../Transacoes/index.php">Transações</a>
                         </li>
@@ -169,7 +169,7 @@ try {
             </a>
 
             <a href="../../../blog/index.php" class="link_menu">
-            <i class="fas fa-rss-square"></i>
+                <i class="fas fa-rss-square"></i>
                 Blog
             </a>
 
@@ -190,7 +190,17 @@ try {
             <div class="btn_back_home">
                 <a href="../../index.php">
                     <i class="fas fa-arrow-left"></i>
+
                 </a>
+                <span style="   text-align: center;
+                                align-items: center;
+                                height: 100%;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;">
+                    voltar
+                </span>
+
             </div>
             <h1>Editar Conta</h1>
 
@@ -235,7 +245,7 @@ try {
                         <input type="text" class="fields" placeholder="Nome" name='nome' value="<?php echo $user_name ?>">
                         <input type="email" class="fields" placeholder="Email" name="email" value="<?php echo $user_email ?>">
                         <div class="field_pass">
-                            <input style="    margin-left: -8px;" type="password" class="fields" name="senha" placeholder="Senha" id="pass_field">
+                            <input style="    margin-left: -12px;" type="password" class="fields" name="senha" placeholder="Senha" id="pass_field">
                             <i class="fas fa-eye-slash" id="togglePassword01"></i>
                         </div>
                     </div>

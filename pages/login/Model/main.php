@@ -36,10 +36,10 @@ if ($loginquery->rowCount() > 0) {
             $_SESSION['sucess_msg'] =   '';
         }
 
-
         if (isset($_POST["remember_password"])) {
-            setcookie("member_login", $_SESSION['user_email'], time() + 3600);
-            setcookie("member_password", $_SESSION['user_pass'], time() + 3600);
+            
+            setcookie('member_login',$_SESSION['user_email'],time() + 864000,'/',NULL,false, true );
+            setcookie('member_password',base64_encode($_SESSION['user_pass']),time() + 864000,'/',NULL,false, true );
         }
 
 

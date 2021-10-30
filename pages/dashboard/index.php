@@ -1,10 +1,4 @@
 <?php
-
-if(isset($_COOKIE["member_login"])){
-  echo 'teste';
-  die();
-}
-
 session_start();
 require_once('../../source/controller/connection.php');
 
@@ -742,11 +736,11 @@ try {
     <!--POPUP-->
     <div class="popup_actions hidden">
       <div class="row_content">
-        <div class="col_button_popup_close">
+        <!-- <div class="col_button_popup_close">
           <button id="close_pop_up" class="close_pop_up">
             <i class="fas fa-times"></i>
           </button>
-        </div>
+        </div> -->
         <div class="column_content">
 
           <div class="content" style="margin-top: 30px;">
@@ -795,13 +789,20 @@ try {
               </div>
 
 
-              <div class="row_btn_submit" style="margin-bottom: 25px;">
+              <div class="row_btn_submit">
                 <button type="submit">
                   Salvar
                   &nbsp;
                   <i class="fas fa-check"></i>
                 </button>
+                <button id="close_pop_up" class="close-button-bottom">
+                  Fechar
+                  &nbsp;
+                  <i class="fas fa-times"></i>
+                </button>
               </div>
+              
+
             </form>
           </div>
         </div>
@@ -812,11 +813,11 @@ try {
     <!--POPUP-->
     <div class="popup_categories hidden">
       <div class="row_content">
-        <div class="col_button_popup_close">
+        <!-- <div class="col_button_popup_close">
           <button id="close_pop_up_02" class="close_pop_up">
             <i class="fas fa-times"></i>
           </button>
-        </div>
+        </div> -->
         <div class="column_content">
 
           <div class="content" style="margin-top: 30px;">
@@ -853,7 +854,11 @@ try {
               </div>
 
               <div class="row_btn_submit" style="margin-bottom: 25px;">
-
+              <button id="close_pop_up_02" class="close-button-bottom">
+                  Fechar
+                  &nbsp;
+                  <i class="fas fa-times"></i>
+                </button>
               </div>
             </form>
           </div>

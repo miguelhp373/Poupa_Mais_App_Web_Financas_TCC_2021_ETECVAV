@@ -17,7 +17,6 @@ $getUrlParamValue    =   filter_input(INPUT_GET,'EditValue',FILTER_SANITIZE_STRI
 
 $DecriptoParam =   base64_decode($getUrlParam);
 
-
 try {
 
     $searchinfos = $connection->prepare("SELECT cod, nome, email, telefone, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
@@ -41,6 +40,7 @@ try {
 } catch (PDOException $error) {
     die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
+
 
 /////////////////////////////////////////////////////////////////
 //PESQUISA SALDO
@@ -84,6 +84,7 @@ if ($searchValor->rowCount() > 0) {
 
 
 
+
 function DeleteOperation($cod,$connection,$user,$Operation_Value,$user_Saldo){
     
     $saldo_atual    = str_replace (',', '.', str_replace ('.', '', $user_Saldo));
@@ -121,13 +122,14 @@ function DeleteOperation($cod,$connection,$user,$Operation_Value,$user_Saldo){
 }
 
 function EditOperation($connection,$user,$setCod,$setData,$setCategoria,$setDescricao,$setValor,$user_Saldo,$before_Value){
-
+  
     $getValor       = str_replace (',', '.', str_replace ('.', '', $setValor));
     $saldo_atual    = str_replace (',', '.', str_replace ('.', '', $user_Saldo));
 
+   
 
-    $newSaldo = ($saldo_atual - $before_Value) + $getValor;
 
+    $newSaldo   = ($saldo_atual - $before_Value) + $getValor;
 
     $UpdateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :saldo  WHERE cod = :id LIMIT 1");
     $UpdateSaldo->bindParam(':id', $user);
@@ -147,15 +149,19 @@ function EditOperation($connection,$user,$setCod,$setData,$setCategoria,$setDesc
         $UpdateOperation->bindParam(':valor',$getValor) ;
          
         $UpdateOperation->execute();
-         
+
         if ($UpdateOperation->rowCount() > 0) {
-    
-           
-          
+
             header('Location: ../../Transacoes/index.php');
          
+        }else{
+            $_SESSION['WRONG_OPERATION'] = 'true';
+            header('Location: ../../Transacoes/index.php');
         }
         
+    }else{
+        $_SESSION['WRONG_OPERATION'] = 'true';
+        header('Location: ../../Transacoes/index.php');
     }
 }
 

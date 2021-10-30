@@ -35,6 +35,7 @@ body::-webkit-scrollbar-thumb {
   --gradiente-color: linear-gradient(25deg, #40276f, #634a98, #8770c4, #ac97f1);
   --text-primary: #ffff;
   --input-background: #f3f3f3;
+  --button-dark : #34495e;
 }
 
 /* Estilos - botão Voltar Ao Topo */

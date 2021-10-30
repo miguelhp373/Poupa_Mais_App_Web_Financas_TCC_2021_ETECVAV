@@ -1,17 +1,68 @@
 <?php
+require_once('../../source/controller/connection.php');
 session_start();
+
+
 
 ///LOGOUT
 if (isset($_GET['login'])) {
 
   if ($_GET['login'] == 'logout') {
-    unset($_SESSION['user_email']);
-    unset($_SESSION['user_pass']);
+
+    //clean cookies
+    setcookie('member_login','', time() - 864000,'/',NULL,false, true);
+    setcookie('member_password','',time() - 864000,'/',NULL,false, true);
+
+    //clean session
+    session_unset();
     session_destroy();
   }
 }
 
 
+//caso usuário optou por lembrar a senha
+
+if((isset($_COOKIE['member_login']))&&(isset($_COOKIE['member_password']))){
+
+  $passDecode = base64_decode($_COOKIE['member_password']);
+  try {
+
+    $loginquery = $connection->prepare("SELECT email, senha FROM userstableapplication WHERE email = :email LIMIT 1");
+    $loginquery->bindParam(':email', $_COOKIE['member_login']);
+
+    $loginquery->execute();
+} catch (PDOException $error) {
+    die('<br>Erro Ao Tentar se comunicar com o Servidor! Tente Novamente Mais Tarde');
+}
+
+
+if ($loginquery->rowCount() > 0) {
+
+    $row = $loginquery->fetch();
+
+    if (password_verify($passDecode, $row["senha"])) {
+        $_SESSION['Authentication'] = rand(1, 9);
+
+        if (isset($_SESSION['sucess_msg'])) {
+            $_SESSION['sucess_msg'] =   '';
+        }
+
+        header('Location: ../dashboard/index.php');
+    } else {
+        $_SESSION['Authentication'] = '';
+        $_SESSION['Msg_error'] = 'Senha Incorreta!';
+        header('Location: index.php');
+        die;
+        //enviar uma mensagem de erro pro login
+    }
+} else {
+    $_SESSION['Msg_error'] = 'Usuário Não Encontrado!';
+    $_SESSION['Authentication'] = '';
+    header('Location: index.php');
+    die;
+    //enviar uma mensagem de erro pro login
+}
+}
 
 
 
