@@ -1,6 +1,17 @@
 <?php 
-    session_start();
-    require_once('../../../../../../../source/controller/connection.php');
+
+session_start();
+require_once('../../../../../../source/controller/connection.php');
+
+////////////
+//VALIDA USUÁRIO
+if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
+    if ((empty($_SESSION['Authentication']))||(empty($_SESSION['user_email']))) {
+        $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
+        header('Location: ../../../../../../login/index.php');
+    }
+}
+
 
     $title_post     =       filter_input(INPUT_POST,'title',FILTER_SANITIZE_STRING);
     $description_post     =       filter_input(INPUT_POST,'resumo',FILTER_SANITIZE_STRING);
@@ -69,7 +80,3 @@
     } catch (PDOException $error) {
         die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
     }
-
-    
-
-?>

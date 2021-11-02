@@ -4,7 +4,7 @@ require_once('../../../../source/controller/connection.php');
 ////////////
 //VALIDA USUÁRIO
 if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
-  if ($_SESSION['Authentication'] == '') {
+  if ((empty($_SESSION['Authentication']))||(empty($_SESSION['user_email']))) {
     $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
     header('Location: ../../../login/index.php');
   }
@@ -50,6 +50,11 @@ if (isset($_SESSION['Msg_sucess'])) {
   <!--Icones FontAwesome-->
   <script src="https://kit.fontawesome.com/bb41ae50aa.js" crossorigin="anonymous"></script>
 
+    <!-- DarkMode -->
+    <script src="../js/dark_mode/main.js"></script>
+    <link rel="stylesheet" href="../../../../source/root/darkmode.css">
+
+
   <!--Importante-->
   <link rel="stylesheet" href="../../../../source/root/root.css" />
 
@@ -61,20 +66,26 @@ if (isset($_SESSION['Msg_sucess'])) {
   <!-- Mask Input JS -->
   <script src="https://cdn.jsdelivr.net/gh/miguelhp373/MaskInputJS/maskjs@1.3/maskjs.min.js"></script>
 
+  <style>
+    .form_contact{
+      margin: 0 !important;
+    }
+    .label_btn_home{
+      color: #000;
+    }
+  </style>
+
 </head>
 
 <body>
 
-
-
-
-  <main>
+  <main class="main_container">
 
     <div class="form_contact" id="form_contact">
     <div class="btn_back_home">
                 <a href="../../index.php" style="display: flex;flex-direction: row;">
                     <i class="fas fa-arrow-left"></i>
-                    <span style="margin-left: 15px;color: black;">Voltar</span>
+                    <span style="margin-left: 15px;" class="label_btn_home">Voltar</span>
                 </a>
             </div>
       <section class="page-section" id="contact">
@@ -82,7 +93,7 @@ if (isset($_SESSION['Msg_sucess'])) {
           <h2 class="
                 page-section-heading
                 text-center text-uppercase 
-                mb-0
+                mb-0 title_page
               ">
             Entre em contato conosco por Email
           </h2>
@@ -97,7 +108,7 @@ if (isset($_SESSION['Msg_sucess'])) {
                         mb-0
                         pb-2
                       ">
-                    <label class="p-1">Nome</label>
+                    <label class="p-1 name">Nome</label>
                     <input class="form-control" id="name" name="nome" type="text" required="required" data-validation-required-message="Por favor insira seu nome." />
                     <p class="help-block text-danger"></p>
                   </div>
@@ -110,7 +121,7 @@ if (isset($_SESSION['Msg_sucess'])) {
                         mb-0
                         pb-2
                       ">
-                    <label class="p-1">Email</label>
+                    <label class="p-1 email">Email</label>
                     <input class="form-control" id="email" type="email" name="_replyto" required="required" data-validation-required-message="Insira seu endereço de email." />
                     <p class="help-block text-danger"></p>
                   </div>
@@ -123,7 +134,7 @@ if (isset($_SESSION['Msg_sucess'])) {
                         mb-0
                         pb-2
                       ">
-                    <label class="p-1">Assunto</label>
+                    <label class="p-1 text">Assunto</label>
                     <input class="form-control" id="assunto" type="assunto" required="required" data-validation-required-message="Informe o assunto" />
                     <p class="help-block text-danger"></p>
                   </div>
@@ -136,7 +147,7 @@ if (isset($_SESSION['Msg_sucess'])) {
                         mb-0
                         pb-2
                       ">
-                    <label class="p-1">Mensagem</label>
+                    <label class="p-1 message">Mensagem</label>
                     <textarea class="form-control message_area" id="message" name="mensagem" rows="5" required="required" data-validation-required-message="Digite sua mensagem."></textarea>
                     <p class="help-block text-danger"></p>
                   </div>

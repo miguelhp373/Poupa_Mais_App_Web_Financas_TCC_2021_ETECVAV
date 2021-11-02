@@ -38,13 +38,18 @@ if ($loginquery->rowCount() > 0) {
 
         if (isset($_POST["remember_password"])) {
             
-            setcookie('member_login',$_SESSION['user_email'],time() + 864000,'/',NULL,false, true );
-            setcookie('member_password',base64_encode($_SESSION['user_pass']),time() + 864000,'/',NULL,false, true );
+            setcookie('email_storage_remember',$_SESSION['user_email'],time() + (3600 * 5),'/',NULL,false, true );
+            setcookie('pass_storage_remember',base64_encode($_SESSION['user_pass']),time() + (3600 * 5),'/',NULL,false, true );
+        }else{
+            setcookie('email_storage_remember','', time() - (3600 * 5),'/',NULL,false, true);
+            setcookie('pass_storage_remember','',time() - (3600 * 5),'/',NULL,false, true);  
         }
 
 
         header('Location: ../../dashboard/index.php');
     } else {
+        $_SESSION['user_email'] = '';
+        $_SESSION['user_pass']  = '';
         $_SESSION['Authentication'] = '';
         $_SESSION['Msg_error'] = 'Senha Incorreta!';
         header('Location: ../index.php?wrong_fields=true');
@@ -52,6 +57,8 @@ if ($loginquery->rowCount() > 0) {
         //enviar uma mensagem de erro pro login
     }
 } else {
+    $_SESSION['user_email'] = '';
+    $_SESSION['user_pass']  = '';
     $_SESSION['Msg_error'] = 'Usuário Não Encontrado!';
     $_SESSION['Authentication'] = '';
     header('Location: ../index.php?wrong_fields=true');

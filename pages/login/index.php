@@ -10,8 +10,8 @@ if (isset($_GET['login'])) {
   if ($_GET['login'] == 'logout') {
 
     //clean cookies
-    setcookie('member_login','', time() - 864000,'/',NULL,false, true);
-    setcookie('member_password','',time() - 864000,'/',NULL,false, true);
+    setcookie('email_storage_remember','', time() - (3600 * 5),'/',NULL,false, true);
+    setcookie('pass_storage_remember','',time() - (3600 * 5),'/',NULL,false, true);
 
     //clean session
     session_unset();
@@ -22,13 +22,18 @@ if (isset($_GET['login'])) {
 
 //caso usuário optou por lembrar a senha
 
-if((isset($_COOKIE['member_login']))&&(isset($_COOKIE['member_password']))){
+if((isset($_COOKIE['email_storage_remember']))&&(isset($_COOKIE['pass_storage_remember']))){
 
-  $passDecode = base64_decode($_COOKIE['member_password']);
+
+  $passDecode = base64_decode($_COOKIE['pass_storage_remember']);
+
+  $_SESSION['user_email'] = $_COOKIE['email_storage_remember'];
+  $_SESSION['user_pass']  = $_COOKIE['pass_storage_remember'];
+
   try {
 
     $loginquery = $connection->prepare("SELECT email, senha FROM userstableapplication WHERE email = :email LIMIT 1");
-    $loginquery->bindParam(':email', $_COOKIE['member_login']);
+    $loginquery->bindParam(':email', $_COOKIE['email_storage_remember']);
 
     $loginquery->execute();
 } catch (PDOException $error) {
@@ -49,6 +54,8 @@ if ($loginquery->rowCount() > 0) {
 
         header('Location: ../dashboard/index.php');
     } else {
+        $_SESSION['user_email'] = '';
+        $_SESSION['user_pass']  = '';
         $_SESSION['Authentication'] = '';
         $_SESSION['Msg_error'] = 'Senha Incorreta!';
         header('Location: index.php');
@@ -56,6 +63,8 @@ if ($loginquery->rowCount() > 0) {
         //enviar uma mensagem de erro pro login
     }
 } else {
+  $_SESSION['user_email'] = '';
+  $_SESSION['user_pass']  = '';
     $_SESSION['Msg_error'] = 'Usuário Não Encontrado!';
     $_SESSION['Authentication'] = '';
     header('Location: index.php');

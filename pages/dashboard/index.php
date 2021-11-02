@@ -7,7 +7,7 @@ date_default_timezone_set('America/Sao_Paulo');
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //VALIDA USUÁRIO
 if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
-  if ($_SESSION['Authentication'] == '') {
+  if ((empty($_SESSION['Authentication'])) || (empty($_SESSION['user_email']))) {
     $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
     header('Location: ../login/index.php');
   }
@@ -149,7 +149,7 @@ function newOperation($cod, $tipo, $data, $categoria, $descricao, $valor, $autom
     $UpdateData->execute();
 
     if ($UpdateData->rowCount() > 0) {
-      
+
       if ($automatico !== null) {
         $automatico = "S";
         $dateAuto = date('Y-m-d', strtotime('+1 months', strtotime($data)));
@@ -247,7 +247,7 @@ function newOperation($cod, $tipo, $data, $categoria, $descricao, $valor, $autom
 
               if ($UpdateSaldo->rowCount() > 0) {
                 header('Location: index.php');
-                die(); 
+                die();
               }
             } catch (PDOException $error) {
               $_SESSION['Msg_error_01']  =   "Erro ao Tentar Adicionar Nova " . $tipo;
@@ -255,7 +255,6 @@ function newOperation($cod, $tipo, $data, $categoria, $descricao, $valor, $autom
               die();
             }
           }
-      
         } else {
           die('<br>Erro Ao Tentar se comunicar com o Servidor! Tente Novamente Mais Tarde');
         }
@@ -319,7 +318,7 @@ $getActualDate = date('Y-m-d');
 try {
 
   $searchNotify = $connection->prepare("SELECT * FROM notificationtableapplication WHERE date = :date");
-  $searchNotify->bindParam(':date',$getActualDate);
+  $searchNotify->bindParam(':date', $getActualDate);
   $searchNotify->execute();
 
   if ($searchNotify->rowCount() > 0) {
@@ -376,12 +375,16 @@ try {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 
+
+
   <!--Icones FontAwesome-->
   <script src="https://kit.fontawesome.com/bb41ae50aa.js" crossorigin="anonymous"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-
+  <!-- DarkMode -->
+  <script src="js/dark_mode/main.js"></script>
+  <link rel="stylesheet" href="../../source/root/darkmode.css">
 
   <link rel="stylesheet" href="../../source/root/root.css">
   <link rel="stylesheet" href="../../source/styles/dashboard/main.css">
@@ -395,6 +398,8 @@ try {
   <script src="js/api_money/main.js"></script>
   <script src="js/buttons/btn_add_receita.js"></script>
   <script src="js/popup/main.js"></script>
+
+
 
   <script>
     <?php
@@ -445,7 +450,7 @@ try {
   <div class="container_page">
 
     <!--NavBar Desktop-->
-    <div class="nav-bar-left-desktop">
+    <div class="nav-bar-left-desktop" id="nav-bar-left-desktop">
 
       <div class="user_info">
         <div class="image_user_icon">
@@ -506,6 +511,21 @@ try {
     <div class="content_page" id="content-page">
 
       <div class="notification_button">
+        <div class="title_page" style="width: 73%;">
+          <h2>DashBoard</h2>
+        </div>
+        <div class="toggle-dark-mode-button">
+          <span class="text-dark-mode-label">Modo Noturno</span>
+          <!-- <span>
+          <i class="fas fa-moon"></i>
+          </span> -->
+          <label class="switch">
+            <input type="checkbox" id="toggle_darkmode">
+            <span class="slider round"></span>
+
+          </label>
+        </div>
+
         <button class="btn btn-secondary" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" title="Notificações">
           <i class="fas fa-bell"></i>
 
@@ -801,7 +821,7 @@ try {
                   <i class="fas fa-times"></i>
                 </button>
               </div>
-              
+
 
             </form>
           </div>
@@ -854,7 +874,7 @@ try {
               </div>
 
               <div class="row_btn_submit" style="margin-bottom: 25px;">
-              <button id="close_pop_up_02" class="close-button-bottom">
+                <button id="close_pop_up_02" class="close-button-bottom">
                   Fechar
                   &nbsp;
                   <i class="fas fa-times"></i>

@@ -8,7 +8,7 @@ require_once('../../../../source/controller/connection.php');
 //validações/////////////////////////
 
 if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
-    if ($_SESSION['Authentication'] == '') {
+    if ((empty($_SESSION['Authentication'])) || (empty($_SESSION['user_email']))) {
         $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
         header('Location: ../../../login/index.php');
     }
@@ -98,6 +98,52 @@ try {
     die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//BUSCA O TOTAL DE RECEITAS POR MÊS
+try {
+
+    $searchOperationsPerMonth = $connection->prepare("SELECT SUM(valor) AS TOTAL FROM operationsapplication  WHERE   idUser = :cod AND tipo = 'receita' AND MONTH(data) = MONTH(NOW())");
+    $searchOperationsPerMonth->bindParam(':cod', $user_cod);
+
+    $searchOperationsPerMonth->execute();
+
+    if ($searchOperationsPerMonth->rowCount() > 0) {
+
+        $row = $searchOperationsPerMonth->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($row as $getdata) {
+            $receitasPerMonth       =   $getdata['TOTAL'];
+        }
+    }
+} catch (PDOException $error) {
+    die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//BUSCA O TOTAL DE DESPESAS POR MÊS
+try {
+
+    $searchOperationsPerMonth = $connection->prepare("SELECT SUM(valor) AS TOTAL FROM operationsapplication  WHERE   idUser = :cod AND tipo = 'despesa' AND MONTH(data) = MONTH(NOW())");
+    $searchOperationsPerMonth->bindParam(':cod', $user_cod);
+
+    $searchOperationsPerMonth->execute();
+
+    if ($searchOperationsPerMonth->rowCount() > 0) {
+
+        $row = $searchOperationsPerMonth->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($row as $getdata) {
+            $despesasPerMonth       =   $getdata['TOTAL'];
+        }
+    }
+} catch (PDOException $error) {
+    die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 
 $datini = filter_input(INPUT_GET, 'dateini', FILTER_SANITIZE_STRING);
@@ -241,6 +287,10 @@ if (isset($_GET['id'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <!-- DarkMode -->
+    <script src="../js/dark_mode/main.js"></script>
+    <link rel="stylesheet" href="../../../../source/root/darkmode.css">
+
     <link rel="stylesheet" href="../../../../source/root/root.css">
     <link rel="stylesheet" href="../../../../source/styles/dashboard/transaction/main.css">
     <link rel="stylesheet" href="../../../../source/styles/components/button-back/main.css">
@@ -272,6 +322,16 @@ if (isset($_GET['id'])) {
 
         ?>
     </script>
+
+    <style>
+        .title_page{
+            color: #000;
+            text-decoration: none;
+            margin: 20px;
+            font-size:2rem;
+            text-align: center;
+        }
+    </style>
 
 </head>
 
@@ -366,7 +426,23 @@ if (isset($_GET['id'])) {
                 </a>
             </div>
             <div class="row_button_filter">
-                <h1>Transações</h1>
+                <h1 class="title_page">Transações</h1>
+                <div class="card-balance">
+                    <div class="container-left-top-desktop">
+                        <i class="fas fa-university" style="font-size: 22px;margin: 10px;"></i>
+                        <div class="text-container">
+                            <strong>Saldo Atual:</strong>
+                            <span class="value_format">R$ <?php echo number_format($saldo_user, 2, ',', '.'); ?></span>
+                        </div>
+                    </div>
+                    <div class="container-right-top-desktop">
+                        <i class="fas fa-wallet" style="font-size: 22px; margin: 10px;"></i>
+                        <div class="text-container">
+                            <strong>Balanço Mensal:</strong>
+                            <span class="value_format">R$ <?php echo number_format($receitasPerMonth - $despesasPerMonth, 2, ',', '.') ?></span>
+                        </div>
+                    </div>
+                </div>
                 <button id="btn_filter_show">
                     <i class="fas fa-filter"></i>
                 </button>
@@ -389,46 +465,46 @@ if (isset($_GET['id'])) {
 
                         </tr>
                     </thead>
-
-                    <?php if (isset($rowOperation)) {
-                        foreach ($rowOperation as $getOperation) {
-                    ?>
-
-                            <tbody style="
+                    <tbody style="
                                     cursor: pointer;
                                     background-color: #FFFF;
-                            ">
+                            " class="row-grid">
+                        <?php if (isset($rowOperation)) {
+                            foreach ($rowOperation as $getOperation) {
+                        ?>
+
+
 
                                 <tr>
                                     <?php if ($getOperation['tipo'] == 'receita') { ?>
-                                        <td class="text-success" style="text-align: center;"><?php echo strtoupper($getOperation['tipo']); ?></td>
+                                        <td class="text-success col-1" style="text-align: center;"><?php echo strtoupper($getOperation['tipo']); ?></td>
                                     <?php } else { ?>
                                         <td class="text-danger" style="text-align: center;"><?php echo strtoupper($getOperation['tipo']); ?></td>
                                     <?php } ?>
-                                    <td style="text-align: center;"><?php echo date('d/m/y', strtotime($getOperation['data'])); ?></td>
-                                    <td><?php echo $getOperation['categoria']; ?></td>
-                                    <td><?php echo $getOperation['descricao']; ?></td>
-                                    <td>R$ <?php echo number_format($getOperation['valor'], 2, ',', '.'); ?></td>
-                                    <td style="text-align: center;">
+                                    <td style="text-align: center;" class="col-2"><?php echo date('d/m/y', strtotime($getOperation['data'])); ?></td>
+                                    <td class="col-3"><?php echo $getOperation['categoria']; ?></td>
+                                    <td class="col-4"><?php echo $getOperation['descricao']; ?></td>
+                                    <td class="col-5">R$ <?php echo number_format($getOperation['valor'], 2, ',', '.'); ?></td>
+                                    <td style="text-align: center;" class="col-6">
                                         <a href="index.php?id=<?php echo base64_encode($getOperation['cod']); ?>&modal=true" style="color: #2c3e50;">
                                             <i class="far fa-edit"></i>
                                         </a>
                                     </td>
-                                    <td style="text-align: center;">
+                                    <td style="text-align: center;" class="col-7">
                                         <a href="models/ActionOperation.php?id=<?php echo base64_encode($getOperation['cod']); ?>&operation=delete" style="color: #e74c3c;">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </td>
                                 </tr>
 
-                            </tbody>
 
-                        <?php }
-                    } else { ?>
 
-                        <h2 class="text-center">Nenhum Dado Encontrado</h2>
+                            <?php }
+                        } else { ?>
+                    </tbody>
+                    <h2 class="text-center">Nenhum Dado Encontrado</h2>
 
-                    <?php } ?>
+                <?php } ?>
                 </table>
 
 
@@ -442,28 +518,29 @@ if (isset($_GET['id'])) {
                 <a href="../../index.php" style="display: flex;flex-direction: row;">
                     <i class="fas fa-arrow-left"></i>
 
-                    <h1 style="color: black; margin: 20px;font-size:2rem;text-align: center;">
+                    
+                </a>
+                <h1 class="title_page">
                         Transações
                     </h1>
-                </a>
             </div>
 
 
-            <div class="container-content-grid-transactions">
+            <div class="container-content-grid-transactions" id="container-content-grid-transactions">
 
                 <div class="top-container-grid">
                     <div class="container-left-top">
                         <i class="fas fa-university" style="font-size: 22px;"></i>
                         <div class="text-container">
-                            <span>Saldo Atual</span>
+                            <strong>Saldo Atual</strong>
                             <span>R$ <?php echo number_format($saldo_user, 2, ',', '.'); ?></span>
                         </div>
                     </div>
                     <div class="container-right-top">
                         <i class="fas fa-wallet" style="font-size: 22px;"></i>
                         <div class="text-container">
-                            <span>Balanço Mensal</span>
-                            <span>R$ <?php echo number_format($receitas - $despesas, 2, ',', '.') ?></span>
+                            <strong>Balanço Mensal</strong>
+                            <span>R$ <?php echo number_format($receitasPerMonth - $despesasPerMonth, 2, ',', '.') ?></span>
                         </div>
                     </div>
 
@@ -485,8 +562,14 @@ if (isset($_GET['id'])) {
                                 </div>
                                 <div class="title-column">
                                     <div class="title-description-row">
-                                        <span class="title-row"><?php echo $getOperation['descricao']; ?></span>
-                                        <span class="type-row"><?php echo $getOperation['categoria']; ?></span>
+                                        <strong>
+                                            <span class="title-row">
+                                                <?php echo $getOperation['descricao']; ?>
+                                            </span>
+                                        </strong>
+                                        <span class="type-row">
+                                            <?php echo $getOperation['categoria']; ?>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="currency-value-display">
@@ -531,7 +614,7 @@ if (isset($_GET['id'])) {
                     <div class="content">
                         <br>
                         <div class="title_popup">
-                            <h1>Filtro</h1>
+                            <h1 class="filter_title">Filtro</h1>
                         </div>
                         <form action="index.php" method="GET">
                             <br>

@@ -7,7 +7,7 @@ require_once('../../../../../../../source/controller/connection.php');
 ////////////
 //VALIDA USUÁRIO
 if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
-    if ($_SESSION['Authentication'] == '') {
+    if ((empty($_SESSION['Authentication']))||(empty($_SESSION['user_email']))) {
         $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
         header('Location: ../../../../../login/index.php');
         die();

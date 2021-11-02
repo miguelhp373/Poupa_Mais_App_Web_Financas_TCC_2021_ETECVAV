@@ -3,7 +3,7 @@ require_once('../../../../../source/controller/connection.php');
 session_start();
 
 if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
-    if ($_SESSION['Authentication'] == '') {
+    if ((empty($_SESSION['Authentication']))||(empty($_SESSION['user_email']))) {
         $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
         header('Location: ../../../../login/index.php');
         
@@ -93,7 +93,7 @@ if(strlen($UserPassVerify) > 0) {
         }else{
             $_SESSION['Msg_sucess'] = '';
             $_SESSION['Msg_error'] = 'Erro Ao Tentar Alterar As Informações';;
-            header('location: ../../minha conta/index.php');
+            header('location: ../../Minha_conta/index.php');
             die();
         }
         
@@ -117,11 +117,11 @@ if(strlen($UserPassVerify) > 0) {
         
         if($update->rowCount() > 0){
             $_SESSION['Msg_sucess'] = 'Informações Alteradas com Sucesso!';
-            header('location: ../../minha conta/index.php');
+            header('location: ../../Minha_conta/index.php');
         }else{
             $_SESSION['Msg_sucess'] = '';
             $_SESSION['Msg_error'] = 'Erro Ao Tentar Alterar As Informações';
-            header('location: ../../minha conta/index.php');
+            header('location: ../../Minha_conta/index.php');
             die();
             
         }

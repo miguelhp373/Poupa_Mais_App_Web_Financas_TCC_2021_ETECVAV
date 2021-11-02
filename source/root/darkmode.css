@@ -1,0 +1,34 @@
+/* primary color */
+.nav-bar-left-desktop.darkmode,
+.row-grid.darkmode>tr,
+.container-content-grid-transactions.darkmode
+{
+    background-color: #1F1D36 !important;
+}
+
+/* secondary items colors */
+.content_page.darkmode, 
+.select_image_pop_up.darkmode,
+.main_container.darkmode,
+.content-page-mobile.darkmode
+{
+  background-color: #3F3351 !important;
+}
+
+.title_page.darkmode,
+.text-dark-mode-label.darkmode,
+.label_btn_home.darkmode,
+.title_modal_avatar.darkmode,
+.name.darkmode,
+.email.darkmode,
+.text.darkmode,
+.message.darkmode,
+.row-grid.darkmode>tr,
+.container-content-grid-transactions.darkmode >  div > div > div >span, strong, .fa-wallet,.fa-university
+{
+  color: #FFFF !important;
+}
+
+.row-grid.darkmode>tr:hover{
+  color: rgb(240, 240, 240) !important;
+}

@@ -6,7 +6,7 @@ require_once('../../../../source/controller/connection.php');
 ////////////
 //VALIDA USUÁRIO
 if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
-    if ($_SESSION['Authentication'] == '') {
+    if ((empty($_SESSION['Authentication'])) || (empty($_SESSION['user_email']))) {
         $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
         header('Location: ../../../login/index.php');
     }
@@ -82,6 +82,9 @@ try {
     <!-- Mask Input JS -->
     <script src="https://cdn.jsdelivr.net/gh/miguelhp373/MaskInputJS/maskjs@1.3/maskjs.min.js"></script>
 
+    <!-- DarkMode -->
+    <script src="../js/dark_mode/main.js"></script>
+    <link rel="stylesheet" href="../../../../source/root/darkmode.css">
 
     <link rel="stylesheet" href="../../../../source/root/root.css">
     <link rel="stylesheet" href="../../../../source/styles/dashboard/account_edit/main.css">
@@ -98,7 +101,7 @@ try {
             </button>
         </div>
         <div class="container">
-            <h1>Selecione Seu Avatar</h1>
+            <h1 class="title_modal_avatar">Selecione Seu Avatar</h1>
             <div class="row d-flex justify-content-between">
                 <?php for ($count = 1; $count < 28; $count++) { ?>
 
@@ -197,12 +200,12 @@ try {
                                 height: 100%;
                                 display: flex;
                                 flex-direction: column;
-                                justify-content: center;">
+                                justify-content: center;" class="label_btn_home">
                     voltar
                 </span>
 
             </div>
-            <h1>Editar Conta</h1>
+            <h1 class="title_page">Editar Conta</h1>
 
             <div class="profile_image">
 
