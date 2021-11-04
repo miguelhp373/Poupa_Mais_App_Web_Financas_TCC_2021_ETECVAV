@@ -170,7 +170,13 @@ try {
 
 $tot_Page   =   10;
 
-if(!isset($_GET['page'])) header('Location: index.php?page=1');
+if(!isset($_GET['page'])) {
+    header('Location: index.php?page=1');
+}else{
+    if(!is_numeric($_GET['page'])){
+        header('Location: index.php?page=1');
+    }
+}
 
 $page_selection_pagination  =   filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
 
