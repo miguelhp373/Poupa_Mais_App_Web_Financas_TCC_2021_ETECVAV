@@ -41,6 +41,12 @@ function DarkMode(state){
         $('.column_content').css({'background-color':'#1F1D36'})
         $('.lb_dates').css({'color':'#FFFF'});
         $('.filter_title').css({'color':'#FFFF'});
+        $('.currency-value-display').css({'color':'#FFFF'});
+        $('.title_page').css({'color':'#FFFF'});
+        $('.page-link').addClass("bg-dark");
+        $('.card-text-top').css({'color':'#FFFF'});
+        $('.fa-wallet').css({'color':'#FFFF'});
+        $('.fa-university').css({'color':'#FFFF'});
         
         localStorage.setItem('darkmode','true'); 
     }else{
@@ -67,6 +73,12 @@ function DarkMode(state){
         $('.column_content').css({'background-color':'#f3f3f3'})
         $('.lb_dates').css({'color':'#000'});
         $('.filter_title').css({'color':'#000'});
+        $('.currency-value-display').css({'color':'#000'});
+        $('.title_page').css({'color':'#000'});
+        $('.page-link').removeClass("bg-dark");
+        $('.fa-wallet').css({'color':'#000'});
+        $('.fa-university').css({'color':'#000'});
+        $('.card-text-top').css({'color':'#000'});
         
         
         
@@ -93,7 +105,8 @@ function addClasses(){
     $('.row-grid').attr('id','row-grid');
     $('.content-page-mobile').attr('id','content-page-mobile');
     $('.content-grid-container').attr('id','content-grid-container');
-
+    $('.currency-value-display').attr('id','currency-value-display');
+    $('.text-container').attr('id','text-container');
     
 }
 

@@ -11,6 +11,7 @@ $pass   = $PASS_DATA_BASE; //password from database
 try {
     $connection = new PDO("mysql:host=$host;port=$port;dbname=" . $dbname, $user, $pass);
 } catch (PDOException $error) {
-    echo $error->getMessage();
-    die('<br>Erro Ao Tentar se comunicar com o Servidor! Tente Novamente Mais Tarde');
+    //echo $error->getMessage();
+    echo "<h1>Erro 503 - Serviço Indisponivel Temporariamente<h1>";
+    die;
 }

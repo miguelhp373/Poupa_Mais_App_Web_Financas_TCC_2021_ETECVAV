@@ -70,7 +70,8 @@ if(isset($_SESSION['image_selected'])){
         $update->execute();
   
     }catch(PDOException $error){
-        die('<br>Erro Ao Tentar se comunicar com o Servidor! Tente Novamente Mais Tarde');
+        header('location: ../../../../Page404/index.php');
+        die;
     } 
 }
 
@@ -100,7 +101,8 @@ if(strlen($UserPassVerify) > 0) {
        
     
     }catch(PDOException $error){
-        die('<br>Erro Ao Tentar se comunicar com o Servidor! Tente Novamente Mais Tarde');
+        header('location: ../../../../Page404/index.php');
+        die;
     }
 
 }else{
@@ -129,7 +131,8 @@ if(strlen($UserPassVerify) > 0) {
        
     
     }catch(PDOException $error){
-        die('<br>Erro Ao Tentar se comunicar com o Servidor! Tente Novamente Mais Tarde');
+        header('location: ../../../../Page404/index.php');
+        die;
     }
 }
 

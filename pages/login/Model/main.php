@@ -21,7 +21,8 @@ try {
 
     $loginquery->execute();
 } catch (PDOException $error) {
-    die('<br>Erro Ao Tentar se comunicar com o Servidor! Tente Novamente Mais Tarde');
+    header('Location: ../../Page404/index.php');
+    die;
 }
 
 

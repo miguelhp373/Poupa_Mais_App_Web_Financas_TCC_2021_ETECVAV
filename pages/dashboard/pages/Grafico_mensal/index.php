@@ -50,7 +50,8 @@ try {
         }
     }
 } catch (PDOException $error) {
-    die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+    header('location: ../../../Page404/index.php');
+    die;
 }
 ////////////////////////////
 

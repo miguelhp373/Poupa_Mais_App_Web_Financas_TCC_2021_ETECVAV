@@ -19,7 +19,8 @@ try {
         }
     }
 } catch (PDOException $error) {
-    die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+    header('location: ../../Page404/index.php');
+    die;
 }
 
 
@@ -40,7 +41,8 @@ if(isset($getView)){
         $AddViewOnPost->execute();
     
     } catch(PDOException $error){
-        die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+        header('location: ../../Page404/index.php');
+        die;
     }
 }
 
@@ -175,7 +177,7 @@ if(isset($getView)){
             <?php }
                 }
             } else {
-                echo "<h1 >Post Não Encontrado</h1>";
+                echo "<h1>Post Não Encontrado</h1>";
             } ?>
         </div>
     </div>

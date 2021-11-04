@@ -146,8 +146,10 @@ try {
         ///////////////////////////////////////////////////////////
 
     } else {
-        die('<br>Erro Ao Tentar se comunicar com o Servidor! Tente Novamente Mais Tarde');
+        header('location: ../../Page404/index.php');
+        die;
     }
 } catch (PDOException $error) {
-    die('<br>Erro Ao Tentar se comunicar com o Servidor! Tente Novamente Mais Tarde');
+    header('location: ../../Page404/index.php');
+    die;
 }

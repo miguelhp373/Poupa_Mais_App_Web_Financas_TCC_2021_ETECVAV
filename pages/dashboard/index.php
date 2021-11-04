@@ -108,6 +108,50 @@ try {
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//BUSCA O TOTAL DE RECEITAS POR MÊS
+try {
+
+  $searchOperationsPerMonth = $connection->prepare("SELECT SUM(valor) AS TOTAL FROM operationsapplication  WHERE   idUser = :cod AND tipo = 'receita' AND MONTH(data) = MONTH(NOW())");
+  $searchOperationsPerMonth->bindParam(':cod', $user_cod);
+
+  $searchOperationsPerMonth->execute();
+
+  if ($searchOperationsPerMonth->rowCount() > 0) {
+
+      $row = $searchOperationsPerMonth->fetchAll(PDO::FETCH_ASSOC);
+
+      foreach ($row as $getdata) {
+          $receitasPerMonth       =   $getdata['TOTAL'];
+      }
+  }
+} catch (PDOException $error) {
+  die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//BUSCA O TOTAL DE DESPESAS POR MÊS
+try {
+
+  $searchOperationsPerMonth = $connection->prepare("SELECT SUM(valor) AS TOTAL FROM operationsapplication  WHERE   idUser = :cod AND tipo = 'despesa' AND MONTH(data) = MONTH(NOW())");
+  $searchOperationsPerMonth->bindParam(':cod', $user_cod);
+
+  $searchOperationsPerMonth->execute();
+
+  if ($searchOperationsPerMonth->rowCount() > 0) {
+
+      $row = $searchOperationsPerMonth->fetchAll(PDO::FETCH_ASSOC);
+
+      foreach ($row as $getdata) {
+          $despesasPerMonth       =   $getdata['TOTAL'];
+      }
+  }
+} catch (PDOException $error) {
+  die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 //PESQUISA LANÇAMENTOS FUTUROS
@@ -708,10 +752,10 @@ try {
                 <i class="fas fa-balance-scale icon-01"></i>
                 <h2>Balanço Mensal</h2>
               </div>
-              <span class="Saldo_total text-success">R$ <?php echo number_format($receitas, 2, ',', '.') ?></span>
-              <span class="Saldo_total text-danger">R$ <?php echo number_format($despesas, 2, ',', '.') ?></span>
+              <span class="Saldo_total text-success">R$ <?php echo number_format($receitasPerMonth, 2, ',', '.') ?></span>
+              <span class="Saldo_total text-danger">R$ <?php echo number_format($despesasPerMonth, 2, ',', '.') ?></span>
               <hr>
-              <span class="Saldo_total">R$ <?php echo number_format($receitas - $despesas, 2, ',', '.') ?></span>
+              <span class="Saldo_total">R$ <?php echo number_format($receitasPerMonth - $despesasPerMonth, 2, ',', '.') ?></span>
             </div>
           </div>
         </div>

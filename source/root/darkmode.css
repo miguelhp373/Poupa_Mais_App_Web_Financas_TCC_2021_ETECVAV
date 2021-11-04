@@ -24,7 +24,9 @@
 .text.darkmode,
 .message.darkmode,
 .row-grid.darkmode>tr,
-.container-content-grid-transactions.darkmode >  div > div > div >span, strong, .fa-wallet,.fa-university
+.container-content-grid-transactions.darkmode 
+.currency-value-display.darkmode,
+.text-container.darkmode > strong
 {
   color: #FFFF !important;
 }

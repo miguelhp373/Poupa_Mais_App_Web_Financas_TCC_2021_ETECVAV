@@ -52,6 +52,10 @@ try {
 }
 //////////////////////////////////////////////////////////
 
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -142,7 +146,43 @@ try {
     die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////
+//PAGINAÇÃO
 
+try {
+
+    $searchTotTransaction = $connection->prepare("SELECT COUNT(cod) as `tot` FROM operationsapplication WHERE  idUser = :idUser LIMIT 1");
+    $searchTotTransaction->bindParam(':idUser', $user_cod);
+
+    $searchTotTransaction->execute();
+
+    if ($searchTotTransaction->rowCount() > 0) {
+
+        $rowTotTransaction = $searchTotTransaction->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($rowTotTransaction as $getTotTransactions) {
+            $tot_Reg     =   $getTotTransactions['tot'];
+        }
+    }
+} catch (PDOException $error) {
+    header('location: ../../../Page404/index.php');
+    die;
+}
+
+$tot_Page   =   10;
+
+$page_selection_pagination  =   filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
+
+if (empty($page_selection_pagination) || ($page_selection_pagination == '0')) {
+    $page_selection_pagination = "1";
+    header('location: index.php?page=1&index=1');
+} else {
+    $page_selection_pagination = $page_selection_pagination;
+}
+
+$start = $page_selection_pagination - 1;
+
+//multiplicamos a quantidade de registros da pagina pelo valor da pagina atual 
+$start = $tot_Page * $start;
 
 
 
@@ -175,7 +215,7 @@ try {
                     tipo = :tip     AND
                     idUser = :cod
             ORDER BY cod DESC
-        "
+            LIMIT " . $start . "," . $tot_Page . ""
     );
     $searchOperations->bindParam(':cod', $user_cod);
     $searchOperations->bindParam(':datin', $datini);
@@ -246,11 +286,11 @@ if (isset($_GET['id'])) {
                 }
             }
         } catch (PDOException $error) {
-            die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+            header('location: ../../../Page404/index.php');
+            die;
         }
     }
 }
-
 
 
 
@@ -324,11 +364,11 @@ if (isset($_GET['id'])) {
     </script>
 
     <style>
-        .title_page{
+        .title_page {
             color: #000;
             text-decoration: none;
             margin: 20px;
-            font-size:2rem;
+            font-size: 2rem;
             text-align: center;
         }
     </style>
@@ -431,14 +471,14 @@ if (isset($_GET['id'])) {
                     <div class="container-left-top-desktop">
                         <i class="fas fa-university" style="font-size: 22px;margin: 10px;"></i>
                         <div class="text-container">
-                            <strong>Saldo Atual:</strong>
+                            <strong class="card-text-top">Saldo Atual:</strong>
                             <span class="value_format">R$ <?php echo number_format($saldo_user, 2, ',', '.'); ?></span>
                         </div>
                     </div>
                     <div class="container-right-top-desktop">
                         <i class="fas fa-wallet" style="font-size: 22px; margin: 10px;"></i>
                         <div class="text-container">
-                            <strong>Balanço Mensal:</strong>
+                            <strong class="card-text-top">Balanço Mensal:</strong>
                             <span class="value_format">R$ <?php echo number_format($receitasPerMonth - $despesasPerMonth, 2, ',', '.') ?></span>
                         </div>
                     </div>
@@ -498,7 +538,6 @@ if (isset($_GET['id'])) {
                                 </tr>
 
 
-
                             <?php }
                         } else { ?>
                     </tbody>
@@ -507,7 +546,38 @@ if (isset($_GET['id'])) {
                 <?php } ?>
                 </table>
 
-
+                <div class="container-fluid">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center ">
+                            <li class="page-item">
+                                <a class="page-link" href="index.php?page=<?php
+                                                                            if (isset($rowOperation)) {
+                                                                                echo $page_selection_pagination - 1;
+                                                                            } else {
+                                                                                echo $page_selection_pagination = 1;
+                                                                            }
+                                                                            ?>">
+                                    <?php
+                                    if (isset($rowOperation)) {
+                                        echo 'Anterior';
+                                    } else {
+                                        echo 'inicio';
+                                    }
+                                    ?>
+                                </a>
+                            </li>
+                            <?php for ($i = $_GET['page']; $i <= $_GET['page'] + 2; $i++) { ?>
+                                <li class="page-item <?php if ($_GET['page'] == $i) echo 'active' ?>">
+                                    <a class="page-link" href="index.php?page=<?php echo $page_selection_pagination = $i; ?>">
+                                        <?php echo $i; ?>
+                                        <!--Index Da Página--->
+                                    </a>
+                                </li>
+                            <?php } ?>
+                            <li class="page-item"><a class="page-link" href="index.php?page=<?php echo $_GET['page'] + 1 ?>">Próximo</a></li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
         <!------------------>
@@ -518,11 +588,11 @@ if (isset($_GET['id'])) {
                 <a href="../../index.php" style="display: flex;flex-direction: row;">
                     <i class="fas fa-arrow-left"></i>
 
-                    
+
                 </a>
                 <h1 class="title_page">
-                        Transações
-                    </h1>
+                    Transações
+                </h1>
             </div>
 
 
