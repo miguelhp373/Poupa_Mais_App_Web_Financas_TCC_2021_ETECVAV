@@ -170,6 +170,8 @@ try {
 
 $tot_Page   =   10;
 
+if(!isset($_GET['page'])) header('Location: index.php?page=1');
+
 $page_selection_pagination  =   filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
 
 if (empty($page_selection_pagination) || ($page_selection_pagination == '0')) {
