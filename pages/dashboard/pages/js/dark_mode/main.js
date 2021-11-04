@@ -47,6 +47,8 @@ function DarkMode(state){
         $('.card-text-top').css({'color':'#FFFF'});
         $('.fa-wallet').css({'color':'#FFFF'});
         $('.fa-university').css({'color':'#FFFF'});
+        $('.title-row').css({'color':'#FFFF'});
+        $('.span-top-mobile').css({'color':'#FFFF'});
         
         localStorage.setItem('darkmode','true'); 
     }else{
@@ -79,6 +81,8 @@ function DarkMode(state){
         $('.fa-wallet').css({'color':'#000'});
         $('.fa-university').css({'color':'#000'});
         $('.card-text-top').css({'color':'#000'});
+        $('.title-row').css({'color':'#000'});
+        $('.span-top-mobile').css({'color':'#000'});
         
         
         

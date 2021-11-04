@@ -610,15 +610,15 @@ if (isset($_GET['id'])) {
                     <div class="container-left-top">
                         <i class="fas fa-university" style="font-size: 22px;"></i>
                         <div class="text-container">
-                            <strong>Saldo Atual</strong>
-                            <span>R$ <?php echo number_format($saldo_user, 2, ',', '.'); ?></span>
+                            <strong class="span-top-mobile">Saldo Atual</strong>
+                            <span class="span-top-mobile">R$ <?php echo number_format($saldo_user, 2, ',', '.'); ?></span>
                         </div>
                     </div>
                     <div class="container-right-top">
                         <i class="fas fa-wallet" style="font-size: 22px;"></i>
                         <div class="text-container">
-                            <strong>Balanço Mensal</strong>
-                            <span>R$ <?php echo number_format($receitasPerMonth - $despesasPerMonth, 2, ',', '.') ?></span>
+                            <strong class="span-top-mobile">Balanço Mensal</strong>
+                            <span class="span-top-mobile">R$ <?php echo number_format($receitasPerMonth - $despesasPerMonth, 2, ',', '.') ?></span>
                         </div>
                     </div>
 

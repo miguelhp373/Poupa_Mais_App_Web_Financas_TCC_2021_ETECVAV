@@ -570,7 +570,7 @@ try {
           </label>
         </div>
 
-        <button class="btn btn-secondary" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" title="Notificações">
+        <button class="btn btn-secondary" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" title="Notificações" style="margin-right: 10px;">
           <i class="fas fa-bell"></i>
 
         </button>
