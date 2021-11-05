@@ -20,6 +20,27 @@ if (isset($_SESSION['Msg_error'])) {
   <title>Poupa+ | Web</title>
   <link rel="shortcut icon" href="Favicon.svg" type="image/x-icon">
 
+  <link rel="manifest" href="manifest.json">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Poupa+">
+  <meta name="apple-mobile-web-app-title" content="Poupa+">
+  <meta name="theme-color" content="#8854d0">
+  <meta name="msapplication-navbutton-color" content="#8854d0">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="msapplication-starturl" content="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192x192.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="192x192" href="icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="icon-256x256.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="256x256" href="icon-256x256.png">
+  <link rel="icon" type="image/png" sizes="384x384" href="icon-384x384.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="384x384" href="icon-384x384.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icon-512x512.png">
+  <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="icon-512x512.png">
+
   <!--Criado em 06/08/2021-->
 
   <!--Jquery-->
@@ -41,6 +62,12 @@ if (isset($_SESSION['Msg_error'])) {
 
   <!-- Mask Input JS -->
   <script src="https://cdn.jsdelivr.net/gh/miguelhp373/MaskInputJS/maskjs@1.3/maskjs.min.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('generate-sw.js');
+    }
+  </script>
 
   <style>
     .email-link {
