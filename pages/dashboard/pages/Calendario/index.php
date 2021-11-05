@@ -5,7 +5,7 @@ require_once('../../../../source/controller/connection.php');
 ////////////
 //VALIDA USUÁRIO
 if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
-    if ((empty($_SESSION['Authentication']))||(empty($_SESSION['user_email']))) {
+    if ((empty($_SESSION['Authentication'])) || (empty($_SESSION['user_email']))) {
         $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
         header('Location: ../../../login/index.php');
     }
@@ -77,9 +77,13 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendário | Poupa+</title>
     <link rel="shortcut icon" href="../../../../Favicon.svg" type="image/x-icon">
-
+    
     <!--Jquery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- DarkMode -->
+    <script src="../js/dark_mode/main.js"></script>
+    <link rel="stylesheet" href="../../../../source/root/darkmode.css">
 
     <!--Bootstrap v5-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
@@ -114,7 +118,7 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
             var datefim = ''
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-
+                theme: 'dark',
                 displayEventTime: true,
                 timeZone: 'local',
                 locale: 'pt-br',
@@ -256,27 +260,27 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
                     <div class="content">
                         <br>
                         <div class="title_popup">
-                            <h1>Novo Evento</h1>
+                            <h1 class="text-modal">Novo Evento</h1>
                         </div>
                         <form action="model/main.php" method="post">
                             <br>
 
                             <div class="col_dates">
-                                <label for="date_input" class="lb_dates">
+                                <label for="date_input" class="lb_dates text-modal">
                                     Data Inicial:
                                     &nbsp;&nbsp;
                                     <input type="date" name="dateini" class="date_input" maxlength="9" id="dateini" required>
                                 </label>
                             </div>
                             <div class="row_title">
-                                <label for="title_event">
+                                <label for="title_event" class="text-modal">
                                     Descrição do Evento
                                     <input type="text" name="title" id="" class="title_event" required>
                                 </label>
                             </div>
                             <br>
                             <div class="row_color">
-                                <label for="color_picker">
+                                <label for="color_picker" class="text-modal">
                                     Escolha a Cor:
                                     <input type="color" name="color_picker" id="" class="color_picker">
                                 </label>
@@ -310,27 +314,27 @@ if (isset($_SESSION['Msg_error']) and ($_SESSION['Msg_error'] != '')) {
                     <div class="content">
                         <br>
                         <div class="title_popup">
-                            <h1>Editar Evento</h1>
+                            <h1 class="text-modal">Editar Evento</h1>
                         </div>
                         <form action="model/UpdateEvent.php" method="post">
                             <br>
                             <input type="text" style="display: none;" id="id_event" name="id_event" required>
                             <div class="col_dates">
-                                <label for="date_input" class="lb_dates">
+                                <label for="date_input" class="lb_dates text-modal">
                                     Data Inicial:
                                     &nbsp;&nbsp;
                                     <input type="date" name="dateini" class="date_input" id="date_input_edit_ini" maxlength="9" required>
                                 </label>
                             </div>
                             <div class="row_title">
-                                <label for="title_event">
+                                <label for="title_event" class="text-modal">
                                     Descrição do Evento
                                     <input type="text" name="title" class="title_event" id="title_event_edit" required>
                                 </label>
                             </div>
                             <br>
                             <div class="row_color">
-                                <label for="color_picker">
+                                <label for="color_picker" class="text-modal">
                                     Escolha a Cor:
                                     <input type="color" name="color_picker" class="color_picker" id="color_picker_edit">
                                 </label>

@@ -64,4 +64,20 @@ body::-webkit-scrollbar-thumb {
   filter: brightness(70%);
 }
 
+.page-link{
+  background-color: #8854d0 !important;
+    color: #FFFF;
+    transition: 0.2s;
+}
+
+.active{
+  border-color: 1px solid #FFFF;
+}
+
+.page-link:hover{
+  filter: brightness(80%);
+  text-decoration: none;
+  color: rgb(238, 237, 237);
+}
+
 /*------------------------------------*/

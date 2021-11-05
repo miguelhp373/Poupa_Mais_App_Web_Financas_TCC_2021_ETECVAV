@@ -6,7 +6,7 @@ require_once('../../../../source/controller/connection.php');
 ////////////
 //VALIDA USUÁRIO
 if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
-    if ((empty($_SESSION['Authentication']))||(empty($_SESSION['user_email']))) {
+    if ((empty($_SESSION['Authentication'])) || (empty($_SESSION['user_email']))) {
         $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
         header('Location: ../../../login/index.php');
     }
@@ -166,7 +166,7 @@ try {
 
     <title>Gráfico de Gastos Mensais | Poupa+</title>
     <link rel="shortcut icon" href="../../../../Favicon.svg" type="image/x-icon">
-    
+
     <link rel="stylesheet" href="style.css">
     <!--Jquery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -175,6 +175,9 @@ try {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
+    <!-- DarkMode -->
+    <script src="../js/dark_mode/main.js"></script>
+    <link rel="stylesheet" href="../../../../source/root/darkmode.css">
 
     <!--Icones FontAwesome-->
     <script src="https://kit.fontawesome.com/bb41ae50aa.js" crossorigin="anonymous"></script>
@@ -225,7 +228,7 @@ try {
 
 
 <body>
-<div class="page_not_found_gif">
+    <div class="page_not_found_gif">
         <a href="../../index.php">
             Voltar
         </a>
@@ -275,7 +278,7 @@ try {
         </div>
 
         <div class="content_page" id="content-page" style="margin-top: -155px;">
-            <h1 id="Title-Page">Gráfico De Transações Mensal</h1>
+            <h1 id="Title-Page" class="title_page">Gráfico De Transações Mensal</h1>
             <div id="uknowData"></div>
             <canvas id="chartApplication" style="width: 100%;height: 80vh;"></canvas>
         </div>
@@ -283,7 +286,7 @@ try {
 
     <script>
         <?php
-        if((isset($rowREC))&&(isset($rowDesp))){
+        if ((isset($rowREC)) && (isset($rowDesp))) {
             echo "
             var ctx = document.getElementById('chartApplication').getContext('2d');
             var myChart = new Chart(ctx, {
@@ -292,7 +295,7 @@ try {
                     labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
                     datasets: [{
                         label: 'Despesas Mensais',
-                        data: [".ceil(number_format($january, 2, '.', ',')).",".ceil(number_format($february, 2, '.', ',')).",".ceil(number_format($march, 2, '.', ',')).",".ceil(number_format($april, 2, '.', ',')).",".ceil(number_format($may, 2, '.', ',')).",".ceil(number_format($june, 2, '.', ',')).",".ceil(number_format($july, 2, '.', ',')).",".ceil(number_format($august, 2, '.', ',')).",".ceil(number_format($september, 2, '.', ',')).",".ceil(number_format($october, 2, '.', ',')).",".ceil(number_format($november, 2, '.', ',')).",".ceil(number_format($dezember, 2, '.', ','))."],
+                        data: [" . ceil(number_format($january, 2, '.', ',')) . "," . ceil(number_format($february, 2, '.', ',')) . "," . ceil(number_format($march, 2, '.', ',')) . "," . ceil(number_format($april, 2, '.', ',')) . "," . ceil(number_format($may, 2, '.', ',')) . "," . ceil(number_format($june, 2, '.', ',')) . "," . ceil(number_format($july, 2, '.', ',')) . "," . ceil(number_format($august, 2, '.', ',')) . "," . ceil(number_format($september, 2, '.', ',')) . "," . ceil(number_format($october, 2, '.', ',')) . "," . ceil(number_format($november, 2, '.', ',')) . "," . ceil(number_format($dezember, 2, '.', ',')) . "],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -313,7 +316,7 @@ try {
                     },
                     {
                         label: 'Receitas Mensais',
-                        data: [".ceil(number_format($januaryR, 2, ',', '.')).",".ceil(number_format($februaryR, 2, '.', ',')).",".ceil(number_format($marchR, 2, '.', ',')).",".ceil(number_format($aprilR, 2, '.', ',')).",".ceil(number_format($mayR, 2, '.', ',')).",".ceil(number_format($juneR, 2, '.', ',')).",".ceil(number_format($julyR, 2, '.', ',')).",".ceil(number_format($augustR, 2, '.', ',')).",".ceil(number_format($septemberR, 2, '.', ',')).",".ceil(number_format($octoberR, 2, '.', ',')).",".ceil(number_format($novemberR, 2, '.', ',')).",".ceil(number_format($dezemberR, 2, '.', ','))."],
+                        data: [" . ceil(number_format($januaryR, 2, ',', '.')) . "," . ceil(number_format($februaryR, 2, '.', ',')) . "," . ceil(number_format($marchR, 2, '.', ',')) . "," . ceil(number_format($aprilR, 2, '.', ',')) . "," . ceil(number_format($mayR, 2, '.', ',')) . "," . ceil(number_format($juneR, 2, '.', ',')) . "," . ceil(number_format($julyR, 2, '.', ',')) . "," . ceil(number_format($augustR, 2, '.', ',')) . "," . ceil(number_format($septemberR, 2, '.', ',')) . "," . ceil(number_format($octoberR, 2, '.', ',')) . "," . ceil(number_format($novemberR, 2, '.', ',')) . "," . ceil(number_format($dezemberR, 2, '.', ',')) . "],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -343,14 +346,13 @@ try {
                 }
             });
         ";
-        }else{
+        } else {
             echo "
             document.getElementById('uknowData').innerHTML += `<h2 style='Text-align: center;'>Nenhum Dado Encontrado.</h2>`
             document.getElementById('Title-Page').style.display = 'none';
             ";
         }
-       ?>
-       
+        ?>
     </script>
 </body>
 

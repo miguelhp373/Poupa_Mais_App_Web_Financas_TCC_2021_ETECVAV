@@ -7,7 +7,7 @@ require_once('../../../../source/controller/connection.php');
 ////////////
 //VALIDA USUÁRIO
 if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
-    if ((empty($_SESSION['Authentication']))||(empty($_SESSION['user_email']))) {
+    if ((empty($_SESSION['Authentication'])) || (empty($_SESSION['user_email']))) {
         $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
         header('Location: ../../../login/index.php');
         die();
@@ -108,8 +108,8 @@ try {
 
 try {
 
-    $searchUsers = $connection->prepare("SELECT cod, nome, email, access FROM userstableapplication WHERE access = 'master' ");
-
+    $searchUsers = $connection->prepare("SELECT cod, nome, email, access FROM userstableapplication WHERE access = 'master' AND email = :email ");
+    $searchUsers->bindParam(':email',$user_email);
 
     $searchUsers->execute();
 
@@ -139,6 +139,9 @@ try {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
+    <!-- DarkMode -->
+    <script src="../js/dark_mode/main.js"></script>
+    <link rel="stylesheet" href="../../../../source/root/darkmode.css">
 
     <!--Icones FontAwesome-->
     <script src="https://kit.fontawesome.com/bb41ae50aa.js" crossorigin="anonymous"></script>
@@ -155,38 +158,7 @@ try {
 </head>
 
 <body>
-    <!--NavBar Mobile-->
-    <!-- <div class="nav_bar_top_mobile">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light mobile">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="../../index.php">Logo</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-bars btn_menu"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="../Transacoes/index.php">Transações</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../Calendario/index.php">Calendário</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Dicas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../Ajuda/ajuda.php">Ajuda</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../../../login/index.php?login=logout">Sair</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div> -->
-    <!------------------>
+   <!------------------>
     <div class="container_page">
         <div class="nav-bar-left-desktop">
 
@@ -258,7 +230,7 @@ try {
                         </div>
                     </div>
                 </div>
-                <!-- <div class="cards">
+                <div class="cards">
                     <div class="col_left">
                         <strong>
                             <span><?php echo $post_views; ?></span>
@@ -270,39 +242,39 @@ try {
                             <i class="far fa-eye"></i>
                         </div>
                     </div>
-                </div> -->
+                </div>
 
             </div>
             <br>
-            <h1>
+            <h1 class="text-adm-page">
                 &nbsp;
                 <i class="fas fa-user-shield"></i>
                 Usuários Administradores
             </h1>
             <table class="table table-striped table-hover">
                 <tr>
-                    <th>#</th>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th style="text-align: center;">Acesso</th>
+                    <th class="text-adm-page">#</th>
+                    <th class="text-adm-page">Nome</th>
+                    <th class="text-adm-page">Email</th>
+                    <th style="text-align: center;" class="text-adm-page">Acesso</th>
                 </tr>
 
                 <?php if (isset($rowUsersALL)) {
                     foreach ($rowUsersALL as $getUsersAll) {
                 ?>
                         <tr>
-                            <td><?php echo $getUsersAll['cod']; ?></td>
-                            <td><?php echo $getUsersAll['nome']; ?></td>
-                            <td><?php echo $getUsersAll['email']; ?></td>
+                            <td class="text-adm-page"><?php echo $getUsersAll['cod']; ?></td>
+                            <td class="text-adm-page"><?php echo $getUsersAll['nome']; ?></td>
+                            <td class="text-adm-page"><?php echo $getUsersAll['email']; ?></td>
                             <?php if ($getUsersAll['access'] === 'master') { ?>
-                                <td style="text-align: center;"><input type="checkbox" name="" id="" checked disabled></td>
+                                <td style="text-align: center;" class="text-adm-page"><input type="checkbox" name="" id="" checked disabled></td>
                             <?php } ?>
 
                         </tr>
                     <?php }
                 } else { ?>
 
-                    <h2 class="text-center">Nenhum Dado Encontrado</h2>
+                    <h2 class="text-center" class="text-adm-page">Nenhum Dado Encontrado</h2>
 
                 <?php } ?>
             </table>

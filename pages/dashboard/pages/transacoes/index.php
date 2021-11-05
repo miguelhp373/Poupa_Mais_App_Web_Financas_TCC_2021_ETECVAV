@@ -170,9 +170,7 @@ try {
 
 $tot_Page   =   10;
 
-if(!isset($_GET['page'])) {
-    header('Location: index.php?page=1');
-}else{
+if(isset($_GET['page'])) {
     if(!is_numeric($_GET['page'])){
         header('Location: index.php?page=1');
     }
@@ -182,7 +180,7 @@ $page_selection_pagination  =   filter_input(INPUT_GET, 'page', FILTER_SANITIZE_
 
 if (empty($page_selection_pagination) || ($page_selection_pagination == '0')) {
     $page_selection_pagination = "1";
-    header('location: index.php?page=1&index=1');
+    header('Location: index.php?page=1');
 } else {
     $page_selection_pagination = $page_selection_pagination;
 }
@@ -501,7 +499,7 @@ if (isset($_GET['id'])) {
                 <table class="table table-bordered table-hover">
                     <thead style="
                                background-color: #dfe6e9;
-                    ">
+                    " class="thead-grid">
                         <tr>
                             <th style="text-align: center;">Tipo</th>
                             <th style="text-align: center;">Data</th>
@@ -525,16 +523,16 @@ if (isset($_GET['id'])) {
 
                                 <tr>
                                     <?php if ($getOperation['tipo'] == 'receita') { ?>
-                                        <td class="text-success col-1" style="text-align: center;"><?php echo strtoupper($getOperation['tipo']); ?></td>
+                                        <td class="col-1" style="text-align: center;color:#4cd137;"><strong><?php echo strtoupper($getOperation['tipo']); ?></strong></td>
                                     <?php } else { ?>
-                                        <td class="text-danger" style="text-align: center;"><?php echo strtoupper($getOperation['tipo']); ?></td>
+                                        <td class="text-danger" style="text-align: center;"><strong><?php echo strtoupper($getOperation['tipo']); ?></strong></td>
                                     <?php } ?>
                                     <td style="text-align: center;" class="col-2"><?php echo date('d/m/y', strtotime($getOperation['data'])); ?></td>
                                     <td class="col-3"><?php echo $getOperation['categoria']; ?></td>
                                     <td class="col-4"><?php echo $getOperation['descricao']; ?></td>
                                     <td class="col-5">R$ <?php echo number_format($getOperation['valor'], 2, ',', '.'); ?></td>
                                     <td style="text-align: center;" class="col-6">
-                                        <a href="index.php?id=<?php echo base64_encode($getOperation['cod']); ?>&modal=true" style="color: #2c3e50;">
+                                        <a href="index.php?id=<?php echo base64_encode($getOperation['cod']); ?>&modal=true&page=<?php if(isset($_GET['page'])){echo $_GET['page'];} ?>" style="color: #2c3e50;">
                                             <i class="far fa-edit"></i>
                                         </a>
                                     </td>
@@ -658,7 +656,7 @@ if (isset($_GET['id'])) {
                                 </button>
 
                                 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
-                                    <a href="index.php?id=<?php echo base64_encode($getOperation['cod']); ?>&modal=true">
+                                    <a href="index.php?id=<?php echo base64_encode($getOperation['cod']); ?>&modal=true&page=<?php echo $_GET['page'];?>">
                                         <li class="mdl-menu__item">Editar</li>
                                     </a>
                                     <a href="models/ActionOperation.php?id=<?php echo base64_encode($getOperation['cod']); ?>&operation=delete">
@@ -757,7 +755,7 @@ if (isset($_GET['id'])) {
                                 <form action="models/ActionOperation.php?operation=edit&id=<?php echo base64_encode($codTransaction) ?>&EditValue=<?php echo $getOperation['valor']; ?>" method="POST" id="form_actions" autocomplete="false">
 
                                     <div class="col_dates" style="margin-top: 10px;">
-                                        <strong style="width: 100%;"><span>Valor:</span></strong>
+                                        <strong style="width: 100%;"><span class="text-popmodal">Valor:</span></strong>
                                         <input type="text" name="currency" class="fieds-pop money2" placeholder="Valor R$" required autocomplete="off" value="<?php echo number_format($currency, 2, '.', ','); ?>" maxlength="13" />
                                         <br>
                                         <div class="row_categories">
@@ -784,10 +782,10 @@ if (isset($_GET['id'])) {
 
                                         </div>
                                         <br>
-                                        <strong style="width: 100%;"><span>Descrição:</span></strong>
+                                        <strong style="width: 100%;"><span class="text-popmodal">Descrição:</span></strong>
                                         <input type="text" name="descricao" class="fieds-pop" placeholder="Descrição" value="<?php echo $description; ?>" required>
                                         <br>
-                                        <strong style="width: 100%;"><span>Data:</span></strong>
+                                        <strong style="width: 100%;"><span class="text-popmodal">Data:</span></strong>
                                         <input type="date" name="date" class="fieds-pop" maxlength="9" value="<?php echo $dateTransaction; ?>" required>
 
                                     </div>

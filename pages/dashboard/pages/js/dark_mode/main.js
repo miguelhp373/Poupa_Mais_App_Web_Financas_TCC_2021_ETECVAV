@@ -20,7 +20,6 @@ function DarkMode(state){
         
         $('#nav-bar-left-desktop').addClass('darkmode');
         $('#content-page').addClass('darkmode');
-        $('#content_page').addClass('darkmode');
         $('#title_page').addClass('darkmode');
         $('#text-dark-mode-label').addClass('darkmode');
         $('#label_btn_home').addClass('darkmode');
@@ -49,6 +48,25 @@ function DarkMode(state){
         $('.fa-university').css({'color':'#FFFF'});
         $('.title-row').css({'color':'#FFFF'});
         $('.span-top-mobile').css({'color':'#FFFF'});
+        $('.container_page').css({'background-color':'#3F3351'});
+        $('.fc-toolbar-title').css({'color':'#FFFF'});
+        $('.fc-toolbar-title').css({'border':'#000'});
+        $('.fc-prev-button').css({'border':'1px solid'});
+        $('.fc-next-button').css({'border':'1px solid'});
+        $('.fc-today-button').css({'border':'1px solid'});
+        $('.fc-dayGridMonth-button').css({'border':'1px solid'});
+        $('.fc-listYear-button').css({'border':'1px solid'});
+        $('.thead-grid').css({"background-color":'#3B185F'});
+        $('.thead-grid').css({'color':'#FFFF'});
+        $('.fa-edit').css({'color':'#FFFF'});
+        $('.material-icons').css({'color':'#FFFF'});
+        $('.title_pop').css({'color':'#FFFF'});
+        $('.text-popmodal').css({'color':'#FFFF'});
+        $('#col-con01').addClass('darkmode');
+        $('#content_page').addClass('darkmode');
+        $('.text-adm-page').css({'color':'#FFFF'});
+        $('.container-content').css({'background-color':'#3F3351'});
+        $('.text-modal').css({'color':'#FFFF'});
         
         localStorage.setItem('darkmode','true'); 
     }else{
@@ -70,7 +88,7 @@ function DarkMode(state){
         $('#container-content-grid-transactions').removeClass('darkmode');
         $('#content-grid-container').removeClass('darkmode');
         $('.type-row').css({'color':'#000'});
-        $('.card-balance').css({'background-color':'#f3f3f3'});
+        $('.card-balance').css({'background-color':'#FFFF'});
         $('.value_format').css({'color':'#000'});
         $('.column_content').css({'background-color':'#f3f3f3'})
         $('.lb_dates').css({'color':'#000'});
@@ -83,11 +101,17 @@ function DarkMode(state){
         $('.card-text-top').css({'color':'#000'});
         $('.title-row').css({'color':'#000'});
         $('.span-top-mobile').css({'color':'#000'});
+        $('.container_page').css({'background-color':'#f3f3f3'});
+        $('.fa-edit').css({'color':'#000'});
+        $('.material-icons').css({'color':'#000'});
+        $('.title_pop').css({'color':'#000'});;
+        $('.text-popmodal').css({'color':'#000'});
+        $('#col-con01').removeClass('darkmode');
+        $('.text-adm-page').css({'color':'#000'});
+        $('.container-content').css({'background-color':'#f3f3f3'});
+        $('.text-modal').css({'color':'#000'});
+    
         
-        
-        
-
-
         localStorage.setItem('darkmode','false');
     }
 }
@@ -111,6 +135,7 @@ function addClasses(){
     $('.content-grid-container').attr('id','content-grid-container');
     $('.currency-value-display').attr('id','currency-value-display');
     $('.text-container').attr('id','text-container');
+    $('.col-con01').attr('id','col-con01');
     
 }
 

@@ -21,14 +21,14 @@ try {
 }
 
 
-if(isset($_GET['search'])){
+if (isset($_GET['search'])) {
 
-  $queryText = filter_input(INPUT_GET,'search',FILTER_SANITIZE_URL);
+  $queryText = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_URL);
 
   try {
-    $searchPostsQuery = $connection->prepare("SELECT id, title, description, text, date, creatorpost, origin FROM blog_posts WHERE title LIKE '%".$queryText."%' ORDER BY date DESC");
+    $searchPostsQuery = $connection->prepare("SELECT id, title, description, text, date, creatorpost, origin FROM blog_posts WHERE title LIKE '%" . $queryText . "%' ORDER BY date DESC");
     $searchPostsQuery->execute();
-  
+
     if ($searchPostsQuery->rowCount() > 0) {
       $row = $searchPostsQuery->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -64,6 +64,8 @@ if (isset($_SESSION['user_email']) && (isset($_SESSION['Authentication']))) {
   <!--Bootstrap v5-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
 
   <!--Icones FontAwesome-->
   <script src="https://kit.fontawesome.com/bb41ae50aa.js" crossorigin="anonymous"></script>
@@ -105,7 +107,9 @@ if (isset($_SESSION['user_email']) && (isset($_SESSION['Authentication']))) {
       <form action="index.php" method="get">
         <div class="right_menu">
           <div class="search-field">
-            <input type="search" placeholder="Procurar" name="search" class="search-box" value="<?php if(isset($_GET['search'])){ echo $_GET['search'];}?>">
+            <input type="search" placeholder="Procurar" name="search" class="search-box" value="<?php if (isset($_GET['search'])) {
+                                                                                                  echo $_GET['search'];
+                                                                                                } ?>">
             <button type="submit" class="btn-search">
               Buscar
             </button>
@@ -122,7 +126,7 @@ if (isset($_SESSION['user_email']) && (isset($_SESSION['Authentication']))) {
   <div class="nav_bar_top_mobile">
     <nav class="navbar navbar-expand-lg navbar-light bg-light mobile">
       <div class="container-fluid">
-        <a class="navbar-brand" href="<?php echo $URL_PATH;?>">
+        <a class="navbar-brand" href="<?php echo $URL_PATH; ?>">
           Poupa+
           <sup>Blog</sup>
         </a>
@@ -130,8 +134,8 @@ if (isset($_SESSION['user_email']) && (isset($_SESSION['Authentication']))) {
           <i class="fas fa-bars btn_menu"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
+          <ul class="navbar-nav">
+            <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="../../index.php">Home</a>
             </li>
             <li class="nav-item">
@@ -149,7 +153,9 @@ if (isset($_SESSION['user_email']) && (isset($_SESSION['Authentication']))) {
           </ul>
 
           <form class="d-flex" action="index.php" method="get">
-            <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" value="<?php if(isset($_GET['search'])){ echo $_GET['search'];}?>">
+            <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" value="<?php if (isset($_GET['search'])) {
+                                                                                                                            echo $_GET['search'];
+                                                                                                                          } ?>">
             <button class="btn btn-light" type="submit">Buscar</button>
           </form>
         </div>
@@ -162,7 +168,7 @@ if (isset($_SESSION['user_email']) && (isset($_SESSION['Authentication']))) {
   <div class="container-content">
     <div class="content">
       <div class="btn_back_home">
-        <a href="<?php echo $URL_PATH;?>">
+        <a href="<?php echo $URL_PATH; ?>">
           <i class="fas fa-arrow-left"></i>
         </a>
       </div>

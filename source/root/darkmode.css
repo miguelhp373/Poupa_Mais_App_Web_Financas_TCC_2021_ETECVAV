@@ -1,9 +1,13 @@
 /* primary color */
 .nav-bar-left-desktop.darkmode,
-.row-grid.darkmode>tr,
 .container-content-grid-transactions.darkmode
 {
     background-color: #1F1D36 !important;
+}
+
+.row-grid.darkmode>tr
+{
+  background-color: #1F1D36 !important;
 }
 
 /* secondary items colors */

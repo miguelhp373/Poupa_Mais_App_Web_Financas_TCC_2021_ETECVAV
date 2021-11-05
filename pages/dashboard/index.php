@@ -800,12 +800,7 @@ try {
     <!--POPUP-->
     <div class="popup_actions hidden">
       <div class="row_content">
-        <!-- <div class="col_button_popup_close">
-          <button id="close_pop_up" class="close_pop_up">
-            <i class="fas fa-times"></i>
-          </button>
-        </div> -->
-        <div class="column_content">
+        <div class="column_content col-con01">
 
           <div class="content" style="margin-top: 30px;">
             <br>
@@ -882,7 +877,7 @@ try {
             <i class="fas fa-times"></i>
           </button>
         </div> -->
-        <div class="column_content">
+        <div class="column_content col-con02">
 
           <div class="content" style="margin-top: 30px;">
             <br>
