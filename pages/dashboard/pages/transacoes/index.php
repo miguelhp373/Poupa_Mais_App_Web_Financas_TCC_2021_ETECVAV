@@ -1,5 +1,6 @@
 <?php
 
+
 session_start();
 require_once('../../../../source/controller/connection.php');
 
@@ -51,9 +52,6 @@ try {
     die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
 //////////////////////////////////////////////////////////
-
-
-
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -146,7 +144,8 @@ try {
     die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////
-//PAGINAÇÃO
+//PAGINAÇÃO e FILTRO
+
 
 try {
 
@@ -170,11 +169,14 @@ try {
 
 $tot_Page   =   10;
 
-if(isset($_GET['page'])) {
-    if(!is_numeric($_GET['page'])){
+if (isset($_GET['page'])) {
+    if (!is_numeric($_GET['page'])) {
         header('Location: index.php?page=1');
     }
 }
+
+
+
 
 $page_selection_pagination  =   filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
 
@@ -191,10 +193,10 @@ $start = $page_selection_pagination - 1;
 $start = $tot_Page * $start;
 
 
-
 $datini = filter_input(INPUT_GET, 'dateini', FILTER_SANITIZE_STRING);
 $datfim = filter_input(INPUT_GET, 'datefim', FILTER_SANITIZE_STRING);
 $tipo   = filter_input(INPUT_GET, 'tipo', FILTER_SANITIZE_STRING);
+
 
 
 if ($datini == '') {
@@ -489,7 +491,7 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
                 </div>
-                <button id="btn_filter_show">
+                <button id="btn_filter_show" disabled style="visibility: hidden;">
                     <i class="fas fa-filter"></i>
                 </button>
             </div>
@@ -532,7 +534,9 @@ if (isset($_GET['id'])) {
                                     <td class="col-4"><?php echo $getOperation['descricao']; ?></td>
                                     <td class="col-5">R$ <?php echo number_format($getOperation['valor'], 2, ',', '.'); ?></td>
                                     <td style="text-align: center;" class="col-6">
-                                        <a href="index.php?id=<?php echo base64_encode($getOperation['cod']); ?>&modal=true&page=<?php if(isset($_GET['page'])){echo $_GET['page'];} ?>" style="color: #2c3e50;">
+                                        <a href="index.php?id=<?php echo base64_encode($getOperation['cod']); ?>&modal=true&page=<?php if (isset($_GET['page'])) {
+                                                                                                                                        echo $_GET['page'];
+                                                                                                                                    } ?>" style="color: #2c3e50;">
                                             <i class="far fa-edit"></i>
                                         </a>
                                     </td>
@@ -656,7 +660,7 @@ if (isset($_GET['id'])) {
                                 </button>
 
                                 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
-                                    <a href="index.php?id=<?php echo base64_encode($getOperation['cod']); ?>&modal=true&page=<?php echo $_GET['page'];?>">
+                                    <a href="index.php?id=<?php echo base64_encode($getOperation['cod']); ?>&modal=true&page=<?php echo $_GET['page']; ?>">
                                         <li class="mdl-menu__item">Editar</li>
                                     </a>
                                     <a href="models/ActionOperation.php?id=<?php echo base64_encode($getOperation['cod']); ?>&operation=delete">
@@ -678,13 +682,8 @@ if (isset($_GET['id'])) {
         </div>
         <!------------------>
         <!--POPUP-->
-        <div class="popup_filter hidden">
+        <!-- <div class="popup_filter hidden">
             <div class="row_content">
-                <!-- <div class="col_button_popup_close">
-                    <button id="close_pop_up" class="close_pop_up">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div> -->
                 <div class="column_content">
 
                     <div class="content">
@@ -692,6 +691,7 @@ if (isset($_GET['id'])) {
                         <div class="title_popup">
                             <h1 class="filter_title">Filtro</h1>
                         </div>
+
                         <form action="index.php" method="GET">
                             <br>
 
@@ -718,7 +718,11 @@ if (isset($_GET['id'])) {
                             </div>
 
                             <div class="row_btn_submit">
-                                <button type="submit">Filtrar</button>
+                                <button type="submit">
+                                    Filtrar 
+                                    &nbsp;
+                                    <i class="fas fa-filter"></i>
+                                </button>
                                 <a id="close_pop_up" class="close-button-bottom close_pop_up">
                                     Fechar
                                     &nbsp;
@@ -729,7 +733,7 @@ if (isset($_GET['id'])) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!---FIM POPUP-->
 
         <!--POPUP-->
