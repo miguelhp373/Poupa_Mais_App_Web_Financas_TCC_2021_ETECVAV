@@ -108,8 +108,7 @@ try {
 
 try {
 
-    $searchUsers = $connection->prepare("SELECT cod, nome, email, access FROM userstableapplication WHERE access = 'master' AND email = :email ");
-    $searchUsers->bindParam(':email',$user_email);
+    $searchUsers = $connection->prepare("SELECT cod, nome, email, access FROM userstableapplication WHERE access = 'master' ");
 
     $searchUsers->execute();
 
@@ -174,6 +173,11 @@ try {
                     </span>
                 </div>
             </div>
+
+            <a href="pages/user_organization/index.php" class="link_menu">
+            <i class="fas fa-shield-alt"></i>
+                Usuários
+            </a>
 
             <a href="pages/my posts/index.php" class="link_menu">
                 <i class="far fa-clone"></i>
