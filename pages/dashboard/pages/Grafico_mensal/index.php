@@ -54,6 +54,17 @@ try {
     die;
 }
 ////////////////////////////
+$YearFilter =   '';
+
+if (isset($_GET['year'])) {
+    if (is_numeric($_GET['year'])) {
+        $YearFilter = $_GET['year'];
+    }
+} else {
+    $YearFilter = date('Y');
+    header('Location: index.php?year=' . $YearFilter);
+}
+
 
 ////////////////////////////
 //GET CHART INFORMATIONS RECEITAS
@@ -61,24 +72,25 @@ try {
 
     $getMonthTot = $connection->prepare(
         "SELECT 
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 1  AND tipo = 'receita' AND idUser = :cod)  as 'jan', 
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 2  AND tipo = 'receita' AND idUser = :cod)  as 'feb',
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 3  AND tipo = 'receita' AND idUser = :cod)  as 'mar',
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 4  AND tipo = 'receita' AND idUser = :cod)  as 'apr',
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 5  AND tipo = 'receita' AND idUser = :cod)  as 'may',
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 6  AND tipo = 'receita' AND idUser = :cod)  as 'jun',
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 7  AND tipo = 'receita' AND idUser = :cod)  as 'jul',
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 8  AND tipo = 'receita' AND idUser = :cod)  as 'aug', 
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 9  AND tipo = 'receita' AND idUser = :cod)  as 'sep',
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 10 AND tipo = 'receita' AND idUser = :cod) as 'oct',
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 11 AND tipo = 'receita' AND idUser = :cod) as 'nov',
-        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 12 AND tipo = 'receita' AND idUser = :cod) as 'dez'
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 1  AND tipo = 'receita' AND idUser = :cod AND YEAR(data) = :ANO)  as 'jan', 
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 2  AND tipo = 'receita' AND idUser = :cod AND YEAR(data) = :ANO)  as 'feb',
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 3  AND tipo = 'receita' AND idUser = :cod AND YEAR(data) = :ANO)  as 'mar',
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 4  AND tipo = 'receita' AND idUser = :cod AND YEAR(data) = :ANO)  as 'apr',
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 5  AND tipo = 'receita' AND idUser = :cod AND YEAR(data) = :ANO)  as 'may',
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 6  AND tipo = 'receita' AND idUser = :cod AND YEAR(data) = :ANO)  as 'jun',
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 7  AND tipo = 'receita' AND idUser = :cod AND YEAR(data) = :ANO)  as 'jul',
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 8  AND tipo = 'receita' AND idUser = :cod AND YEAR(data) = :ANO)  as 'aug', 
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 9  AND tipo = 'receita' AND idUser = :cod AND YEAR(data) = :ANO)  as 'sep',
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 10 AND tipo = 'receita' AND idUser = :cod AND YEAR(data) = :ANO) as 'oct',
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 11 AND tipo = 'receita' AND idUser = :cod AND YEAR(data) = :ANO) as 'nov',
+        (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 12 AND tipo = 'receita' AND idUser = :cod AND YEAR(data) = :ANO) as 'dez'
         FROM  operationsapplication
         WHERE  idUser = :cod    
         "
     );
 
     $getMonthTot->bindParam(':cod', $user_cod);
+    $getMonthTot->bindParam(':ANO', $YearFilter);
 
     $getMonthTot->execute();
 
@@ -111,24 +123,25 @@ try {
 
     $getMonthDESP = $connection->prepare(
         "SELECT 
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 1  AND tipo = 'despesa' AND idUser = :cod)  as 'jan', 
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 2  AND tipo = 'despesa' AND idUser = :cod)  as 'feb',
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 3  AND tipo = 'despesa' AND idUser = :cod)  as 'mar',
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 4  AND tipo = 'despesa' AND idUser = :cod)  as 'apr',
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 5  AND tipo = 'despesa' AND idUser = :cod)  as 'may',
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 6  AND tipo = 'despesa' AND idUser = :cod)  as 'jun',
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 7  AND tipo = 'despesa' AND idUser = :cod)  as 'jul',
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 8  AND tipo = 'despesa' AND idUser = :cod)  as 'aug', 
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 9  AND tipo = 'despesa' AND idUser = :cod)  as 'sep',
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 10 AND tipo = 'despesa' AND idUser = :cod) as 'oct',
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 11 AND tipo = 'despesa' AND idUser = :cod) as 'nov',
-            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 12 AND tipo = 'despesa' AND idUser = :cod) as 'dez'
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 1  AND tipo = 'despesa' AND idUser = :cod AND YEAR(data) = :ANO)  as 'jan', 
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 2  AND tipo = 'despesa' AND idUser = :cod AND YEAR(data) = :ANO)  as 'feb',
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 3  AND tipo = 'despesa' AND idUser = :cod AND YEAR(data) = :ANO)  as 'mar',
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 4  AND tipo = 'despesa' AND idUser = :cod AND YEAR(data) = :ANO)  as 'apr',
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 5  AND tipo = 'despesa' AND idUser = :cod AND YEAR(data) = :ANO)  as 'may',
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 6  AND tipo = 'despesa' AND idUser = :cod AND YEAR(data) = :ANO)  as 'jun',
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 7  AND tipo = 'despesa' AND idUser = :cod AND YEAR(data) = :ANO)  as 'jul',
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 8  AND tipo = 'despesa' AND idUser = :cod AND YEAR(data) = :ANO)  as 'aug', 
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 9  AND tipo = 'despesa' AND idUser = :cod AND YEAR(data) = :ANO)  as 'sep',
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 10 AND tipo = 'despesa' AND idUser = :cod AND YEAR(data) = :ANO) as 'oct',
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 11 AND tipo = 'despesa' AND idUser = :cod AND YEAR(data) = :ANO) as 'nov',
+            (SELECT SUM(valor) FROM operationsapplication WHERE MONTH(data) = 12 AND tipo = 'despesa' AND idUser = :cod AND YEAR(data) = :ANO) as 'dez'
         FROM  operationsapplication
         WHERE idUser = :cod    
         "
     );
 
     $getMonthDESP->bindParam(':cod', $user_cod);
+    $getMonthDESP->bindParam(':ANO', $YearFilter);
 
     $getMonthDESP->execute();
 
@@ -155,6 +168,25 @@ try {
     die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
 }
 ////////////////////////////
+
+////////////////////////////
+//GET CHART INFORMATIONS YEARS
+try {
+
+    $getYEARSOperations = $connection->prepare("SELECT DISTINCT YEAR(data) as 'Years' FROM  operationsapplication WHERE idUser = :cod");
+    $getYEARSOperations->bindParam(':cod', $user_cod);
+
+    $getYEARSOperations->execute();
+
+    if ($getYEARSOperations->rowCount() > 0) {
+
+        $rowYears = $getYEARSOperations->fetchAll(PDO::FETCH_ASSOC);
+    }
+} catch (PDOException $error) {
+    die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -164,10 +196,10 @@ try {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Gráfico de Gastos Mensais | Poupa+</title>
+    <title>Gráfico de Transações Mensais | Poupa+</title>
     <link rel="shortcut icon" href="../../../../Favicon.svg" type="image/x-icon">
 
-    <link rel="stylesheet" href="style.css">
+
     <!--Jquery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -190,6 +222,14 @@ try {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <style>
+        .title_page {
+            margin-top: 10px;
+        }
+
+        .filter_year {
+            margin: 10px;
+        }
+
         @media(min-width:1000px) {
             .page_not_found_gif {
                 display: none;
@@ -223,6 +263,13 @@ try {
             }
         }
     </style>
+
+    <script>
+        //filter
+        function selectYear(param) {
+            window.location.href = `index.php?year=${param.value}`;
+        }
+    </script>
 
 </head>
 
@@ -259,11 +306,6 @@ try {
                 Minha Conta
             </a>
 
-            <!-- <a href="../../../blog/index.php" class="link_menu">
-            <i class="fas fa-rss-square"></i>   
-                Blog
-            </a> -->
-
             <a href="../Ajuda/index.php" class="link_menu">
                 <i class="fas fa-question"></i>
                 Ajuda
@@ -279,6 +321,32 @@ try {
 
         <div class="content_page" id="content-page" style="margin-top: -155px;">
             <h1 id="Title-Page" class="title_page">Gráfico De Transações Mensal</h1>
+
+            <div class="filter_year">
+                <select name="SelectYear" id="selectYear" onchange="selectYear(this)">
+                    <option value="<?php echo $SetYears['Years'] ?>">Selecione o Ano</option>
+                    <?php foreach ($rowYears as $SetYears) {
+                        if ($SetYears['Years'] == $_GET['year']) {?>
+                            
+                            <option value="<?php echo $SetYears['Years'] ?>" selected>
+                                <?php echo $SetYears['Years'] ?>
+                            </option>
+
+                        <?php  } else { ?>
+                            
+                            <option value="<?php echo $SetYears['Years'] ?>">
+                                <?php echo $SetYears['Years'] ?>
+                            </option>
+                            
+                        <?php } ?>
+                    <?php } ?>
+
+
+
+              
+                </select>
+            </div>
+
             <div id="uknowData"></div>
             <canvas id="chartApplication" style="width: 100%;height: 80vh;"></canvas>
         </div>
