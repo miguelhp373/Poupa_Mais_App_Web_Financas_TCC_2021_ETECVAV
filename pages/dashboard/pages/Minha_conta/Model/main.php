@@ -59,6 +59,82 @@ $UserPass                   =   password_hash(filter_input(INPUT_POST,'senha',FI
 
 // validaCPF($UserCpf);
 
+try {
+
+    $searchinfos = $connection->prepare("SELECT cod, nome, email, telefone, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
+    $searchinfos->bindParam(':email', $_SESSION['user_email']);
+
+    $searchinfos->execute();
+
+    if ($searchinfos->rowCount() > 0) {
+
+        $row = $searchinfos->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($row as $getdata) {
+            $user_name      =   $getdata['nome'];
+            $user_email     =   $getdata['email'];
+            $user_cod       =   $getdata['cod'];
+            $user_telefone  =   $getdata['telefone'];
+            $image_user     =   $getdata['image_user'];
+        }
+    }
+} catch (PDOException $error) {
+    header('location: ../../../Page404/index.php');
+    die;
+}
+
+
+if(isset($_GET['deleteAccont'])){
+
+    if($_GET['deleteAccont'] == 'true'){
+
+
+        try{        
+            $DeleteAccount = $connection->prepare("DELETE FROM userstableapplication WHERE cod = :cod");
+            $DeleteAccount->bindParam(':cod',$user_cod);
+            
+            $DeleteAccount->execute();
+
+
+            $DeleteOperations = $connection->prepare("DELETE FROM operationsapplication WHERE cod = :cod");
+            $DeleteOperations->bindParam(':cod',$user_cod);
+            
+            $DeleteOperations->execute();
+
+            $DeleteEvents = $connection->prepare("DELETE FROM eventstableapplicartion WHERE coduser = :cod");
+            $DeleteEvents->bindParam(':cod',$user_cod);
+            
+            $DeleteEvents->execute();            
+            
+            if($DeleteAccount->rowCount() > 0){
+                
+                setcookie('email_storage_remember','', time() - (3600 * 5),'/',NULL,false, true);
+                setcookie('pass_storage_remember','',time() - (3600 * 5),'/',NULL,false, true);
+                
+                //clean session
+                session_unset();
+                session_destroy();
+        
+                header('Location: ../../../../login/index.php?login=logout');
+                die;
+            }
+
+      
+        }catch(PDOException $error){
+            header('location: ../../../../Page404/index.php');
+            die;
+        }     
+    }else{
+        header('location: ../../Minha_conta/index.php');
+        die;
+    }
+}else{
+    header('location: ../../Minha_conta/index.php');
+    die;
+}
+
+
+
 if(isset($_SESSION['image_selected'])){
 
     try{        
@@ -90,7 +166,7 @@ if(strlen($UserPassVerify) > 0) {
         
         if($update->rowCount() > 0){
             $_SESSION['Msg_sucess'] = 'Informações Alteradas com Sucesso!';
-            header('location: ../../minha conta/index.php');
+            header('location: ../../Minha_conta/index.php');
         }else{
             $_SESSION['Msg_sucess'] = '';
             $_SESSION['Msg_error'] = 'Erro Ao Tentar Alterar As Informações';;

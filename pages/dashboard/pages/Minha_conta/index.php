@@ -92,6 +92,24 @@ try {
     <link rel="stylesheet" href="../../../../source/styles/mobile/dash_page/main.css">
     <link rel="stylesheet" href="../../../../source/styles/components/button-back/main.css">
     <link rel="stylesheet" href="../../../../source/styles/components/nav-bar-mobile/main.css">
+
+    <script>
+        <?php
+
+        if (isset($_GET['deleteButton'])) {
+            echo '
+                var box =    confirm("Você Tem Certeza, Deseja Apagar Sua Conta? Após Isso Você Não Poderá Acessar Sua Conta!");
+
+                if(box == true){
+                    window.location.href = "model/main.php?deleteAccont=true"
+                }
+                
+            ';
+        }
+
+        ?>
+    </script>
+
 </head>
 
 <body class="body">
@@ -258,11 +276,19 @@ try {
                         <button type="submit">
                             Salvar
                         </button>
-                    </div>
-
                 </form>
+                &nbsp;
+
+ 
+                <a href="index.php?deleteButton=true" class="btn btn-danger" style="border-radius: 30px;">
+                  Apagar Conta
+                </a>
+
             </div>
+
+            </form>
         </div>
+    </div>
     </div>
 
 
