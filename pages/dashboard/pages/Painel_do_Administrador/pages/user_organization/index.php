@@ -195,17 +195,17 @@ if (isset($_GET['user_string'])) {
                             <?php } ?>
                             <td>
                                 <?php if ($GetsearchUsersALL['access'] === 'master') { ?>
-                                    <a href="model/main.php?type=remove&user_id=<?php echo $GetsearchUsersALL['cod']; ?>">
+                                    <a href="model/Main.php?type=remove&user_id=<?php echo $GetsearchUsersALL['cod']; ?>">
                                         Remover Nivel De Acesso
                                     </a>
                                 <?php } else { ?>
-                                    <a href="model/main.php?type=root&user_id=<?php echo $GetsearchUsersALL['cod']; ?>">
+                                    <a href="model/Main.php?type=root&user_id=<?php echo $GetsearchUsersALL['cod']; ?>">
                                         Tornar Administrador
                                     </a>
                                 <?php } ?>
 
                             </td>
-                            <td><a href="model/main.php?type=delete&user_id=<?php echo $GetsearchUsersALL['cod']; ?>">Apagar</a></td>
+                            <td><a href="model/Main.php?type=delete&user_id=<?php echo $GetsearchUsersALL['cod']; ?>">Apagar</a></td>
 
                         </tr>
                     <?php }
