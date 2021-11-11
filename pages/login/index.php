@@ -103,7 +103,7 @@ if (isset($_GET['page'])) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login | Poupa+</title>
-  <link rel="shortcut icon" href="../../Favicon.svg" type="image/x-icon">
+  <link rel="shortcut icon" href="../../Favicon.png" type="image/x-icon">
   <!--Criado em 06/08/2021-->
 
   <!--Jquery-->
