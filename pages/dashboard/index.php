@@ -119,11 +119,11 @@ try {
 
   if ($searchOperationsPerMonth->rowCount() > 0) {
 
-      $row = $searchOperationsPerMonth->fetchAll(PDO::FETCH_ASSOC);
+    $row = $searchOperationsPerMonth->fetchAll(PDO::FETCH_ASSOC);
 
-      foreach ($row as $getdata) {
-          $receitasPerMonth       =   $getdata['TOTAL'];
-      }
+    foreach ($row as $getdata) {
+      $receitasPerMonth       =   $getdata['TOTAL'];
+    }
   }
 } catch (PDOException $error) {
   die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
@@ -141,11 +141,11 @@ try {
 
   if ($searchOperationsPerMonth->rowCount() > 0) {
 
-      $row = $searchOperationsPerMonth->fetchAll(PDO::FETCH_ASSOC);
+    $row = $searchOperationsPerMonth->fetchAll(PDO::FETCH_ASSOC);
 
-      foreach ($row as $getdata) {
-          $despesasPerMonth       =   $getdata['TOTAL'];
-      }
+    foreach ($row as $getdata) {
+      $despesasPerMonth       =   $getdata['TOTAL'];
+    }
   }
 } catch (PDOException $error) {
   die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
@@ -357,7 +357,7 @@ try {
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
-//PESQUISA EVENTOS PARA NOTIFICAÇÕES
+//PESQUISA DE NOTIFICAÇÕES
 $getActualDate = date('Y-m-d');
 try {
 
@@ -368,6 +368,24 @@ try {
   if ($searchNotify->rowCount() > 0) {
 
     $notifyData = $searchNotify->fetchAll(PDO::FETCH_ASSOC);
+  }
+} catch (PDOException $error) {
+  die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//PESQUISA EVENTOS PARA NOTIFICAÇÕES
+$getActualDate = date('Y-m-d');
+try {
+
+  $searchNotifyEvents = $connection->prepare("SELECT * FROM eventstableapplicartion WHERE start = :date AND coduser = :idUser");
+  $searchNotifyEvents->bindParam(':date', $getActualDate);
+  $searchNotifyEvents->bindParam(':idUser',  $user_cod);
+  $searchNotifyEvents->execute();
+
+  if ($searchNotifyEvents->rowCount() > 0) {
+
+    $notifyDataEvents = $searchNotifyEvents->fetchAll(PDO::FETCH_ASSOC);
   }
 } catch (PDOException $error) {
   die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
@@ -560,9 +578,6 @@ try {
         </div>
         <div class="toggle-dark-mode-button">
           <span class="text-dark-mode-label">Modo Noturno</span>
-          <!-- <span>
-          <i class="fas fa-moon"></i>
-          </span> -->
           <label class="switch">
             <input type="checkbox" id="toggle_darkmode">
             <span class="slider round"></span>
@@ -575,27 +590,29 @@ try {
 
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+
+          <strong class="text-center">
+            &nbsp;
+            🔔&nbsp;Notificações
+            &nbsp;
+          </strong>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
           <?php
           if (isset($notifyData)) {
             if ($notifyData != null) { ?>
-              <strong class="text-center">
-                &nbsp;
-                Notificações
-                &nbsp;
-              </strong>
               <?php
               foreach ($notifyData as $dataset) { ?>
 
+
                 <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    🔔&nbsp;<?php echo $dataset['text']; ?>
+                  <a class="dropdown-item" href="<?php echo $dataset['link']; ?>">
+                    &nbsp;<?php echo $dataset['text']; ?>
                   </a>
                 </li>
+              <?php } ?>
             <?php }
-            }
           } else { ?>
             <li>
               <a class="dropdown-item" href="#">
@@ -603,6 +620,36 @@ try {
               </a>
             </li>
           <?php } ?>
+
+          <li><br></li>
+
+          <strong class="text-center">
+            &nbsp;
+            📅&nbsp;Eventos
+            &nbsp;
+          </strong>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <?php
+          if (isset($notifyDataEvents)) {
+            if ($notifyDataEvents != null) { ?>
+              <?php foreach ($notifyDataEvents as $datasetEvents) { ?>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    &nbsp;<?php echo $datasetEvents['title'] . ' - ' . date('d/m/y', strtotime($datasetEvents['start'])); ?>
+                  </a>
+                </li>
+              <?php } ?>
+            <?php }
+          } else { ?>
+            <li>
+              <a class="dropdown-item" href="#">
+                Nenhuma Evento Hoje
+              </a>
+            </li>
+          <?php } ?>
+
 
           <!-- <li>
             <hr class="dropdown-divider">

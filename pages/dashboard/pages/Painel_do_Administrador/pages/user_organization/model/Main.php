@@ -55,10 +55,10 @@ try {
 
 switch ($_GET['type']) {
     case 'root':
-        UpdateLevel($connection,'master');
+        UpdateLevel($connection,'master',$user_cod);
         break;
     case 'remove':
-        UpdateLevel($connection,null);
+        UpdateLevel($connection,null,$user_cod);
             break;        
     case 'delete':
         DeleteUser($connection,$user_cod);
@@ -69,9 +69,15 @@ switch ($_GET['type']) {
         break;
 }
 
-function UpdateLevel($connection,$type)
+function UpdateLevel($connection,$type,$cod)
 {
+
     $user_id = $_GET['user_id'];
+
+    if($cod == $user_id){
+        header('Location: ../../user_organization/index.php');
+        die();
+    }
 
 
     try {

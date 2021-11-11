@@ -8,7 +8,7 @@ require_once('../../../../../../source/controller/connection.php');
 ////////////
 //VALIDA USUÁRIO
 if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
-    if ((empty($_SESSION['Authentication']))||(empty($_SESSION['user_email']))) {
+    if ((empty($_SESSION['Authentication'])) || (empty($_SESSION['user_email']))) {
         $_SESSION['Msg_error'] = 'Usuário Não Permitido!';
         header('Location: ../../../../../login/index.php');
         die();
@@ -40,17 +40,51 @@ if (isset($_SESSION['Msg_sucess'])) {
 ////////////////////////////
 
 
-try {
+if (isset($_GET['user_string'])) {
 
-    $searchUsers = $connection->prepare("SELECT cod, nome, email, access FROM userstableapplication");
-    $searchUsers->execute();
+    $emailParameter = filter_input(INPUT_GET, 'user_string', FILTER_SANITIZE_STRING);
 
-    if ($searchUsers->rowCount() > 0) {
-         $searchUsersALL = $searchUsers->fetchAll(PDO::FETCH_ASSOC);
+    if (!empty($emailParameter)) {
+        try {
+
+            $searchUsers = $connection->prepare("SELECT cod, nome, email, access FROM userstableapplication WHERE email LIKE '%" . $emailParameter . "%'");
+            $searchUsers->execute();
+
+            if ($searchUsers->rowCount() > 0) {
+                $searchUsersALL = $searchUsers->fetchAll(PDO::FETCH_ASSOC);
+            }
+        } catch (PDOException $error) {
+            die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+        }
+    } else {
+        try {
+
+            $searchUsers = $connection->prepare("SELECT cod, nome, email, access FROM userstableapplication");
+            $searchUsers->execute();
+
+            if ($searchUsers->rowCount() > 0) {
+                $searchUsersALL = $searchUsers->fetchAll(PDO::FETCH_ASSOC);
+            }
+        } catch (PDOException $error) {
+            die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+        }
     }
-} catch (PDOException $error) {
-    die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+} else {
+    try {
+
+        $searchUsers = $connection->prepare("SELECT cod, nome, email, access FROM userstableapplication");
+        $searchUsers->execute();
+
+        if ($searchUsers->rowCount() > 0) {
+            $searchUsersALL = $searchUsers->fetchAll(PDO::FETCH_ASSOC);
+        }
+    } catch (PDOException $error) {
+        die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+    }
 }
+
+
+
 
 ?>
 
@@ -82,7 +116,30 @@ try {
     <link rel="stylesheet" href="../../../../../../source/styles/components/button-back/main.css">
 
     <style>
+        .container-top {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
 
+        .container-top>i,
+        h1,
+        button,
+        input {
+            margin: 10px;
+        }
+
+        .search-input {
+            width: 500px;
+            height: 38px;
+            font-size: 15px;
+            border-radius: 30px;
+            border: 1px solid;
+            padding-left: 7px;
+        }
+        .btn{
+            border-radius: 30px !important;
+        }
     </style>
 </head>
 
@@ -99,9 +156,18 @@ try {
 
             <br>
             <h1>
-                &nbsp;
-                <i class="fas fa-shield-alt"></i>
-                Usuários
+                <form action="index.php" method="get">
+                    <div class="container-top">
+                        <i class="fas fa-shield-alt"></i>
+                        <h1>Usuários</h1>
+
+                        <input type="search" placeholder="Buscar Usuário Por Email" class="search-input" name="user_string" value="<?php if (isset($_GET['user_string'])) { echo $_GET['user_string'];}?>" style="width: 500px;height: 38px;font-size: 15px;">
+                        <button class="btn btn-success">Buscar</button>
+
+                    </div>
+                </form>
+
+
             </h1>
             <table class="table table-striped table-hover">
                 <tr>
@@ -124,23 +190,23 @@ try {
                             <td><?php echo $GetsearchUsersALL['email']; ?></td>
                             <?php if ($GetsearchUsersALL['access'] === 'master') { ?>
                                 <td style="text-align: center;" class="text-adm-page"><input type="checkbox" name="" id="" checked disabled></td>
-                            <?php }else{ ?>
+                            <?php } else { ?>
                                 <td style="text-align: center;" class="text-adm-page"><input type="checkbox" name="" id="" disabled></td>
-                                <?php }?>
+                            <?php } ?>
                             <td>
-                            <?php if ($GetsearchUsersALL['access'] === 'master') { ?>
-                                <a href="model/main.php?type=remove&user_id=<?php echo $GetsearchUsersALL['cod']; ?>">
-                                    Remover Nivel De Acesso
-                                </a>
-                            <?php }else{ ?>
-                                <a href="model/main.php?type=root&user_id=<?php echo $GetsearchUsersALL['cod']; ?>">
-                                    Tornar Administrador
-                                </a>
-                                <?php }?>
-                            
+                                <?php if ($GetsearchUsersALL['access'] === 'master') { ?>
+                                    <a href="model/main.php?type=remove&user_id=<?php echo $GetsearchUsersALL['cod']; ?>">
+                                        Remover Nivel De Acesso
+                                    </a>
+                                <?php } else { ?>
+                                    <a href="model/main.php?type=root&user_id=<?php echo $GetsearchUsersALL['cod']; ?>">
+                                        Tornar Administrador
+                                    </a>
+                                <?php } ?>
+
                             </td>
                             <td><a href="model/main.php?type=delete&user_id=<?php echo $GetsearchUsersALL['cod']; ?>">Apagar</a></td>
-                           
+
                         </tr>
                     <?php }
                 } else { ?>
