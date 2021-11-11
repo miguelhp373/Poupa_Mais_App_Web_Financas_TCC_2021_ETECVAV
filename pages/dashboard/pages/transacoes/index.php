@@ -742,11 +742,6 @@ if (isset($_GET['id'])) {
         ?>
                 <div class="popup_actions">
                     <div class="row_content">
-                        <!-- <div class="col_button_popup_close">
-                            <button id="close_pop_up02" class="close_pop_up">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div> -->
                         <div class="column_content">
 
                             <div class="content" style="margin-top: 30px;width: 70%;">

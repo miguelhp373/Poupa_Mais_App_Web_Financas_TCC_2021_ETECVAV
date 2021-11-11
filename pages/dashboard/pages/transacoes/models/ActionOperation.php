@@ -17,6 +17,8 @@ $getUrlParamValue    =   filter_input(INPUT_GET,'EditValue',FILTER_SANITIZE_STRI
 
 $DecriptoParam =   base64_decode($getUrlParam);
 
+
+
 try {
 
     $searchinfos = $connection->prepare("SELECT cod, nome, email, telefone, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
@@ -122,8 +124,9 @@ function DeleteOperation($cod,$connection,$user,$Operation_Value,$user_Saldo){
 
 function EditOperation($connection,$user,$setCod,$setData,$setCategoria,$setDescricao,$setValor,$user_Saldo,$before_Value){
 
-    $getValor       = str_replace (',', '.', str_replace ('.', '', $setValor));
-
+    $getValor            = str_replace (',', '.', str_replace ('.', '', $setValor));
+    $getValor_Before     = str_replace (',', '.', str_replace ('', '.', $before_Value));
+    
     $UpdateOperation = $connection->prepare("UPDATE operationsapplication SET data = :data, categoria = :categoria, descricao = :descricao, valor = :valor  WHERE idUser = :id AND cod = :cod LIMIT 1");
     $UpdateOperation->bindParam(':id',$user) ;
     $UpdateOperation->bindParam(':cod',$setCod) ;
@@ -135,10 +138,10 @@ function EditOperation($connection,$user,$setCod,$setData,$setCategoria,$setDesc
     $UpdateOperation->execute();   
     
     if ($UpdateOperation->rowCount() > 0) {
-       
-        if($before_Value == $setValor ){
+        if($getValor_Before == $getValor ){
             header('Location: ../../Transacoes/index.php');
         }else{
+
             $newSaldo   = ($user_Saldo - $before_Value) + $getValor;
     
             $UpdateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :saldo  WHERE cod = :id LIMIT 1");
@@ -182,7 +185,7 @@ function EditOperation($connection,$user,$setCod,$setData,$setCategoria,$setDesc
         $getDescription =   filter_input(INPUT_POST,'descricao',FILTER_SANITIZE_STRING);
         $getCategoria   =   filter_input(INPUT_POST,'categorias',FILTER_SANITIZE_STRING);
 
-        EditOperation($connection,$user_cod,$DecriptoParam,$getDate,$getCategoria,$getDescription,$getCurrency,$user_Saldo,$getUrlParamValue);
+        EditOperation($connection,$user_cod,$DecriptoParam,$getDate,$getCategoria,$getDescription,$getCurrency,$user_Saldo,$Operation_Value);
     }
 
 ?>
