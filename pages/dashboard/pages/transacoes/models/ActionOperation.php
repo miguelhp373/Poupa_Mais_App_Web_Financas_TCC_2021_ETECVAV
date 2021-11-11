@@ -121,43 +121,46 @@ function DeleteOperation($cod,$connection,$user,$Operation_Value,$user_Saldo){
 }
 
 function EditOperation($connection,$user,$setCod,$setData,$setCategoria,$setDescricao,$setValor,$user_Saldo,$before_Value){
-  
+
     $getValor       = str_replace (',', '.', str_replace ('.', '', $setValor));
 
-    $newSaldo   = ($user_Saldo - $before_Value) + $getValor;
-
-    $UpdateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :saldo  WHERE cod = :id LIMIT 1");
-    $UpdateSaldo->bindParam(':id', $user);
-    $UpdateSaldo->bindParam(':saldo', $newSaldo);
-
-    $UpdateSaldo->execute();
-
-
-    if ($UpdateSaldo->rowCount() > 0) {
-
-        $UpdateOperation = $connection->prepare("UPDATE operationsapplication SET data = :data, categoria = :categoria, descricao = :descricao, valor = :valor  WHERE idUser = :id AND cod = :cod LIMIT 1");
-        $UpdateOperation->bindParam(':id',$user) ;
-        $UpdateOperation->bindParam(':cod',$setCod) ;
-        $UpdateOperation->bindParam(':data',$setData) ;
-        $UpdateOperation->bindParam(':categoria',$setCategoria) ;
-        $UpdateOperation->bindParam(':descricao',$setDescricao) ;
-        $UpdateOperation->bindParam(':valor',$getValor) ;
-         
-        $UpdateOperation->execute();
-
-        if ($UpdateOperation->rowCount() > 0) {
-
+    $UpdateOperation = $connection->prepare("UPDATE operationsapplication SET data = :data, categoria = :categoria, descricao = :descricao, valor = :valor  WHERE idUser = :id AND cod = :cod LIMIT 1");
+    $UpdateOperation->bindParam(':id',$user) ;
+    $UpdateOperation->bindParam(':cod',$setCod) ;
+    $UpdateOperation->bindParam(':data',$setData) ;
+    $UpdateOperation->bindParam(':categoria',$setCategoria) ;
+    $UpdateOperation->bindParam(':descricao',$setDescricao) ;
+    $UpdateOperation->bindParam(':valor',$getValor) ;
+     
+    $UpdateOperation->execute();   
+    
+    if ($UpdateOperation->rowCount() > 0) {
+       
+        if($before_Value == $setValor ){
             header('Location: ../../Transacoes/index.php');
-         
         }else{
-            $_SESSION['WRONG_OPERATION'] = 'true';
-            header('Location: ../../Transacoes/index.php');
-        }
+            $newSaldo   = ($user_Saldo - $before_Value) + $getValor;
+    
+            $UpdateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :saldo  WHERE cod = :id LIMIT 1");
+            $UpdateSaldo->bindParam(':id', $user);
+            $UpdateSaldo->bindParam(':saldo', $newSaldo);
         
+            $UpdateSaldo->execute();
+    
+            if ($UpdateSaldo->rowCount() > 0) {
+                header('Location: ../../Transacoes/index.php');
+            }else{
+                $_SESSION['WRONG_OPERATION'] = 'true';
+                header('Location: ../../Transacoes/index.php');
+            }
+        }
     }else{
         $_SESSION['WRONG_OPERATION'] = 'true';
         header('Location: ../../Transacoes/index.php');
-    }
+    }    
+
+   
+
 }
 
     //verifica se o parametro é numerico, pois está sendo criptografado em base64
