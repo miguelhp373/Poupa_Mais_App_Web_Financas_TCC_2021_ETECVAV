@@ -53,6 +53,29 @@ try {
     die;
 }
 
+try {
+
+    $searchinfosUsers = $connection->prepare("SELECT cod, nome, email, telefone, image_user, access FROM userstableapplication WHERE cod = :cod LIMIT 1");
+    $searchinfosUsers->bindParam(':cod', $_GET['user_id']);
+    
+
+    $searchinfosUsers->execute();
+
+    if ($searchinfosUsers->rowCount() > 0) {
+
+        $row = $searchinfosUsers->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($row as $getdata) {
+            $user_level     =   $getdata['access'];
+        }
+    }
+} catch (PDOException $error) {
+    header('location: ../../../../../../../../Page404/index.php');
+    die;
+}
+
+
+
 
 switch ($_GET['type']) {
     case 'root':
