@@ -141,6 +141,25 @@ if (isset($_GET['user_string'])) {
             border-radius: 30px !important;
         }
     </style>
+
+<script>
+        <?php
+
+        if (isset($_GET['deleteButton'])) {
+            echo '
+                var box =    confirm("Você Tem Certeza, Deseja Apagar a Conta? Após Isso o Usuário Não Poderá Acessar Sua Conta!");
+
+                if(box == true){
+                    window.location.href = "model/Main.php?type=delete&user_id='.$_GET['user_id'].'"
+                }else{
+                    window.location.href = "index.php"   
+                }
+                
+            ';
+        }
+
+        ?>
+    </script>
 </head>
 
 <body>
@@ -205,7 +224,8 @@ if (isset($_GET['user_string'])) {
                                 <?php } ?>
 
                             </td>
-                            <td><a href="model/Main.php?type=delete&user_id=<?php echo $GetsearchUsersALL['cod']; ?>">Apagar</a></td>
+                            
+                            <td><a href="index.php?deleteButton=true&user_id=<?php echo $GetsearchUsersALL['cod']; ?>">Apagar</a></td>
 
                         </tr>
                     <?php }

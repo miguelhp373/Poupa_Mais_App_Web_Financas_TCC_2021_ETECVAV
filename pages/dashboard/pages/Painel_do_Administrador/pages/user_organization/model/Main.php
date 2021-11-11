@@ -99,7 +99,7 @@ function UpdateLevel($connection,$type,$cod,$user_level)
     $user_id = $_GET['user_id'];
 
     if($cod == $user_id || $user_level == 'master'){
-        header('Location: ../../user_organization/index.php');
+        header('Location: ../../../pages/user_organization/index.php');
         die();
     }
 
@@ -112,9 +112,9 @@ function UpdateLevel($connection,$type,$cod,$user_level)
         $UpdateLevelUser->execute();
     
         if ($UpdateLevelUser->rowCount() > 0) {
-            header('Location: ../../user_organization/index.php');
+            header('Location: ../../../pages/user_organization/index.php');
         } else {
-            header('Location: ../../user_organization/index.php');
+            header('Location: ../../../pages/user_organization/index.php');
             die();
         }
     } catch (PDOException $error) {
@@ -129,7 +129,7 @@ function DeleteUser($connection,$cod,$user_level)
     $user_id = $_GET['user_id'];
 
     if($cod == $user_id || $user_level == 'master'){
-        header('Location: ../../user_organization/index.php');
+        header('Location: ../../../pages/user_organization/index.php');
         die();
     }
 
@@ -149,7 +149,7 @@ function DeleteUser($connection,$cod,$user_level)
     
     $DeleteEvents->execute(); 
     
-    header('Location: ../../user_organization/index.php');
+    header('Location: ../../../pages/user_organization/index.php');
     die();
 }
 

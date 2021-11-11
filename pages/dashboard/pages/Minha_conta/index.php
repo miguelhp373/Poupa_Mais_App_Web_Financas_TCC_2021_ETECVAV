@@ -102,6 +102,8 @@ try {
 
                 if(box == true){
                     window.location.href = "model/main.php?deleteAccont=true"
+                }else{
+                    window.location.href = "index.php"   
                 }
                 
             ';
