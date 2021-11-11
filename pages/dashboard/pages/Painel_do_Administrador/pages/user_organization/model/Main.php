@@ -31,7 +31,7 @@ if(!isset($_GET['type'])){
 
 try {
 
-    $searchinfos = $connection->prepare("SELECT cod, nome, email, telefone, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
+    $searchinfos = $connection->prepare("SELECT cod, nome, email, telefone, image_user, access FROM userstableapplication WHERE email = :email LIMIT 1");
     $searchinfos->bindParam(':email', $_SESSION['user_email']);
     
 
@@ -42,6 +42,7 @@ try {
         $row = $searchinfos->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($row as $getdata) {
+            $user_level     =   $getdata['access'];
             $user_name      =   $getdata['nome'];
             $user_email     =   $getdata['email'];
             $user_cod       =   $getdata['cod'];
@@ -55,13 +56,13 @@ try {
 
 switch ($_GET['type']) {
     case 'root':
-        UpdateLevel($connection,'master',$user_cod);
+        UpdateLevel($connection,'master',$user_cod,$user_level);
         break;
     case 'remove':
-        UpdateLevel($connection,null,$user_cod);
+        UpdateLevel($connection,null,$user_cod,$user_level);
             break;        
     case 'delete':
-        DeleteUser($connection,$user_cod);
+        DeleteUser($connection,$user_cod,$user_level);
         break;
     default:
         header('Location: ../../../../../../dashboard/index.php');
@@ -69,12 +70,12 @@ switch ($_GET['type']) {
         break;
 }
 
-function UpdateLevel($connection,$type,$cod)
+function UpdateLevel($connection,$type,$cod,$user_level)
 {
 
     $user_id = $_GET['user_id'];
 
-    if($cod == $user_id){
+    if($cod == $user_id || $user_level == 'master'){
         header('Location: ../../user_organization/index.php');
         die();
     }
@@ -99,12 +100,12 @@ function UpdateLevel($connection,$type,$cod)
 }
 
 
-function DeleteUser($connection,$cod)
+function DeleteUser($connection,$cod,$user_level)
 {
 
     $user_id = $_GET['user_id'];
 
-    if($cod == $user_id){
+    if($cod == $user_id || $user_level == 'master'){
         header('Location: ../../user_organization/index.php');
         die();
     }
