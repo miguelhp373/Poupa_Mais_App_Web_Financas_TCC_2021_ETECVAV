@@ -1,5 +1,3 @@
-# Untitled
-
 ![.github/Favicon.png](.github/Favicon.png)
 
 # Poupa+
