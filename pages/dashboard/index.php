@@ -577,7 +577,7 @@ try {
           <h2>DashBoard</h2>
         </div>
         <div class="toggle-dark-mode-button">
-          <span class="text-dark-mode-label">Modo Noturno</span>
+          <span class="text-dark-mode-label">Modo Escuro</span>
           <label class="switch">
             <input type="checkbox" id="toggle_darkmode">
             <span class="slider round"></span>
