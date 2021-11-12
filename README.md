@@ -41,5 +41,4 @@
 Este projeto está licenciado sob a Licença Apache-2.0 License - consulte o arquivo [LICENÇA](LICENSE) para obter detalhes.
 
 ***
-
 Feito com 💜 &nbsp;por Miguel Henrique 👋
