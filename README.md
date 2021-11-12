@@ -1,4 +1,4 @@
-![.github/Favicon.png](.github/Favicon.png)
+![.github/Favicon.png](github/Favicon.png)
 
 # Poupa+
 
@@ -27,11 +27,11 @@
 
 ### 🏠 Landing Page
 
-![.github/image01.png](.github/image01.png)
+![.github/image01.png](github/image01.png)
 
 ### 🛠️Dashboard
 
-![.github/image02.png](.github/image02.png)
+![.github/image02.png](github/image02.png)
 
 ---
  ***
