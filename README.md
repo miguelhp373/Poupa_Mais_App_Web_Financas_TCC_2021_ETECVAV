@@ -1,4 +1,6 @@
-![.github/Favicon.png](.github/Favicon.png)
+<div style='text-align:center'>
+  <img src='.github/Favicon.png' style='width:150px;height:150px;'/>
+ </div>
 
 # Poupa+
 
