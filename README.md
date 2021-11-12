@@ -1,4 +1,6 @@
-![.github/Favicon.png](.github/Favicon.png)
+<div style='text-align:center'>
+  <img src='.github/Favicon.png' style='width:150px;height:150px;'/>
+ </div>
 
 # Poupa+
 
@@ -27,11 +29,11 @@
 
 ### 🏠 Landing Page
 
-![.github/image01.png](.github/image01.png)
+![.github/image02.png](.github/image02.png)
 
 ### 🛠️Dashboard
 
-![.github/image02.png](.github/image02.png)
+![.github/image01.png](.github/image01.png)
 
 ---
  ***
