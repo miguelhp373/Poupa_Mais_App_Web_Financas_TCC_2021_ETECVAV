@@ -34,7 +34,7 @@ if (isset($_SESSION['Msg_sucess'])) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ajuda | Poupa+</title>
-  <link rel="shortcut icon" href="../../../../Favicon.png" type="image/x-icon">
+  <link rel="shortcut icon" href="../../../../Favicon.svg" type="image/x-icon">
 
 
   <!--Criado em 06/08/2021-->
