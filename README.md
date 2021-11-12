@@ -29,11 +29,11 @@
 
 ### 🏠 Landing Page
 
-![.github/image01.png](.github/image01.png)
+![.github/image02.png](.github/image02.png)
 
 ### 🛠️Dashboard
 
-![.github/image02.png](.github/image02.png)
+![.github/image01.png](.github/image01.png)
 
 ---
  ***
