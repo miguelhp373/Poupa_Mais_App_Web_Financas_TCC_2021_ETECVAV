@@ -24,6 +24,40 @@
 - Material Design Lite
 
 ---
+## 🛠️ Instalação
+
+ - Dentro da Pasta Controller, Crie uma pasta com o nome `config`, e dentro coloque 
+   crie um arquivo chamado `ENV.php`, com a estrutura abaixo:
+
+```php
+    <?php
+
+    SERVER DATABASE LOCAL HOST
+
+    $HOST_NAME      =   'localhost';
+    $PORT_SERVER    =   '3306';
+    $DATA_BASE_NAME =   'example';
+    $USER_DATA_BASE =   'root';
+    $PASS_DATA_BASE =   'root';
+    
+    ?>
+```
+
+ - E no diretório raiz crie um arquivo chamado `ENV.php`, que deve conter as
+   credenciais do email de recuperação de senha do app:
+ 
+ ```php
+   <?php
+      //arquivo de configurações do phpmailler, para envio de de emails
+      //utilizado para recuperar senha do usuário.
+          
+          $emailHost      =   'teste@gmail.com';
+          $passwordHost   =   '123';
+    ?>
+   
+ ```
+
+---
 
 ## **🎨Layout**
 
