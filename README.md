@@ -10,7 +10,7 @@
 
 ## 🚀 Tecnologias
 
-- PHP
+- PHP7
 - JavaScript
 - MySql
 - Html5
