@@ -392,6 +392,7 @@ input:checked + .slider:before {
 .edit_currency_button > a:hover{
   border-radius: 100%;
   background-color: #dbdbdb;
+  cursor: pointer;
 }
 
 .edit_currency_button > a >i{
