@@ -14,7 +14,9 @@
 .content_page.darkmode, 
 .select_image_pop_up.darkmode,
 .main_container.darkmode,
-.content-page-mobile.darkmode
+.content-page-mobile.darkmode,
+.container-content.darkmode,
+.container-content-post.darkmode
 {
   background-color: #3F3351 !important;
 }
@@ -30,7 +32,10 @@
 .row-grid.darkmode>tr,
 .container-content-grid-transactions.darkmode 
 .currency-value-display.darkmode,
-.text-container.darkmode > strong
+.text-container.darkmode > strong,
+.container-content-post.darkmode,
+.container-content-post.darkmode > .content-post >.title-post-view > h1 ,
+.container-content-post.darkmode > .content-post > .intro-description
 {
   color: #FFFF !important;
 }

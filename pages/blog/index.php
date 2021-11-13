@@ -78,6 +78,9 @@ if (isset($_SESSION['user_email']) && (isset($_SESSION['Authentication']))) {
   <link rel="stylesheet" href="../../source/styles/mobile/blog_page/main.css">
   <link rel="stylesheet" href="../../source/styles/components/button-back/main.css">
 
+  <link rel="stylesheet" href="../../source/root/darkmode.css">
+  <script src="DarkMode/DarkMode.js"></script>
+
   <!-- Mask Input JS -->
   <script src="https://cdn.jsdelivr.net/gh/miguelhp373/MaskInputJS/maskjs@1.3/maskjs.min.js"></script>
 
