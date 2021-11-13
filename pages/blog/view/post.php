@@ -58,6 +58,7 @@ if(isset($getView)){
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blog | <?php foreach ($row as $get_Data) {echo $get_Data['title']; }?></title>
+    <link rel="shortcut icon" href="../../../Favicon.png" type="image/x-icon">
 
     <!--Criado em 06/08/2021-->
 
