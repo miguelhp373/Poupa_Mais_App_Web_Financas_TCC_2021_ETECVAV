@@ -21,6 +21,8 @@ $UserPassVerify             =   filter_input(INPUT_POST,'senha',FILTER_SANITIZE_
 $UserPass                   =   password_hash(filter_input(INPUT_POST,'senha',FILTER_SANITIZE_STRING),PASSWORD_DEFAULT);            
 
 
+
+
 try {
 
     $searchinfos = $connection->prepare("SELECT cod, nome, email, telefone, image_user FROM userstableapplication WHERE email = :email LIMIT 1");
@@ -31,6 +33,7 @@ try {
     if ($searchinfos->rowCount() > 0) {
 
         $row = $searchinfos->fetchAll(PDO::FETCH_ASSOC);
+
 
         foreach ($row as $getdata) {
             $user_name      =   $getdata['nome'];
@@ -90,9 +93,6 @@ if(isset($_GET['deleteAccont'])){
         header('location: ../../Minha_conta/index.php');
         die;
     }
-}else{
-    header('location: ../../Minha_conta/index.php');
-    die;
 }
 
 
@@ -103,7 +103,7 @@ if(isset($_SESSION['image_selected'])){
         $update = $connection->prepare("UPDATE userstableapplication SET image_user = :imageParam WHERE email = :email LIMIT 1");
         
         $update->bindParam(':imageParam',$_SESSION['image_selected']);
-        $update->bindParam(':email',$userEmail);
+        $update->bindParam(':email',$_SESSION['user_email']);
         
         $update->execute();
   
@@ -116,10 +116,11 @@ if(isset($_SESSION['image_selected'])){
 
 if(strlen($UserPassVerify) > 0) {
     try{        
-        $update = $connection->prepare("UPDATE userstableapplication SET Nome = :nome , email = :email , telefone = :telefone , senha = :pass WHERE email = :email LIMIT 1");
+        $update = $connection->prepare("UPDATE userstableapplication SET Nome = :nome , email = :email , telefone = :telefone , senha = :pass WHERE email = :emailValidation LIMIT 1");
         
         $update->bindParam(':nome',$UserName);
         $update->bindParam(':email',$userEmail);
+        $update->bindParam(':emailValidation',$_SESSION['user_email']);
         //$update->bindParam(':cpf',$UserCpf);
         $update->bindParam(':telefone',$UserPhoneNumber );
         $update->bindParam(':pass',$UserPass);
@@ -144,14 +145,15 @@ if(strlen($UserPassVerify) > 0) {
     }
 
 }else{
-    try{        
-        $update = $connection->prepare("UPDATE userstableapplication SET Nome = :nome , email = :email,telefone = :telefone  WHERE email = :email LIMIT 1");
+    try{  
+        
+
+        $update = $connection->prepare("UPDATE userstableapplication SET Nome = :nome , email = :email, telefone = :telefone  WHERE email = :emailValidation LIMIT 1");
         
         $update->bindParam(':nome',$UserName);
         $update->bindParam(':email',$userEmail);
-        //$update->bindParam(':cpf',$UserCpf);
+        $update->bindParam(':emailValidation',$_SESSION['user_email']);
         $update->bindParam(':telefone',$UserPhoneNumber );
-        $update->bindParam(':typeaccount',$AccountType);
         
         $update->execute();
         

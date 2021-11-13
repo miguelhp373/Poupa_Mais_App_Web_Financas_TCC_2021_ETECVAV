@@ -268,8 +268,9 @@ try {
                     <div class="row-01">
                         <input type="text" class="fields" placeholder="Nome" name='nome' value="<?php echo $user_name ?>">
                         <input type="email" class="fields" placeholder="Email" name="email" value="<?php echo $user_email ?>">
+                        <input type="text" placeholder="Telefone" name="telefone" class='inputnumberphoneformat' value="<?php echo $user_telefone ?>">
                         <div class="field_pass">
-                            <input style="    margin-left: -12px;" type="password" class="fields" name="senha" placeholder="Senha" id="pass_field">
+                            <input style="margin-left: -12px;" type="password" class="fields" name="senha" placeholder="Senha" id="pass_field">
                             <i class="fas fa-eye-slash" id="togglePassword01"></i>
                         </div>
                     </div>

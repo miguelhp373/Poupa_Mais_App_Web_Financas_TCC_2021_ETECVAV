@@ -859,7 +859,7 @@ try {
                 <!--Aqui Vai o Titulo da Janela-->
               </h1>
             </div>
-            <form action="model/EditCurrency/EditCurrency.php" method="POST" id="form_actions" autocomplete="off">
+            <form action="model/EditCurrency/EditCurrency.php" method="POST"  autocomplete="off">
 
               <div class="col_dates" style="margin-top: 10px;">
                 <input type="text" name="value" class="fieds-pop money2" value="<?php echo number_format($saldo_user, 2, ',', '.'); ?>" placeholder="Valor R$" required autocomplete="off">
@@ -964,11 +964,6 @@ try {
   <!--POPUP-->
   <div class="popup_categories hidden">
     <div class="row_content">
-      <!-- <div class="col_button_popup_close">
-          <button id="close_pop_up_02" class="close_pop_up">
-            <i class="fas fa-times"></i>
-          </button>
-        </div> -->
       <div class="column_content col-con02">
 
         <div class="content" style="margin-top: 30px;">
