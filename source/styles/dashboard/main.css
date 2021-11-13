@@ -362,3 +362,39 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+/* button edit saldo */
+
+.edit_currency_button{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 50px;
+  margin-right: 5px;
+}
+
+.edit_currency_button > a{
+  transition: 0.2s;
+  width: 30px;
+  height: 30px;
+
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.edit_currency_button > a:hover{
+  border-radius: 100%;
+  background-color: #dbdbdb;
+}
+
+.edit_currency_button > a >i{
+  color: #000;
+  align-items: center;
+}

@@ -181,6 +181,9 @@
     height: 60px;
     width: 60px;
   }
+  .fieds-pop{
+    background-color: #F3F3F3;
+  }
 }
 
 @media (min-width: 1000px) {

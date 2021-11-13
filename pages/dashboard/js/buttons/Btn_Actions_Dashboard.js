@@ -17,7 +17,13 @@ $(function () {
         $('#form_actions').attr('action','model/main.php?type=despesa')
     })
 
+    $('#btn-edit-currency').click(function(){
+        $('.popup_currency').removeClass('hidden');
+        $('.title_pop').html('Editar Saldo')
+    })
 
-
+    $('#close_pop_up_currency').click(function(){
+        $('.popup_currency').addClass('hidden');
+    })
     
 });

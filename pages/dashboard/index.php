@@ -458,7 +458,7 @@ try {
   <link rel="stylesheet" href="../../source/styles/components/nav-bar-mobile/main.css">
 
   <script src="js/api_money/main.js"></script>
-  <script src="js/buttons/btn_add_receita.js"></script>
+  <script src="js/buttons/Btn_Actions_Dashboard.js"></script>
   <script src="js/popup/main.js"></script>
 
 
@@ -585,9 +585,9 @@ try {
           </label>
         </div>
 
+        <!-- Botão de Notificações -->
         <button class="btn btn-secondary" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false" title="Notificações" style="margin-right: 10px;">
           <i class="fas fa-bell"></i>
-
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
 
@@ -599,6 +599,7 @@ try {
           <li>
             <hr class="dropdown-divider">
           </li>
+          <!-- Notificações Gerais -->
           <?php
           if (isset($notifyData)) {
             if ($notifyData != null) { ?>
@@ -622,7 +623,7 @@ try {
           <?php } ?>
 
           <li><br></li>
-
+          <!-- Notificações de Eventos -->
           <strong class="text-center">
             &nbsp;
             📅&nbsp;Eventos
@@ -649,11 +650,6 @@ try {
               </a>
             </li>
           <?php } ?>
-
-
-          <!-- <li>
-            <hr class="dropdown-divider">
-          </li> -->
         </ul>
       </div>
 
@@ -684,9 +680,17 @@ try {
 
           <div class="card-01 cards">
             <div class="card-saldo">
+
               <div class="icon_card_saldo">
                 <i class="fas fa-landmark icon-01"></i>
                 <h2>Saldo</h2>
+
+                <div class="edit_currency_button">
+                  <a id="btn-edit-currency" title="Editar Saldo">
+                    <i class="fas fa-pencil-alt"></i>
+                  </a>
+                </div>
+
               </div>
               <span class="Saldo_total">R$ <?php echo number_format($saldo_user, 2, ',', '.') ?></span>
             </div>
@@ -843,9 +847,8 @@ try {
 
     </div>
 
-
     <!--POPUP-->
-    <div class="popup_actions hidden">
+    <div class="popup_currency hidden">
       <div class="row_content">
         <div class="column_content col-con01">
 
@@ -856,42 +859,10 @@ try {
                 <!--Aqui Vai o Titulo da Janela-->
               </h1>
             </div>
-            <form action="" method="POST" id="form_actions" autocomplete="off">
+            <form action="model/EditCurrency/EditCurrency.php" method="POST" id="form_actions" autocomplete="off">
 
               <div class="col_dates" style="margin-top: 10px;">
-                <input type="text" name="value" class="fieds-pop money2" placeholder="Valor R$" required autocomplete="off">
-                <br>
-                <div class="row_categories">
-                  <select name="categorias" id="" class="fieds-pop" required>
-                    <option value="">Categorias</option>
-
-                    <?php
-                    if (isset($rowCategorias)) {
-                      foreach ($decode_Json as $showCategorias) { ?>
-                        <option value="<?php echo $showCategorias['description']; ?>"><?php echo $showCategorias['description']; ?> </option>
-                    <?php }
-                    } ?>
-                  </select>
-                  &nbsp;
-                  <button type="button" id="openCategories" class="btn-new-categories">
-                    <i class="fas fa-plus icon-menu-plus" id="icon-menu-plus"></i>
-                  </button>
-                </div>
-                <br>
-                <input type="text" name="descricao" class="fieds-pop" placeholder="Descrição" required>
-                <br>
-                <input type="date" name="date" class="fieds-pop" maxlength="9" required>
-                <br>
-                <label for="chkMensal">
-
-                  <label class="switch">
-                    <input type="checkbox" name="automatico">
-                    <span class="slider round"></span>
-                  </label>
-                  <br>
-                  <span>
-                    Mensal
-                  </span>
+                <input type="text" name="value" class="fieds-pop money2" value="<?php echo number_format($saldo_user, 2, ',', '.'); ?>" placeholder="Valor R$" required autocomplete="off">
               </div>
 
 
@@ -901,77 +872,151 @@ try {
                   &nbsp;
                   <i class="fas fa-check"></i>
                 </button>
-                <button id="close_pop_up" class="close-button-bottom">
-                  Fechar
-                  &nbsp;
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-
-
             </form>
+            <a id="close_pop_up_currency" class="close-button-bottom">
+              Fechar
+              &nbsp;
+              <i class="fas fa-times"></i>
+            </a>
           </div>
+
+
+
         </div>
       </div>
     </div>
-    <!---FIM POPUP-->
+  </div>
+  <!---FIM POPUP-->
 
-    <!--POPUP-->
-    <div class="popup_categories hidden">
-      <div class="row_content">
-        <!-- <div class="col_button_popup_close">
-          <button id="close_pop_up_02" class="close_pop_up">
-            <i class="fas fa-times"></i>
-          </button>
-        </div> -->
-        <div class="column_content col-con02">
 
-          <div class="content" style="margin-top: 30px;">
-            <br>
-            <div class="title_popup">
-              <h1 class="title_pop_02">
-                Categorias
-              </h1>
-            </div>
-            <form action="model/categories/addCategories.php" method="POST" id="form_actions" autocomplete="false">
+  <!--POPUP-->
+  <div class="popup_actions hidden">
+    <div class="row_content">
+      <div class="column_content col-con01">
 
-              <div class="row_fields">
-                <input type="text" name="newCategorie" class="fieds-pop" placeholder="Adicionar Categoria" required autocomplete="off">
-                <button type="submit">
-                  Adicionar
-                </button>
-              </div>
-              <br><br>
-              <div class="list_categories">
-                <ul>
+        <div class="content" style="margin-top: 30px;">
+          <br>
+          <div class="title_popup">
+            <h1 class="title_pop">
+              <!--Aqui Vai o Titulo da Janela-->
+            </h1>
+          </div>
+          <form action="" method="POST" id="form_actions" autocomplete="off">
+
+            <div class="col_dates" style="margin-top: 10px;">
+              <input type="text" name="value" class="fieds-pop money2" placeholder="Valor R$" required autocomplete="off">
+              <br>
+              <div class="row_categories">
+                <select name="categorias" id="" class="fieds-pop" required>
+                  <option value="">Categorias</option>
 
                   <?php
                   if (isset($rowCategorias)) {
                     foreach ($decode_Json as $showCategorias) { ?>
-
-                      <li> <?php echo $showCategorias['description']; ?>
-                        <a href="model/categories/deleteCategories.php?id=<?php echo $showCategorias['id']; ?>">
-                          <i class="fas fa-trash"></i>
-                        </a>
-                      </li>
+                      <option value="<?php echo $showCategorias['description']; ?>"><?php echo $showCategorias['description']; ?> </option>
                   <?php }
                   } ?>
-                </ul>
-              </div>
-
-              <div class="row_btn_submit" style="margin-bottom: 25px;">
-                <button id="close_pop_up_02" class="close-button-bottom">
-                  Fechar
-                  &nbsp;
-                  <i class="fas fa-times"></i>
+                </select>
+                &nbsp;
+                <button type="button" id="openCategories" class="btn-new-categories">
+                  <i class="fas fa-plus icon-menu-plus" id="icon-menu-plus"></i>
                 </button>
               </div>
-            </form>
-          </div>
+              <br>
+              <input type="text" name="descricao" class="fieds-pop" placeholder="Descrição" required>
+              <br>
+              <input type="date" name="date" class="fieds-pop" maxlength="9" required>
+              <br>
+              <label for="chkMensal">
+
+                <label class="switch">
+                  <input type="checkbox" name="automatico">
+                  <span class="slider round"></span>
+                </label>
+                <br>
+                <span>
+                  Mensal
+                </span>
+            </div>
+
+
+            <div class="row_btn_submit">
+              <button type="submit">
+                Salvar
+                &nbsp;
+                <i class="fas fa-check"></i>
+              </button>
+              <button id="close_pop_up" class="close-button-bottom">
+                Fechar
+                &nbsp;
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+
+
+          </form>
         </div>
       </div>
     </div>
-    <!---FIM POPUP-->
+  </div>
+  <!---FIM POPUP-->
+
+  <!--POPUP-->
+  <div class="popup_categories hidden">
+    <div class="row_content">
+      <!-- <div class="col_button_popup_close">
+          <button id="close_pop_up_02" class="close_pop_up">
+            <i class="fas fa-times"></i>
+          </button>
+        </div> -->
+      <div class="column_content col-con02">
+
+        <div class="content" style="margin-top: 30px;">
+          <br>
+          <div class="title_popup">
+            <h1 class="title_pop_02">
+              Categorias
+            </h1>
+          </div>
+          <form action="model/categories/addCategories.php" method="POST" id="form_actions" autocomplete="false">
+
+            <div class="row_fields">
+              <input type="text" name="newCategorie" class="fieds-pop" placeholder="Adicionar Categoria" required autocomplete="off">
+              <button type="submit">
+                Adicionar
+              </button>
+            </div>
+            <br><br>
+            <div class="list_categories">
+              <ul>
+
+                <?php
+                if (isset($rowCategorias)) {
+                  foreach ($decode_Json as $showCategorias) { ?>
+
+                    <li> <?php echo $showCategorias['description']; ?>
+                      <a href="model/categories/deleteCategories.php?id=<?php echo $showCategorias['id']; ?>">
+                        <i class="fas fa-trash"></i>
+                      </a>
+                    </li>
+                <?php }
+                } ?>
+              </ul>
+            </div>
+
+            <div class="row_btn_submit" style="margin-bottom: 25px;">
+              <button id="close_pop_up_02" class="close-button-bottom">
+                Fechar
+                &nbsp;
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!---FIM POPUP-->
 
   </div>
 

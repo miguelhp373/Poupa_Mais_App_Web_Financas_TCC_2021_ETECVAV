@@ -69,7 +69,7 @@ if($_POST['pass_user'] !== $_POST['pass_user_confirm']){
 
 
 //VALIDA TELEFONE
-if(strlen($UserPhoneNumber) < 14){
+if((strlen($UserPhoneNumber) < 14) || (strlen($UserPhoneNumber) > 14)){
 
     $_SESSION['Msg_error']  =   "Telefone Inválido! Verifique e Tente Novamente.";
     header('Location: ../index.php?wrong_fields=true');
