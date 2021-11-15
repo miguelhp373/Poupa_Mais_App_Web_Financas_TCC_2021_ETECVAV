@@ -834,8 +834,8 @@ try {
               </button>
             </a>
           </li>
-          <li>
-            <a href="pages/Grafico_mensal/index.php?page=chart">
+          <li >
+            <a class="btn-chart" href="pages/Grafico_mensal/index.php?page=chart">
               <button title="Gráfico Mensal">
                 <i class="fas fa-chart-bar"></i>
               </button>

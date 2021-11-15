@@ -49,8 +49,6 @@ if ($loginquery->rowCount() > 0) {
 
         header('Location: ../../dashboard/index.php');
     } else {
-        $_SESSION['user_email'] = '';
-        $_SESSION['user_pass']  = '';
         $_SESSION['Authentication'] = '';
         $_SESSION['Msg_error'] = 'Senha Incorreta!';
         header('Location: ../index.php?wrong_fields=true');
@@ -58,8 +56,6 @@ if ($loginquery->rowCount() > 0) {
         //enviar uma mensagem de erro pro login
     }
 } else {
-    $_SESSION['user_email'] = '';
-    $_SESSION['user_pass']  = '';
     $_SESSION['Msg_error'] = 'Usuário Não Encontrado!';
     $_SESSION['Authentication'] = '';
     header('Location: ../index.php?wrong_fields=true');
