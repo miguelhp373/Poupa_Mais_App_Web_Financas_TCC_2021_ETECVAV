@@ -302,6 +302,28 @@ if (isset($_GET['id'])) {
 
 
 
+//Mobile Query, Search Operations
+try {
+
+    $searchOperationsMobile = $connection->prepare(
+        "   SELECT cod, tipo , data, categoria, descricao, valor 
+            FROM operationsapplication 
+            WHERE   idUser = :cod 
+            ORDER BY cod DESC"
+    );
+    $searchOperationsMobile->bindParam(':cod', $user_cod);
+
+    $searchOperationsMobile->execute();
+
+    if ($searchOperationsMobile->rowCount() > 0) {
+
+        $rowOperationMobile = $searchOperationsMobile->fetchAll(PDO::FETCH_ASSOC);
+    }
+} catch (PDOException $error) {
+    die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
+}
+
+
 
 
 ?>
@@ -628,12 +650,12 @@ if (isset($_GET['id'])) {
                 <hr>
                 <div class="content-grid-container">
 
-                    <?php if (isset($rowOperation)) {
-                        foreach ($rowOperation as $getOperation) {
+                    <?php if (isset($rowOperationMobile)) {
+                        foreach ($rowOperationMobile as $getOperationMobile) {
                     ?>
                             <div class="row-card-content">
                                 <div class="icon-left">
-                                    <?php if ($getOperation['tipo'] == 'receita') { ?>
+                                    <?php if ($getOperationMobile['tipo'] == 'receita') { ?>
                                         <img src="../../../../source/assets/icons/icon_line_up.png" alt="">
                                     <?php } else { ?>
                                         <img src="../../../../source/assets/icons/icon_line_down.png" alt="">
@@ -644,26 +666,28 @@ if (isset($_GET['id'])) {
                                     <div class="title-description-row">
                                         <strong>
                                             <span class="title-row">
-                                                <?php echo $getOperation['descricao']; ?>
+                                                <?php echo $getOperationMobile['descricao']; ?>
                                             </span>
                                         </strong>
                                         <span class="type-row">
-                                            <?php echo $getOperation['categoria']; ?>
+                                            <?php echo $getOperationMobile['categoria']; ?>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="currency-value-display">
-                                    R$ <?php echo number_format($getOperation['valor'], 2, ',', '.'); ?>
+                                    R$ <?php echo number_format($getOperationMobile['valor'], 2, ',', '.'); ?>
                                 </div>
-                                <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
+                                <button id="demo-menu-lower-right<?php echo $getOperationMobile['cod'];?>" class="mdl-button mdl-js-button mdl-button--icon">
                                     <i class="material-icons">more_vert</i>
                                 </button>
 
-                                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
-                                    <a href="index.php?id=<?php echo base64_encode($getOperation['cod']); ?>&modal=true&page=<?php echo $_GET['page']; ?>">
+                                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right<?php echo $getOperationMobile['cod'];?>">
+                                    <a href="index.php?id=<?php echo base64_encode($getOperationMobile['cod']); ?>&modal=true&page=<?php if (isset($_GET['page'])) {
+                                                                                                                                        echo $_GET['page'];
+                                                                                                                                    } ?>" style="color: #2c3e50;"">
                                         <li class="mdl-menu__item">Editar</li>
                                     </a>
-                                    <a href="models/ActionOperation.php?id=<?php echo base64_encode($getOperation['cod']); ?>&operation=delete">
+                                    <a href="models/ActionOperation.php?id=<?php echo base64_encode($getOperationMobile['cod']); ?>&operation=delete">
                                         <li class="mdl-menu__item">Apagar</li>
                                     </a>
                                 </ul>
