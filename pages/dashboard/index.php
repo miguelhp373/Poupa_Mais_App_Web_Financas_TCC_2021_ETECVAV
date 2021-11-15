@@ -702,7 +702,7 @@ try {
                 <i class="fas fa-arrow-circle-up icon-01"></i>
                 <h2>Receitas</h2>
               </div>
-              <span class="Saldo_total text-success">R$ <?php echo number_format($receitas, 2, ',', '.') ?></span>
+              <span class="Saldo_total text-success">R$ <?php echo number_format($receitasPerMonth, 2, ',', '.') ?></span>
             </div>
           </div>
 
@@ -712,7 +712,7 @@ try {
                 <i class="fas fa-arrow-circle-down icon-01"></i>
                 <h2>Despesas</h2>
               </div>
-              <span class="Saldo_total text-danger">R$ <?php echo number_format($despesas, 2, ',', '.') ?></span>
+              <span class="Saldo_total text-danger">R$ <?php echo number_format($despesasPerMonth, 2, ',', '.') ?></span>
             </div>
           </div>
 
