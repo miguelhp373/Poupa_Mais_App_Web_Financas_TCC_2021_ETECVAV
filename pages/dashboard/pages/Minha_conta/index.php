@@ -151,9 +151,6 @@ try {
                             <a class="nav-link" href="../Transacoes/index.php">Transações</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../Calendario/index.php">Calendário</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="../../../blog/index.php">Blog</a>
                         </li>
                         <li class="nav-item">
