@@ -21,6 +21,19 @@
   background-color: #3F3351 !important;
 }
 
+@media (max-width:1000px) {
+  .container-content.darkmode{
+    height: auto;
+    padding: 10px;
+  }
+}
+
+@media (min-width:1000px) {
+  .container-content.darkmode{
+    height: 100vh;
+  }
+}
+
 .title_page.darkmode,
 .text-dark-mode-label.darkmode,
 .label_btn_home.darkmode,
