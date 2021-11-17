@@ -34,27 +34,27 @@ if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
 
 
 
-// function GenerateOperation($connection, $user_cod, $valor,$type){
+function GenerateOperation($connection, $user_cod, $valor,$type){
 
-//     $categorias     =   'Reajuste de Saldo';
-//     $descricao      =   'Reajuste de Saldo';
-//     $data           =   date('Y-m-d');
-//     $automatico     =   'N';
+    $categorias     =   'Reajuste de Saldo';
+    $descricao      =   'Reajuste de Saldo';
+    $data           =   date('Y-m-d');
+    $automatico     =   'N';
 
 
-//     $insert = $connection->prepare("INSERT INTO operationsapplication (idUser, tipo , data, categoria, descricao, valor, automatico) VALUES (:cod_user,:tipo, :data, :cate,  :descri, :valor, :auto)");
+    $insert = $connection->prepare("INSERT INTO operationsapplication (idUser, tipo , data, categoria, descricao, valor, automatico) VALUES (:cod_user,:tipo, :data, :cate,  :descri, :valor, :auto)");
 
-//     $insert->bindParam(':cod_user', $user_cod);
-//     $insert->bindParam(':tipo', $type);
-//     $insert->bindParam(':cate', $categorias);
-//     $insert->bindParam(':descri', $descricao);
-//     $insert->bindParam(':data', $data);
-//     $insert->bindParam(':valor', $valor);
-//     $insert->bindParam(':auto', $automatico);
+    $insert->bindParam(':cod_user', $user_cod);
+    $insert->bindParam(':tipo', $type);
+    $insert->bindParam(':cate', $categorias);
+    $insert->bindParam(':descri', $descricao);
+    $insert->bindParam(':data', $data);
+    $insert->bindParam(':valor', $valor);
+    $insert->bindParam(':auto', $automatico);
 
-//     $insert->execute();
+    $insert->execute();
 
-// }
+}
 
 
 
@@ -71,55 +71,53 @@ if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
 
     $updateSaldo->execute();    
 
-    
+
+    if($user_Saldo < $newSaldo_F){
+
+        
+        $GenerationOperation = $newSaldo_F - $user_Saldo;
+        
+        $type = 'receita';
+
+        GenerateOperation($connection, $user_cod, $GenerationOperation, $type);
+
+        $updateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :new_saldo  WHERE email = :email LIMIT 1");
+        $updateSaldo->bindParam(':email', $_SESSION['user_email']);
+        $updateSaldo->bindParam(':new_saldo', $newSaldo_F);
+
+
+        $updateSaldo->execute();    
+
+        
+        header('location: ../../index.php');
+        die;
+
+
+
+
+    }else{
+
+        $GenerationOperation = $user_Saldo - $newSaldo_F;
+        
+
+        $type = 'despesa';
+
+        GenerateOperation($connection, $user_cod, $GenerationOperation, $type);
+
+
+        $updateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :new_saldo  WHERE email = :email LIMIT 1");
+        $updateSaldo->bindParam(':email', $_SESSION['user_email']);
+        $updateSaldo->bindParam(':new_saldo', $newSaldo_F);
+
+
+        $updateSaldo->execute();        
+
+
+        header('location: ../../index.php');
+        die;        
+    }
+
     header('location: ../../index.php');
-    die;
-
-    // if($user_Saldo < $newSaldo_F){
-
-        
-    //     $GenerationOperation = $newSaldo_F - $user_Saldo;
-        
-    //     $type = 'receita';
-
-    //     // GenerateOperation($connection, $user_cod, $GenerationOperation, $type);
-
-    //     $updateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :new_saldo  WHERE email = :email LIMIT 1");
-    //     $updateSaldo->bindParam(':email', $_SESSION['user_email']);
-    //     $updateSaldo->bindParam(':new_saldo', $newSaldo_F);
-
-
-    //     $updateSaldo->execute();    
-
-        
-    //     header('location: ../../index.php');
-    //     die;
-
-
-
-
-    // }else if($user_Saldo > $newSaldo_F){
-
-    //     $GenerationOperation = $saldo_atual - $newSaldo_F ;
-
-    //     $type = 'despesa';
-
-    //     GenerateOperation($connection, $user_cod, $GenerationOperation, $type);
-
-
-    //     $updateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :new_saldo  WHERE email = :email LIMIT 1");
-    //     $updateSaldo->bindParam(':email', $_SESSION['user_email']);
-    //     $updateSaldo->bindParam(':new_saldo', $newSaldo_F);
-
-
-    //     $updateSaldo->execute();        
-
-
-    //     header('location: ../../index.php');
-    //     die;        
-    // }
-
-    // header('location: ../../index.php');
-    // die;     
+    die;     
 
 

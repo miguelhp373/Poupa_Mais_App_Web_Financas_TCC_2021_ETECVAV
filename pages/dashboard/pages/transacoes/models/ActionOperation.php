@@ -65,7 +65,7 @@ if ($searchinfos->rowCount() > 0) {
 
 /////////////////////////////////////////////////////////////////
 //PESQUISA Valor
-$searchValor = $connection->prepare("SELECT valor FROM operationsapplication WHERE idUser = :cod AND cod = :chave LIMIT 1");
+$searchValor = $connection->prepare("SELECT tipo, valor FROM operationsapplication WHERE idUser = :cod AND cod = :chave LIMIT 1");
 $searchValor->bindParam(':cod', $user_cod);
 $searchValor->bindParam(':chave',$DecriptoParam);
 
@@ -77,6 +77,7 @@ if ($searchValor->rowCount() > 0) {
 
     foreach ($row as $getValor) {
         $Operation_Value      =   $getValor['valor'];
+        $Operation_Type      =   $getValor['tipo'];
     }
 }
 //////////////////////////////////////////////////////////////
@@ -87,7 +88,7 @@ if ($searchValor->rowCount() > 0) {
 
 
 
-function DeleteOperation($cod,$connection,$user,$Operation_Value,$user_Saldo){
+function DeleteOperation($cod,$connection,$user,$Operation_Value,$user_Saldo,$Operation_Type){
 
     $getValor       = str_replace (',', '.', str_replace ('.', '', $Operation_Value));
 
@@ -96,7 +97,14 @@ function DeleteOperation($cod,$connection,$user,$Operation_Value,$user_Saldo){
     }
 
 
-    $newSaldo = $user_Saldo - $getValor;
+    if($Operation_Type == 'receita'){
+        $newSaldo = $user_Saldo - $getValor;
+    }else{
+        $newSaldo = $user_Saldo + $getValor;
+    }
+
+
+    
 
     $UpdateSaldo = $connection->prepare("UPDATE userstableapplication SET saldo = :saldo  WHERE cod = :id LIMIT 1");
     $UpdateSaldo->bindParam(':id', $user);
@@ -176,7 +184,7 @@ function EditOperation($connection,$user,$setCod,$setData,$setCategoria,$setDesc
     
 
     if($_GET['operation'] == 'delete'){
-        DeleteOperation($DecriptoParam,$connection,$user_cod,$Operation_Value,$user_Saldo);
+        DeleteOperation($DecriptoParam,$connection,$user_cod,$Operation_Value,$user_Saldo,$Operation_Type);
     }
     if($_GET['operation'] == 'edit'){
 
