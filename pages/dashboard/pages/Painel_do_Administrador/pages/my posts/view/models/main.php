@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require_once('../../../../../../../source/controller/connection.php');
+require_once('../../../../../../../../source/controller/connection.php');
 
 ////////////
 //VALIDA USUÁRIO
@@ -51,12 +51,8 @@ if (!isset($_SESSION['user_email']) || (!isset($_SESSION['Authentication']))) {
     
         $EditPost->execute();
     
-        if ($EditPost->rowCount() > 0) {
-            header('Location: ../EditPost.php');
-        }else{
-            echo 'Erro 404';
-            die();
-        }
+        header('Location: ../../index.php');
+
     } catch (PDOException $error) {
         die('Erro Ao Tentar Se Comunicar com o Servidor, Tente Novamente Mais Tarde.');
     }
