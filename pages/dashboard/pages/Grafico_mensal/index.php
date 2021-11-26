@@ -169,87 +169,6 @@ try {
 }
 
 
-// DEFINE 0 PARA AS VARIAVEIS SE FOREM NULAS
-
-if(empty(str_replace (',', '.', str_replace ('.', '', $january)))){
-    $january = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $february)))){
-    $february = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $march)))){
-    $march = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $april)))){
-    $april = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $may)))){
-    $may = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $june)))){
-    $june = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $july)))){
-    $july = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $august)))){
-    $august = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $september)))){
-    $september = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $october)))){
-    $october = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $november)))){
-    $november = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $dezember)))){
-    $dezember = '0';
-}
-
-
-
-
-if(empty(str_replace (',', '.', str_replace ('.', '', $januaryR)))){
-    $januaryR = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $februaryR)))){
-    $februaryR = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $marchR)))){
-    $marchR = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $aprilR)))){
-    $aprilR = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $mayR)))){
-    $mayR = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $juneR)))){
-    $juneR = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $julyR)))){
-    $julyR = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $augustR)))){
-    $augustR = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $septemberR)))){
-    $septemberR = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $octoberR)))){
-    $octoberR = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $novemberR)))){
-    $novemberR = '0';
-}
-if(empty(str_replace (',', '.', str_replace ('.', '', $dezemberR)))){
-    $dezemberR = '0';
-}
-
-
-
 ////////////////////////////
 
 ////////////////////////////
@@ -446,7 +365,7 @@ try {
                     labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
                     datasets: [{
                         label: 'Despesas Mensais',
-                        data: [" . str_replace (',', '.', str_replace ('.', '', $january)) . "," . str_replace (',', '.', str_replace ('.', '', $february)) . "," . str_replace (',', '.', str_replace ('.', '', $march)) . "," . str_replace (',', '.', str_replace ('.', '', $april)) . "," . str_replace (',', '.', str_replace ('.', '', $may)) . "," . str_replace (',', '.', str_replace ('.', '', $june)) . "," . str_replace (',', '.', str_replace ('.', '', $july)) . "," . str_replace (',', '.', str_replace ('.', '', $august)) . "," . str_replace (',', '.', str_replace ('.', '', $september)) . "," . str_replace (',', '.', str_replace ('.', '', $october)) . "," . str_replace (',', '.', str_replace ('.', '', $november)) . "," . str_replace (',', '.', str_replace ('.', '', $dezember)) . "],
+                        data: [" . ceil(number_format($january, 2, '.', ',')) . "," . ceil(number_format($february, 2, '.', ',')) . "," . ceil(number_format($march, 2, '.', ',')) . "," . ceil(number_format($april, 2, '.', ',')) . "," . ceil(number_format($may, 2, '.', ',')) . "," . ceil(number_format($june, 2, '.', ',')) . "," . ceil(number_format($july, 2, '.', ',')) . "," . ceil(number_format($august, 2, '.', ',')) . "," . ceil(number_format($september, 2, '.', ',')) . "," . ceil(number_format($october, 2, '.', ',')) . "," . ceil(number_format($november, 2, '.', ',')) . "," . ceil(number_format($dezember, 2, '.', ',')) . "],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -467,7 +386,7 @@ try {
                     },
                     {
                         label: 'Receitas Mensais',
-                        data: [" . str_replace (',', '.', str_replace ('.', '', $januaryR)) . "," . str_replace (',', '.', str_replace ('.', '', $februaryR)) . "," . str_replace (',', '.', str_replace ('.', '', $marchR)) . "," . str_replace (',', '.', str_replace ('.', '', $aprilR)) . "," . str_replace (',', '.', str_replace ('.', '', $mayR)) . "," . str_replace (',', '.', str_replace ('.', '', $juneR)) . "," . str_replace (',', '.', str_replace ('.', '', $julyR)) . "," . str_replace (',', '.', str_replace ('.', '', $augustR)) . "," . str_replace (',', '.', str_replace ('.', '', $septemberR)) . "," . str_replace (',', '.', str_replace ('.', '', $octoberR)) . "," . str_replace (',', '.', str_replace ('.', '', $novemberR)) . "," . str_replace (',', '.', str_replace ('.', '', $dezemberR)) . "],
+                        data: [" . ceil(number_format($januaryR, 2, ',', '.')) . "," . ceil(number_format($februaryR, 2, '.', ',')) . "," . ceil(number_format($marchR, 2, '.', ',')) . "," . ceil(number_format($aprilR, 2, '.', ',')) . "," . ceil(number_format($mayR, 2, '.', ',')) . "," . ceil(number_format($juneR, 2, '.', ',')) . "," . ceil(number_format($julyR, 2, '.', ',')) . "," . ceil(number_format($augustR, 2, '.', ',')) . "," . ceil(number_format($septemberR, 2, '.', ',')) . "," . ceil(number_format($octoberR, 2, '.', ',')) . "," . ceil(number_format($novemberR, 2, '.', ',')) . "," . ceil(number_format($dezemberR, 2, '.', ',')) . "],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
