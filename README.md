@@ -4,11 +4,11 @@
 
 # Poupa+
 
-**Essa plataforma foi desenvolvida para facilitar a gestão de suas finanças pessoais, descomplicando o dia a dia e trazendo informações de fácil visualização para que você entenda para onde está indo seu dinheiro e onde você pode economizar.**
+**This platform was developed to facilitate the management of your personal finances, simplifying your daily life and providing easy-to-understand information about where your money is going and where you can save.**
 
 ---
 
-## 🚀 Tecnologias
+## 🚀 Technologies
 
 - PHP7
 - JavaScript
@@ -24,10 +24,10 @@
 - Material Design Lite
 
 ---
-## 🛠️ Instalação
 
- - Dentro da Pasta Controller, Crie uma pasta com o nome `config`, e dentro coloque 
-   crie um arquivo chamado `ENV.php`, com a estrutura abaixo:
+## 🛠️ Installation
+
+- Inside the Controller folder, create a folder named `config` and inside it, create a file named `ENV.php` with the following structure:
 
 ```php
     <?php
@@ -43,15 +43,14 @@
     ?>
 ```
 
- - E no diretório raiz crie um arquivo chamado `ENV.php`, que deve conter as
-   credenciais do email de recuperação de senha do app:
- 
- ```php
+- In the root directory, create a file named `ENV.php` that should contain the credentials for the app's password recovery email:
+
+```php
    <?php
-      //arquivo de configurações do phpmailler, para envio de de emails
-      //utilizado para recuperar senha do usuário.
+      // PHPMailer configuration file for sending emails
+      // used for user password recovery.
           
-          $emailHost      =   'teste@gmail.com';
+          $emailHost      =   'test@gmail.com';
           $passwordHost   =   '123';
     ?>
    
@@ -59,22 +58,23 @@
 
 ---
 
-## **🎨Layout**
+## **🎨 Layout**
 
 ### 🏠 Landing Page
 
-![.github/image02.png](.github/image02.png)
+![Landing Page](.github/image02.png)
 
-### 🛠️Dashboard
+### 🛠️ Dashboard
 
-![.github/image01.png](.github/image01.png)
+![Dashboard](.github/image01.png)
 
 ---
- ***
- # 📝 License
 
+# 📝 License
 
-Este projeto está licenciado sob a Licença Apache-2.0 License - consulte o arquivo [LICENÇA](LICENSE) para obter detalhes.
+This project is licensed under the Apache-2.0 License - see the [LICENSE](LICENSE) file for details.
 
-***
-Feito com 💜 &nbsp;por Miguel Henrique 👋
+---
+
+Made with 💜 by Miguel Henrique 👋
+```
